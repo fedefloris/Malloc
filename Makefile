@@ -19,9 +19,10 @@ SYM_LIB_NAME = libft_malloc.so
 
 NAME = $(SYM_LIB_NAME) $(LIB_NAME)
 
-GCC_FLAGS = -Werror -Wextra -Wall
+GCC_FLAGS = -fPIC -Werror -Wextra -Wall
 
 LIBFT_DIR = libft
+LIBFT_FILE = $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 
 FREE_FILES = free
@@ -63,12 +64,16 @@ GREEN_COLOR = "\033[0;32m"
 DEFAULT_COLOR = "\033[0m"
 CREATED_TEXT = $(LIB_NAME) "and" $(SYM_LIB_NAME) "created!"
 
-all: $(NAME)
+all: comp_libft $(NAME)
 
-$(NAME): $(OBJS_DIRS) $(OBJS) $(HEADERS)
-	@ar rc $(LIB_NAME) $(OBJS)
-	@ranlib $(LIB_NAME)
+comp_libft:
+	@make -C $(LIBFT_DIR)/
+
+$(SYM_LIB_NAME):
 	@ln -s $(LIB_NAME) $(SYM_LIB_NAME)
+
+$(LIB_NAME): $(LIBFT_FILE) $(OBJS_DIRS) $(OBJS)
+	@$(CC) -shared $(OBJS) -o $(LIB_NAME)
 	@echo $(CREATED_TEXT)
 
 $(OBJS_DIRS):
@@ -79,11 +84,13 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
 	@$(CC) $(GCC_FLAGS) -c $< -o $@ -I $(INCLUDES_DIR) -I $(LIBFT_INCLUDES)
 
 clean:
+	@make -C $(LIBFT_DIR)/ clean
 	@rm -rf $(OBJS) $(OBJS_DIR)
 
-fclean: clean
-	@rm -rf $(NAME)
+fclean:
+	@make -C $(LIBFT_DIR)/ fclean
+	@rm -rf $(NAME) $(OBJS) $(OBJS_DIR)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all comp_libft clean fclean re
