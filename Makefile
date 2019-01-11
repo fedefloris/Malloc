@@ -14,17 +14,28 @@ ifeq ($(HOSTTYPE), )
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-NAME = libft_malloc_$(HOSTTYPE).so
+LIB_NAME = libft_malloc_$(HOSTTYPE).so
+SYM_LIB_NAME = libft_malloc.so
+
+NAME = $(SYM_LIB_NAME) $(LIB_NAME)
 
 GCC_FLAGS = -Werror -Wextra -Wall
 
-FREE_OBJS = free
+LIBFT_DIR = libft
+LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 
-MALLOC_OBJS = malloc
+FREE_FILES = free
 
-REALLOC_OBJS = realloc
+MALLOC_FILES = malloc
 
-DISPLAY_OBJS = show_alloc_mem
+REALLOC_FILES = realloc
+
+DISPLAY_FILES = show_alloc_mem
+
+FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
+MALLOC_OBJS = $(addsuffix .o, $(MALLOC_FILES))
+REALLOC_OBJS = $(addsuffix .o, $(REALLOC_FILES))
+DISPLAY_OBJS = $(addsuffix .o, $(DISPLAY_FILES))
 
 OBJS_DIR = objs
 FREE_OBJS_DIR = $(OBJS_DIR)/free
@@ -39,6 +50,7 @@ SRCS_DIR = srcs
 INCLUDES_DIR = includes
 INCLUDES_FILES = malloc
 HEADERS = $(addsuffix .h, $(patsubst %, $(INCLUDES_DIR)/%, $(INCLUDES_FILES)))
+HEADERS += $(LIBFT_INCLUDES)/libft.h
 
 OBJS = $(addprefix $(FREE_OBJS_DIR)/, $(FREE_OBJS))
 OBJS += $(addprefix $(MALLOC_OBJS_DIR)/, $(MALLOC_OBJS))
@@ -49,13 +61,14 @@ SRCS = $(patsubst $(OBJS_DIR)/%.o, $(SRCS_DIR)/%.c, $(OBJS))
 
 GREEN_COLOR = "\033[0;32m"
 DEFAULT_COLOR = "\033[0m"
-CREATED_TEXT = $(NAME) "created!"
+CREATED_TEXT = $(LIB_NAME) "and" $(SYM_LIB_NAME) "created!"
 
 all: $(NAME)
 
 $(NAME): $(OBJS_DIRS) $(OBJS) $(HEADERS)
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
+	@ar rc $(LIB_NAME) $(OBJS)
+	@ranlib $(LIB_NAME)
+	@ln -s $(LIB_NAME) $(SYM_LIB_NAME)
 	@echo $(CREATED_TEXT)
 
 $(OBJS_DIRS):
@@ -63,7 +76,7 @@ $(OBJS_DIRS):
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
 	@echo Malloc: $(GREEN_COLOR) $< $(DEFAULT_COLOR)
-	@cc $(GCC_FLAGS) -c $< -o $@ -I $(INCLUDES_DIR)/
+	@$(CC) $(GCC_FLAGS) -c $< -o $@ -I $(INCLUDES_DIR) -I $(LIBFT_INCLUDES)
 
 clean:
 	@rm -rf $(OBJS) $(OBJS_DIR)
