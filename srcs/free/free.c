@@ -14,5 +14,6 @@
 
 void		free(void *ptr)
 {
-	(void)ptr;
+	if (!ptr)
+		return ;
 }
