@@ -14,6 +14,14 @@
 # define MALLOC_H
 
 # include "libft.h"
+# include <sys/mman.h>
+
+typedef struct		s_block
+{
+	size_t			size;
+	int				is_free;
+	struct s_block	*next;
+}					t_block;
 
 void		free(void *ptr);
 
