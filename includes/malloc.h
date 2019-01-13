@@ -16,6 +16,10 @@
 # include "libft.h"
 # include <sys/mman.h>
 
+# define TINY_SIZE 100 // from 1 to N bytes
+# define SMALL_SIZE 100 // from (N + 1) to M bytes
+# define LARGE_SIZE 100 // from (M + 1) bytes
+
 typedef struct		s_block
 {
 	size_t			size;
