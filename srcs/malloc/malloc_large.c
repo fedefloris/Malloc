@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.c                                           :+:      :+:    :+:   */
+/*   malloc_large.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,13 @@
 
 #include "malloc.h"
 
-void		*malloc(size_t size)
+void		*malloc_large(size_t size)
 {
-	if (!size)
+	void	*mem;
+
+	mem = mmap(0, size, PROT_READ | PROT_WRITE,
+		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+	if (mem == MAP_FAILED)
 		return (NULL);
-	return (malloc_large(size));
+	return (mem);
 }

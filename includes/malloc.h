@@ -32,6 +32,8 @@ extern t_block		*g_blocks;
 void				free(void *ptr);
 
 void				*malloc(size_t size);
+void				*malloc_large(size_t size);
+
 void				*realloc(void *ptr, size_t size);
 
 void				show_alloc_mem();
