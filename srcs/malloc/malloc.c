@@ -12,9 +12,12 @@
 
 #include "malloc.h"
 
+t_zones		g_zones = {NULL, NULL, NULL};	;
+
 void		*malloc(size_t size)
 {
 	if (!size)
 		return (NULL);
+	// check size type (tiny/small/large)
 	return (malloc_large(size));
 }

@@ -27,7 +27,14 @@ typedef struct		s_block
 	struct s_block	*next;
 }					t_block;
 
-extern t_block		*g_blocks;
+typedef struct		s_zones
+{
+	t_block			*tiny;
+	t_block			*small;
+	t_block			*large;
+}					t_zones;
+
+extern t_zones		g_zones;
 
 void				free(void *ptr);
 
