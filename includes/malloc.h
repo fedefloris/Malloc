@@ -27,11 +27,13 @@ typedef struct		s_block
 	struct s_block	*next;
 }					t_block;
 
-void		free(void *ptr);
+extern t_block		*g_blocks;
 
-void		*malloc(size_t size);
-void		*realloc(void *ptr, size_t size);
+void				free(void *ptr);
 
-void		show_alloc_mem();
+void				*malloc(size_t size);
+void				*realloc(void *ptr, size_t size);
+
+void				show_alloc_mem();
 
 #endif
