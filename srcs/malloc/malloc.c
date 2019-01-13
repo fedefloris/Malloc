@@ -14,6 +14,13 @@
 
 void		*malloc(size_t size)
 {
-	(void)size;
-	return (NULL);
+	void	*mem;
+
+	if (!size)
+		return (NULL);
+	mem = mmap(0, size, PROT_READ | PROT_WRITE,
+		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+	if (mem == MAP_FAILED)
+		return (NULL);
+	return (mem);
 }
