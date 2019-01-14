@@ -17,7 +17,7 @@
 # include <sys/mman.h>
 
 # define TINY_SIZE 100 // from 1 to N bytes
-# define SMALL_SIZE 100 // from (N + 1) to M bytes
+# define SMALL_SIZE 180 // from (N + 1) to M bytes
 # define LARGE_SIZE MMAP_THRESHOLD // from (M + 1) bytes
 
 typedef struct		s_block
@@ -29,9 +29,9 @@ typedef struct		s_block
 
 typedef struct		s_zones
 {
-	t_block			*tiny;
-	t_block			*small;
-	t_block			*large;
+	t_block			*tinies;
+	t_block			*smalls;
+	t_block			*larges;
 }					t_zones;
 
 extern t_zones		g_zones;
@@ -39,6 +39,8 @@ extern t_zones		g_zones;
 void				free(void *ptr);
 
 void				*malloc(size_t size);
+void				*malloc_tiny(size_t size);
+void				*malloc_small(size_t size);
 void				*malloc_large(size_t size);
 
 void				*realloc(void *ptr, size_t size);

@@ -28,6 +28,8 @@ LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 FREE_FILES = free
 
 MALLOC_FILES = malloc \
+	malloc_tiny \
+	malloc_small \
 	malloc_large
 
 REALLOC_FILES = realloc

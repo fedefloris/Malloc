@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.c                                           :+:      :+:    :+:   */
+/*   malloc_small.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,15 +12,8 @@
 
 #include "malloc.h"
 
-t_zones		g_zones = {NULL, NULL, NULL};
-
-void		*malloc(size_t size)
+void		*malloc_small(size_t size)
 {
-	if (!size)
-		return (NULL);
-	if (size <= TINY_SIZE)
-		return (malloc_tiny(size));
-	if (size <= SMALL_SIZE)
-		return (malloc_small(size));
-	return (malloc_large(size));
+	(void)size;
+	return (NULL);
 }
