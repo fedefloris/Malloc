@@ -16,15 +16,20 @@
 # include "libft.h"
 # include <sys/mman.h>
 
-// from 1 to n in N bytes zones
+/*
+** Zone memory management:
+**   - From 1 to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zones.
+**   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD
+**       in SMALL_ZONE_SIZE bytes zones,
+**   - From (M + 1) in LARGE_ZONE_SIZE bytes,
+*/
+
 # define TINY_THRESHOLD 100
 # define TINY_ZONE_SIZE 1000
 
-// from (n + 1) to m in M bytes zones
 # define SMALL_THRESHOLD 500
 # define SMALL_ZONE_SIZE 5000
 
-// from (M + 1) bytes
 # define LARGE_THRESHOLD 2400
 # define LARGE_ZONE_SIZE 24000
 
