@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_small.c                                     :+:      :+:    :+:   */
+/*   get_new_block_from_system.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,15 +12,23 @@
 
 #include "malloc.h"
 
-void		*malloc_small(size_t size, int zone_type)
+static void		config_block(t_block *block, int zone_type)
+{
+	// check memory alignment
+	block->size = zone_type - sizeof(*block);
+	block->is_free = 1;
+}
+
+t_block			*get_new_block_from_system(int zone_type)
 {
 	t_block		*block;
 
-	if (!(block = get_free_block(size, zone_type))
-		&& !(block = get_new_block_from_system(zone_type)))
-		return (NULL);
-	// Split the block if block->size > size
 	// Deal with memory alignment
-	block->is_free = 0;
-	return ((void*)(block + 1));
+	block = (t_block*)mmap(0, zone_type, PROT_READ | PROT_WRITE,
+		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+	if (block == MAP_FAILED)
+		return (NULL);
+	config_block(block, zone_type);
+	// append block to list according to zone_type
+	return (block);
 }

@@ -35,9 +35,9 @@
 
 typedef struct		s_block
 {
-	size_t			size;
-	int				is_free;
 	struct s_block	*next;
+	int				is_free;
+	size_t			size;
 }					t_block;
 
 typedef struct		s_zones
@@ -58,6 +58,7 @@ void				*malloc_large(size_t size);
 void				*realloc(void *ptr, size_t size);
 
 t_block				*get_free_block(size_t size, int zone_type);
+t_block				*get_new_block_from_system(int zone_type);
 
 void				show_alloc_mem();
 

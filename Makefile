@@ -33,7 +33,8 @@ MALLOC_FILES = malloc \
 
 REALLOC_FILES = realloc
 
-BLOCK_FILES = get_free_block
+BLOCK_FILES = get_free_block \
+	get_new_block_from_system
 
 DISPLAY_FILES = show_alloc_mem
 
