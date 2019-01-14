@@ -16,9 +16,17 @@
 # include "libft.h"
 # include <sys/mman.h>
 
-# define TINY_SIZE 100 // from 1 to N bytes
-# define SMALL_SIZE 180 // from (N + 1) to M bytes
-# define LARGE_SIZE MMAP_THRESHOLD // from (M + 1) bytes
+// from 1 to n in N bytes zones
+# define TINY_THRESHOLD 100
+# define TINY_ZONE_SIZE 1000
+
+// from (n + 1) to m in M bytes zones
+# define SMALL_THRESHOLD 500
+# define SMALL_ZONE_SIZE 5000
+
+// from (M + 1) bytes
+# define LARGE_THRESHOLD 2400
+# define LARGE_ZONE_SIZE 24000
 
 typedef struct		s_block
 {

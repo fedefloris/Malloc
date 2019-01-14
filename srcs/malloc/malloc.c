@@ -18,9 +18,9 @@ void		*malloc(size_t size)
 {
 	if (!size)
 		return (NULL);
-	if (size <= TINY_SIZE)
-		return (malloc_small(size, TINY_SIZE));
-	if (size <= SMALL_SIZE)
-		return (malloc_small(size, SMALL_SIZE));
+	if (size <= TINY_THRESHOLD)
+		return (malloc_small(size, TINY_ZONE_SIZE));
+	if (size <= SMALL_THRESHOLD)
+		return (malloc_small(size, SMALL_ZONE_SIZE));
 	return (malloc_large(size));
 }

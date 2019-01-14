@@ -17,7 +17,7 @@ t_block		*get_free_block(size_t size, int zone_type)
 	t_block		*blocks;
 
 	blocks = g_zones.tinies;
-	if (zone_type == SMALL_SIZE)
+	if (zone_type == SMALL_ZONE_SIZE)
 		blocks = g_zones.smalls;
 	while (blocks)
 	{
