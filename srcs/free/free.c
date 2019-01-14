@@ -16,4 +16,8 @@ void		free(void *ptr)
 {
 	if (!ptr)
 		return ;
+	// Maybe check if block is valid? (Might be too slow to check)
+	// Free block
+	// Merge blocks to avoid external fragmentation
+	// Should call munmap sometimes?
 }
