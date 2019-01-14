@@ -12,8 +12,11 @@
 
 #include "malloc.h"
 
-void		*malloc_small(size_t size)
+void		*malloc_small(size_t size, int zone_type)
 {
-	(void)size;
-	return (NULL);
+	t_block		*block;
+
+	if (!(block = get_free_block(size, zone_type)))
+		return (NULL); // get memory from the system
+	return ((void*)(block + 1));
 }

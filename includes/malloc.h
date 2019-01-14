@@ -39,8 +39,7 @@ extern t_zones		g_zones;
 void				free(void *ptr);
 
 void				*malloc(size_t size);
-void				*malloc_tiny(size_t size);
-void				*malloc_small(size_t size);
+void				*malloc_small(size_t size, int zone_type);
 void				*malloc_large(size_t size);
 
 void				*realloc(void *ptr, size_t size);
