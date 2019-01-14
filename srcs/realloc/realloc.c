@@ -16,5 +16,7 @@ void		*realloc(void *ptr, size_t size)
 {
 	(void)ptr;
 	(void)size;
+	// what do we do with size of the block size?
+	// Check standard behaviour of realloc
 	return (NULL);
 }
