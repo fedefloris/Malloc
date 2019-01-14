@@ -34,20 +34,27 @@ MALLOC_FILES = malloc \
 
 REALLOC_FILES = realloc
 
+BLOCK_FILES =
+
 DISPLAY_FILES = show_alloc_mem
 
 FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
 MALLOC_OBJS = $(addsuffix .o, $(MALLOC_FILES))
 REALLOC_OBJS = $(addsuffix .o, $(REALLOC_FILES))
+BLOCK_OBJS = $(addsuffix .o, $(BLOCK_FILES))
 DISPLAY_OBJS = $(addsuffix .o, $(DISPLAY_FILES))
 
 OBJS_DIR = objs
 FREE_OBJS_DIR = $(OBJS_DIR)/free
 MALLOC_OBJS_DIR = $(OBJS_DIR)/malloc
 REALLOC_OBJS_DIR = $(OBJS_DIR)/realloc
+BLOCK_OBJS_DIR = $(OBJS_DIR)/block
 DISPLAY_OBJS_DIR = $(OBJS_DIR)/display
-OBJS_DIRS = $(FREE_OBJS_DIR) $(MALLOC_OBJS_DIR) \
-	$(REALLOC_OBJS_DIR) $(DISPLAY_OBJS_DIR)
+OBJS_DIRS = $(FREE_OBJS_DIR) \
+	$(MALLOC_OBJS_DIR) \
+	$(REALLOC_OBJS_DIR) \
+	$(BLOCK_OBJS_DIR) \
+	$(DISPLAY_OBJS_DIR)
 
 SRCS_DIR = srcs
 
@@ -59,6 +66,7 @@ HEADERS += $(LIBFT_INCLUDES)/libft.h
 OBJS = $(addprefix $(FREE_OBJS_DIR)/, $(FREE_OBJS))
 OBJS += $(addprefix $(MALLOC_OBJS_DIR)/, $(MALLOC_OBJS))
 OBJS += $(addprefix $(REALLOC_OBJS_DIR)/, $(REALLOC_OBJS))
+OBJS += $(addprefix $(BLOCK_OBJS_DIR)/, $(BLOCK_OBJS))
 OBJS += $(addprefix $(DISPLAY_OBJS_DIR)/, $(DISPLAY_OBJS))
 
 SRCS = $(patsubst $(OBJS_DIR)/%.o, $(SRCS_DIR)/%.c, $(OBJS))
