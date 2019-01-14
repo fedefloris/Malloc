@@ -45,6 +45,8 @@ void				*malloc_large(size_t size);
 
 void				*realloc(void *ptr, size_t size);
 
+t_block				*get_free_block(size_t size, int zone_type);
+
 void				show_alloc_mem();
 
 #endif
