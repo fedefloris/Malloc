@@ -16,9 +16,12 @@ void		*malloc_large(size_t size)
 {
 	void	*mem;
 
+	// Deal with memory alignment
 	mem = mmap(0, size, PROT_READ | PROT_WRITE,
 		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 	if (mem == MAP_FAILED)
 		return (NULL);
+	// add t_block for mem
+	// append block to larges list
 	return (mem);
 }

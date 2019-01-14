@@ -16,11 +16,17 @@ t_zones		g_zones = {NULL, NULL, NULL};
 
 void		*malloc(size_t size)
 {
+	void	*mem;
+
 	if (!size)
 		return (NULL);
+	// lock thread
 	if (size <= TINY_THRESHOLD)
-		return (malloc_small(size, TINY_ZONE_SIZE));
-	if (size <= SMALL_THRESHOLD)
-		return (malloc_small(size, SMALL_ZONE_SIZE));
-	return (malloc_large(size));
+		mem = malloc_small(size, TINY_ZONE_SIZE);
+	else if (size <= SMALL_THRESHOLD)
+		mem = malloc_small(size, SMALL_ZONE_SIZE);
+	else
+	 	mem = malloc_large(size);
+	// unlock thread
+	return (mem);
 }

@@ -17,6 +17,12 @@ void		*malloc_small(size_t size, int zone_type)
 	t_block		*block;
 
 	if (!(block = get_free_block(size, zone_type)))
-		return (NULL); // get memory from the system
+	{
+		// check if we can have more memory from the system
+		return (NULL);
+	}
+	// Split the block if block->size > size
+	// Deal with memory alignment
+	block->is_free = 0;
 	return ((void*)(block + 1));
 }
