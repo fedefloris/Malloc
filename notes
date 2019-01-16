@@ -1,4 +1,0 @@
-To link the shared library at runtime:
-
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/absolute/path/of/lib
-export LD_LIBRARY_PATH
