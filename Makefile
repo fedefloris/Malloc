@@ -28,13 +28,14 @@ LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 FREE_FILES = free
 
 MALLOC_FILES = malloc \
-	malloc_small \
-	malloc_large
+	malloc_large \
+	malloc_small
 
 REALLOC_FILES = realloc
 
-BLOCK_FILES = get_free_block \
-	get_new_block_from_system
+BLOCK_FILES = get_new_block_from_system \
+	get_free_block \
+	split_block_if_necessary
 
 DISPLAY_FILES = show_alloc_mem
 

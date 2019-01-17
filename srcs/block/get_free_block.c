@@ -19,8 +19,6 @@ t_block		*get_free_block(size_t size, int zone_type)
 	blocks = g_zones.tinies;
 	if (zone_type == SMALL_ZONE_SIZE)
 		blocks = g_zones.smalls;
-	// first fit algorithm, pretty slow
-	// think about buddy implementation
 	while (blocks)
 	{
 		if (blocks->is_free && blocks->size >= size)

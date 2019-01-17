@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_small.c                                     :+:      :+:    :+:   */
+/*   split_block_if_necessary.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,9 @@
 
 #include "malloc.h"
 
-void		*malloc_small(size_t size, int zone_type)
+void		split_block_if_necessary(t_block *block, size_t size)
 {
-	t_block		*block;
-
-	// first fit algorithm, pretty slow
-	// think about buddy implementation
-	if (!(block = get_free_block(size, zone_type))
-		&& !(block = get_new_block_from_system(zone_type)))
-		return (NULL);
-	split_block_if_necessary(block, size);
-	block->is_free = 0;
-	return ((void*)(block + 1));
+	// Deal with memory alignment
+	if (block->size <= size)
+		return ;
 }
