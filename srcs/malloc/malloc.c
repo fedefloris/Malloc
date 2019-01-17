@@ -18,6 +18,8 @@ void		*malloc(size_t size)
 {
 	void	*mem;
 
+	ft_printf("Requesting %zd bytes\n", size);
+	ft_printf("t_block is %zd bytes\n", sizeof(t_block));
 	if (!size)
 		return (NULL);
 	// lock thread
