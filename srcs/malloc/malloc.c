@@ -26,7 +26,7 @@ void		*malloc(size_t size)
 	else if (size <= SMALL_THRESHOLD)
 		mem = malloc_small(size, SMALL_ZONE_SIZE);
 	else
-	 	mem = malloc_large(size);
+		mem = malloc_large(size);
 	// unlock thread
 	return (mem);
 }
