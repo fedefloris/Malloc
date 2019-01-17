@@ -20,6 +20,15 @@ static void		config_block(t_block *block, int zone_type)
 	block->next = NULL;
 }
 
+static void		append_block_to_zone(t_block *block, int zone_type)
+{
+	// buggy, create t_zone
+	if (zone_type == SMALL_ZONE_SIZE)
+		g_zones.tinies = block;
+	else
+		g_zones.smalls = block;
+}
+
 t_block			*get_new_block_from_system(int zone_type)
 {
 	t_block		*block;
@@ -30,6 +39,6 @@ t_block			*get_new_block_from_system(int zone_type)
 	if (block == MAP_FAILED)
 		return (NULL);
 	config_block(block, zone_type);
-	// append block to list according to zone_type
+	append_block_to_zone(block, zone_type);
 	return (block);
 }
