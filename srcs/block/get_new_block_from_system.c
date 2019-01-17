@@ -17,6 +17,7 @@ static void		config_block(t_block *block, int zone_type)
 	// check memory alignment
 	block->size = zone_type - sizeof(*block);
 	block->is_free = 1;
+	block->next = NULL;
 }
 
 t_block			*get_new_block_from_system(int zone_type)

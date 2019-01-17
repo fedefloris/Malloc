@@ -21,7 +21,7 @@ void		*malloc_small(size_t size, int zone_type)
 	if (!(block = get_free_block(size, zone_type))
 		&& !(block = get_new_block_from_system(zone_type)))
 		return (NULL);
-	split_block_if_necessary(block, size);
 	block->is_free = 0;
+	split_block_if_necessary(block, size);
 	return ((void*)(block + 1));
 }
