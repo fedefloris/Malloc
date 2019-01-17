@@ -14,16 +14,23 @@
 
 t_block		*get_free_block(size_t size, int zone_type)
 {
+	t_zone		*zones;
 	t_block		*blocks;
 
-	blocks = g_zones.tinies;
+	blocks = NULL;
+	zones = g_zones.tinies;
 	if (zone_type == SMALL_ZONE_SIZE)
-		blocks = g_zones.smalls;
-	while (blocks)
+		zones = g_zones.smalls;
+	while (zones)
 	{
-		if (blocks->is_free && blocks->size >= size)
-			break ;
-		blocks = blocks->next;
+		blocks = zones->blocks;
+		while (blocks)
+		{
+			if (blocks->is_free && blocks->size >= size)
+				break ;
+			blocks = blocks->next;
+		}
+		zones = zones->next;
 	}
 	return (blocks);
 }

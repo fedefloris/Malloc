@@ -12,8 +12,13 @@
 
 #include "malloc.h"
 
-void		display_zone(t_block *blocks, char *zone_name)
+void		display_zone(t_zone *zone, char *zone_name)
 {
+	t_block		*blocks;
+
+	if (!zone)
+		return ;
+	blocks = zone->blocks;
 	ft_printf("%s: %p\n", zone_name, blocks);
 	while (blocks)
 	{

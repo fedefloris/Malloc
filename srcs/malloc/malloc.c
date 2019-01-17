@@ -12,13 +12,15 @@
 
 #include "malloc.h"
 
-t_zones		g_zones = {NULL, NULL, NULL};
+t_zones		g_zones;
 
 void		*malloc(size_t size)
 {
 	void	*mem;
 
 	ft_printf("Requesting %zd bytes\n", size);
+	ft_printf("t_zones is %zd bytes\n", sizeof(t_zones));
+	ft_printf("t_zone is %zd bytes\n", sizeof(t_zone));
 	ft_printf("t_block is %zd bytes\n", sizeof(t_block));
 	if (!size)
 		return (NULL);
