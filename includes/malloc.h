@@ -35,16 +35,22 @@
 
 typedef struct		s_block
 {
-	struct s_block	*next;
-	int				is_free;
 	size_t			size;
+	int				is_free;
+	struct s_block	*next;
 }					t_block;
+
+typedef struct		s_zone
+{
+	t_block			*blocks;
+	struct s_zone	*next;
+}					t_zone;
 
 typedef struct		s_zones
 {
-	t_block			*tinies;
-	t_block			*smalls;
-	t_block			*larges;
+	t_zone			*tinies;
+	t_zone			*smalls;
+	t_zone			*larges;
 }					t_zones;
 
 extern t_zones		g_zones;
