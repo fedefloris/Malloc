@@ -37,7 +37,8 @@ BLOCK_FILES = get_new_block_from_system \
 	get_free_block \
 	split_block_if_necessary
 
-DISPLAY_FILES = show_alloc_mem
+DISPLAY_FILES = display_zone \
+	show_alloc_mem
 
 FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
 MALLOC_OBJS = $(addsuffix .o, $(MALLOC_FILES))

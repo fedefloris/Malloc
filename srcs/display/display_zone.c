@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   show_alloc_mem.c                                   :+:      :+:    :+:   */
+/*   display_zone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,11 +12,13 @@
 
 #include "malloc.h"
 
-void		show_alloc_mem()
+void		display_zone(t_block *blocks, char *zone_name)
 {
-	ft_printf("\n\n");
-	display_zone(g_zones.tinies, "TINY");
-	display_zone(g_zones.smalls, "SMALL");
-	display_zone(g_zones.larges, "LARGE");
-	ft_printf("\n\n");
+	ft_printf("%s: %p\n", zone_name, blocks);
+	while (blocks)
+	{
+		ft_printf("%p - %p: %zd bytes, free: %d\n",
+			blocks, blocks->next, blocks->size, blocks->is_free);
+		blocks = blocks->next;
+	}
 }

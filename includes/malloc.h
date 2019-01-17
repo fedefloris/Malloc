@@ -62,5 +62,6 @@ t_block				*get_new_block_from_system(int zone_type);
 void				split_block_if_necessary(t_block *block, size_t size);
 
 void				show_alloc_mem();
+void				display_zone(t_block *blocks, char *zone_name);
 
 #endif
