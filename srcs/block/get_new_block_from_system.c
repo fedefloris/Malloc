@@ -22,11 +22,11 @@ static void		config_block(t_block *block, int zone_type)
 
 static void		append_block_to_zone(t_block *block, int zone_type)
 {
-	// buggy, create t_zone
+	// t_zone		*zone;
+
+	// zone = g_zones.tinies;
 	// if (zone_type == SMALL_ZONE_SIZE)
-	// 	g_zones.tinies = block;
-	// else
-	// 	g_zones.smalls = block;
+	// 	zone = g_zones.smalls;
 	(void)block;
 	(void)zone_type;
 }
