@@ -16,12 +16,14 @@ void		*malloc_small(size_t size, int zone_type)
 {
 	t_block		*block;
 
-	// first fit algorithm, pretty slow
-	// think about buddy implementation
-	if (!(block = get_free_block(size, zone_type))
-		&& !(block = get_new_block_from_system(zone_type)))
-		return (NULL);
-	block->is_free = 0;
-	split_block_if_necessary(block, size);
-	return ((void*)(block + 1));
+	block = NULL;
+	(void)size;
+	(void)zone_type;
+	// if (!(block = get_free_block(size, zone_type))
+	// 	&& !(block = get_new_block_from_system(zone_type)))
+	// 	return (NULL);
+	// block->is_free = 0;
+	// split_block_if_necessary(block, size);
+	// return ((void*)(block + 1));
+	return (block);
 }

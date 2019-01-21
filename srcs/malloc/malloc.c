@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-t_zones		g_zones;
+t_zones		g_zones = {NULL, NULL, NULL};
 
 void		*malloc(size_t size)
 {
