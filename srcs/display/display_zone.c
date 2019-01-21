@@ -14,16 +14,17 @@
 
 void		display_zone(t_zone *zone, char *zone_name)
 {
-	t_block		*blocks;
+	// t_block		*blocks;
 
 	if (!zone)
 		return ;
-	blocks = zone->blocks;
-	ft_printf("%s: %p\n", zone_name, blocks);
-	while (blocks)
-	{
-		ft_printf("%p - %p: %zd bytes, free: %d\n",
-			blocks, blocks->next, blocks->size, blocks->is_free);
-		blocks = blocks->next;
-	}
+	(void)zone_name;
+	// blocks = zone->blocks;
+	// ft_printf("%s: %p\n", zone_name, blocks);
+	// while (blocks)
+	// {
+	// 	ft_printf("%p - %p: %zd bytes, free: %d\n",
+	// 		blocks, blocks->next, blocks->size, blocks->is_free);
+	// 	blocks = blocks->next;
+	// }
 }

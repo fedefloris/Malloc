@@ -18,10 +18,11 @@ void		free(void *ptr)
 
 	if (!ptr)
 		return ;
+	(void)block;
 	// Maybe check if block is valid? (Might be too slow to check)
 	// Free block
-	block = ((t_block*)ptr) - 1;
-	block->is_free = 1;
+	// block = ((t_block*)ptr) - 1;
+	// block->is_free = 1;
 	// Merge blocks to avoid external fragmentation
 	// Should call munmap sometimes?
 }

@@ -49,9 +49,11 @@ typedef struct		s_block
 	size_t			flags;
 }					t_block;
 
+/*
+** Zone contains multiple blocks
+*/
 typedef struct		s_zone
 {
-	t_block			*blocks;
 	struct s_zone	*next;
 }					t_zone;
 

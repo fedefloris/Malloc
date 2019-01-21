@@ -14,10 +14,12 @@
 
 static void		config_block(t_block *block, int zone_type)
 {
+	(void)block;
+	(void)zone_type;
 	// check memory alignment
-	block->size = zone_type - sizeof(*block);
-	block->is_free = 1;
-	block->next = NULL;
+	// block->size = zone_type - sizeof(*block);
+	// block->is_free = 1;
+	// block->next = NULL;
 }
 
 static void		append_block_to_zone(t_block *block, int zone_type)
