@@ -36,17 +36,17 @@
 /*
 ** Block contains flags contained inside at least 4 bytes:
 **
-**   0000 0000 0000 000_ block state (free or not free)
-**   0000 0000 0000 00_0 left or right child of binary tree
-**   ____ ____ ____ __00 actual unsigned size of the block
+**   0000 000_ block state (free or not free)
+**   0000 00_0 left or right child of binary tree
+**   ____ __00 size of the block as power of 2
 **
-**   The size range from 0 to 16.382 (2 ^ 14 - 1)
-**
-** TODO: use block for large zones (maybe another struct t_large_block)
+**   The size range from 0 to (2 ^ size) - 1
 */
 typedef struct		s_block
 {
-	size_t			flags;
+	unsigned char	state : 1;
+	unsigned char	left : 1;
+	unsigned char	size : 6;
 }					t_block;
 
 /*
