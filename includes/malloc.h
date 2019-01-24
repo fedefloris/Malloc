@@ -30,7 +30,8 @@
 # define SMALL_THRESHOLD 500
 # define SMALL_ZONE_SIZE 5000
 
-# define LARGE_THRESHOLD 2400 // MMAP_THRESHOLD is 128 kB by default
+// Note: MMAP_THRESHOLD is 128 kB by default
+# define LARGE_THRESHOLD 2400
 # define LARGE_ZONE_SIZE 24000
 
 /*
