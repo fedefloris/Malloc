@@ -21,7 +21,7 @@
 **   - From 1 to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zones.
 **   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD
 **       in SMALL_ZONE_SIZE bytes zones,
-**   - From (M + 1) in LARGE_ZONE_SIZE bytes,
+**   - From (M + 1) dedicate a large zone
 */
 
 # define TINY_THRESHOLD 100
@@ -32,7 +32,6 @@
 
 // Note: MMAP_THRESHOLD is 128 kB by default
 # define LARGE_THRESHOLD 2400
-# define LARGE_ZONE_SIZE 24000
 
 /*
 ** Block contains flags contained inside at least 4 bytes:
@@ -67,12 +66,12 @@ typedef struct		s_zones
 
 extern t_zones		g_zones;
 
-void				free(void *ptr);
-
 void				*malloc(size_t size);
 void				*malloc_small(size_t size, int zone_type);
 void				*malloc_large(size_t size);
 size_t				round_up_to_page_size(size_t size);
+
+void				free(void *ptr);
 
 void				*realloc(void *ptr, size_t size);
 
