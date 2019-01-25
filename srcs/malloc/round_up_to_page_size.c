@@ -16,8 +16,8 @@ size_t      round_up_to_page_size(size_t size)
 {
 	long	page_size;
 
-	// Deal with memory alignment
 	page_size = sysconf(_SC_PAGESIZE);
-	ft_printf("page_size: %ld\n", page_size);
+	if (size % page_size)
+		return (size - (size % page_size) + page_size);
 	return (size);
 }
