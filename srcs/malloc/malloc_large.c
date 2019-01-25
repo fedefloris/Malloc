@@ -12,12 +12,12 @@
 
 #include "malloc.h"
 
-static void		config_mem(char *mem, size_t size)
+static void		config_memory(char *memory, size_t size)
 {
 	t_large_block	*block;
 	t_zone			*zone;
 
-	zone = (t_zone*)mem;
+	zone = (t_zone*)memory;
 	zone->next = g_zones.larges;
 	g_zones.larges = zone;
 	block = (t_large_block*)(zone + 1);
@@ -26,17 +26,15 @@ static void		config_mem(char *mem, size_t size)
 
 void			*malloc_large(size_t size)
 {
-	size_t	mem_size;
-	char	*mem;
+	size_t		memory_size;
+	char		*memory;
 
-	mem_size = round_up_to_page_size(sizeof(t_zone) +
+	memory_size = round_up_to_page_size(sizeof(t_zone) +
 		sizeof(t_large_block) + size);
-	mem = mmap(0, mem_size,
-		PROT_READ | PROT_WRITE,
-		MAP_ANONYMOUS | MAP_PRIVATE,
-		-1, 0);
-	if (mem == MAP_FAILED)
+	memory = mmap(0, memory_size, PROT_READ | PROT_WRITE,
+		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+	if (memory == MAP_FAILED)
 		return (NULL);
-	config_mem(mem, mem_size);
-	return (mem + sizeof(t_zone) + sizeof(t_large_block));
+	config_memory(memory, memory_size);
+	return (memory + sizeof(t_zone) + sizeof(t_large_block));
 }
