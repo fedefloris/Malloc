@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-void		show_alloc_mem()
+void			show_alloc_mem()
 {
 	ft_printf("\n\n");
 	display_zone(g_zones.tinies, "TINY");
