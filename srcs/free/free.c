@@ -12,17 +12,42 @@
 
 #include "malloc.h"
 
-void		free(void *ptr)
+static t_zone	*find_block_in_large_zone(t_zone *zone, void *ptr)
 {
-	t_block		*block;
+	// void		*start;
+	//
+	// start = zone + 1;
+	// while (zone)
+	// {
+	// 	if ((ptr > zone && ptr <))
+	// 		return (zone);
+	// 	zone = zone->next;
+	// }
+	(void)zone;
+	(void)ptr;
+	return (NULL);
+}
+
+static void		find_zone(void *ptr, t_zone **zone)
+{
+	// if ((*zone = find_block_in_zone(g_zones.tinies, ptr)))
+	// 	ft_printf("Found in g_zones.tinies\n");
+	// if ((*zone = find_block_in_zone(g_zones.smalls, ptr)))
+	// 	ft_printf("Found in g_zones.smalls\n");
+	if ((*zone = find_block_in_large_zone(g_zones.larges, ptr)))
+		ft_printf("Found in g_zones.larges\n");
+}
+
+void			free(void *ptr)
+{
+	t_zone		*zone;
 
 	if (!ptr)
 		return ;
-	(void)block;
-	// Maybe check if block is valid? (Might be too slow to check)
+	ft_printf("Free memory\n");
+	zone = NULL;
+	find_zone(ptr, &zone);
 	// Free block
-	// block = ((t_block*)ptr) - 1;
-	// block->is_free = 1;
 	// Merge blocks to avoid external fragmentation
-	// Should call munmap sometimes?
+	// call munmap?
 }
