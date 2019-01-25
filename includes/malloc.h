@@ -49,14 +49,19 @@ typedef struct		s_block
 	unsigned char	size : 6;
 }					t_block;
 
-/*
-** Zone contains multiple blocks
-*/
+typedef struct		s_large_block
+{
+	size_t			size;
+}					t_large_block;
+
 typedef struct		s_zone
 {
 	struct s_zone	*next;
 }					t_zone;
 
+/*
+** Pointers to first elements of zones
+*/
 typedef struct		s_zones
 {
 	t_zone			*tinies;
