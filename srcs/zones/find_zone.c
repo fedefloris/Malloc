@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   find_zone.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,28 @@
 
 #include "malloc.h"
 
-void			free(void *ptr)
+static t_zone	*find_block_in_large_zone(t_zone *zone, void *ptr)
 {
-	t_zone		*zone;
+	// void		*start;
+	//
+	// start = zone + 1;
+	// while (zone)
+	// {
+	// 	if ((ptr > zone && ptr <))
+	// 		return (zone);
+	// 	zone = zone->next;
+	// }
+	(void)zone;
+	(void)ptr;
+	return (NULL);
+}
 
-	if (!ptr)
-		return ;
-	ft_printf("Free memory\n");
-	zone = NULL;
-	find_zone(ptr, &zone);
-	// Free block
-	// Merge blocks to avoid external fragmentation
-	// call munmap?
+void            find_zone(void *ptr, t_zone **zone)
+{
+	// if ((*zone = find_block_in_zone(g_zones.tinies, ptr)))
+	// 	ft_printf("Found in g_zones.tinies\n");
+	// if ((*zone = find_block_in_zone(g_zones.smalls, ptr)))
+	// 	ft_printf("Found in g_zones.smalls\n");
+	if ((*zone = find_block_in_large_zone(g_zones.larges, ptr)))
+		ft_printf("Found in g_zones.larges\n");
 }
