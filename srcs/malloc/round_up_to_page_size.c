@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_large.c                                     :+:      :+:    :+:   */
+/*   round_up_to_page_size.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,17 +12,12 @@
 
 #include "malloc.h"
 
-void		*malloc_large(size_t size)
+size_t      round_up_to_page_size(size_t size)
 {
-	void	*mem;
+	long	page_size;
 
-	mem = mmap(0,
-		round_up_to_page_size(size),
-		PROT_READ | PROT_WRITE,
-		MAP_ANONYMOUS | MAP_PRIVATE,
-		-1, 0);
-	if (mem == MAP_FAILED)
-		return (NULL);
-	// add block inside large zones
-	return (mem);
+	// Deal with memory alignment
+	page_size = sysconf(_SC_PAGESIZE);
+	ft_printf("page_size: %ld\n", page_size);
+	return (size);
 }

@@ -72,6 +72,7 @@ void				free(void *ptr);
 void				*malloc(size_t size);
 void				*malloc_small(size_t size, int zone_type);
 void				*malloc_large(size_t size);
+size_t				round_up_to_page_size(size_t size);
 
 void				*realloc(void *ptr, size_t size);
 

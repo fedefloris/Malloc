@@ -29,7 +29,8 @@ FREE_FILES = free
 
 MALLOC_FILES = malloc \
 	malloc_large \
-	malloc_small
+	malloc_small \
+	round_up_to_page_size
 
 REALLOC_FILES = realloc
 
