@@ -14,12 +14,8 @@
 
 void			free(void *ptr)
 {
-	t_zone		*zone;
-
 	if (!ptr || free_large_block(ptr))
 		return ;
-	zone = NULL;
-	find_zone(ptr, &zone);
 	// Free block
 	// Merge blocks to avoid external fragmentation
 	// call munmap?
