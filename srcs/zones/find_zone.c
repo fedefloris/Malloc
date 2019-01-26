@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-static t_zone	*find_block_in_large_zone(t_zone *zone, void *ptr)
+static t_zone	*find_block_in_large_zone(void *ptr)
 {
 	// void		*start;
 	//
@@ -23,7 +23,6 @@ static t_zone	*find_block_in_large_zone(t_zone *zone, void *ptr)
 	// 		return (zone);
 	// 	zone = zone->next;
 	// }
-	(void)zone;
 	(void)ptr;
 	return (NULL);
 }
@@ -34,6 +33,6 @@ void            find_zone(void *ptr, t_zone **zone)
 	// 	ft_printf("Found in g_zones.tinies\n");
 	// if ((*zone = find_block_in_zone(g_zones.smalls, ptr)))
 	// 	ft_printf("Found in g_zones.smalls\n");
-	if ((*zone = find_block_in_large_zone(g_zones.larges, ptr)))
+	if ((*zone = find_block_in_large_zone(ptr)))
 		ft_printf("Found in g_zones.larges\n");
 }

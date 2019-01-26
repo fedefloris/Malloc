@@ -49,13 +49,9 @@ typedef struct		s_block
 	unsigned char	size : 6;
 }					t_block;
 
-typedef struct		s_large_block
-{
-	size_t			size;
-}					t_large_block;
-
 typedef struct		s_zone
 {
+	size_t			size;
 	struct s_zone	*next;
 }					t_zone;
 
