@@ -37,7 +37,7 @@ REALLOC_FILES = realloc
 
 ZONES_FILES = find_zone
 
-BLOCKS_FILES = get_new_block_from_system
+BLOCKS_FILES =
 
 DISPLAY_FILES = display_zone \
 	show_alloc_mem

@@ -80,8 +80,6 @@ void				*realloc(void *ptr, size_t size);
 
 void				find_zone(void *ptr, t_zone **zone);
 
-t_block				*get_new_block_from_system(int zone_type);
-
 void				show_alloc_mem();
 void				display_zone(t_zone *zone, char *zone_name);
 
