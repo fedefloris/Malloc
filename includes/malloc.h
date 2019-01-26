@@ -14,6 +14,7 @@
 # define MALLOC_H
 
 # include "libft.h"
+# include <stdbool.h>
 # include <sys/mman.h>
 
 /*
@@ -73,6 +74,7 @@ void				*malloc_large(size_t size);
 size_t				round_up_to_page_size(size_t size);
 
 void				free(void *ptr);
+bool				free_large_block(void *ptr);
 
 void				*realloc(void *ptr, size_t size);
 

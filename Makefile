@@ -25,7 +25,8 @@ LIBFT_DIR = libft
 LIBFT_FILE = $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 
-FREE_FILES = free
+FREE_FILES = free \
+	free_large_block
 
 MALLOC_FILES = malloc \
 	malloc_large \
