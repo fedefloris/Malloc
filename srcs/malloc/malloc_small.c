@@ -12,18 +12,24 @@
 
 #include "malloc.h"
 
-void		*malloc_small(size_t size, int zone_type)
+static t_zone	*get_zones(int zone_type)
 {
+	if (zone_type == TINY_ZONE_SIZE)
+		return (g_zones.tinies);
+	return (g_zones.smalls);
+}
+
+void			*malloc_small(size_t size, int zone_size)
+{
+	t_zone		*zones;
 	t_block		*block;
 
 	block = NULL;
-	(void)size;
-	(void)zone_type;
-	// if (!(block = get_free_block(size, zone_type))
-	// 	&& !(block = get_new_block_from_system(zone_type)))
-	// 	return (NULL);
-	// block->is_free = 0;
-	// split_block_if_necessary(block, size);
+	zones = get_zones(zone_type);
+	// get power of 2 that fits requested size
+	// if no zones get one
+	// for every zone
+	//  search a free block
 	// return ((void*)(block + 1));
 	return (block);
 }
