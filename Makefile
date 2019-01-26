@@ -28,37 +28,34 @@ LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 FREE_FILES = free \
 	free_large_block
 
-MALLOC_FILES = malloc \
+ALLOC_FILES = calloc \
+	malloc \
 	malloc_large \
 	malloc_small \
-	round_up_to_page_size
-
-REALLOC_FILES = realloc
+	realloc \
+	round_up_to_page_size \
 
 ZONES_FILES = find_zone
 
-BLOCKS_FILES =
+BLOCKS_FILES = get_new_block_from_system
 
 DISPLAY_FILES = display_zone \
 	show_alloc_mem
 
 FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
-MALLOC_OBJS = $(addsuffix .o, $(MALLOC_FILES))
-REALLOC_OBJS = $(addsuffix .o, $(REALLOC_FILES))
+ALLOC_OBJS = $(addsuffix .o, $(ALLOC_FILES))
 ZONES_OBJS = $(addsuffix .o, $(ZONES_FILES))
 BLOCKS_OBJS = $(addsuffix .o, $(BLOCKS_FILES))
 DISPLAY_OBJS = $(addsuffix .o, $(DISPLAY_FILES))
 
 OBJS_DIR = objs
 FREE_OBJS_DIR = $(OBJS_DIR)/free
-MALLOC_OBJS_DIR = $(OBJS_DIR)/malloc
-REALLOC_OBJS_DIR = $(OBJS_DIR)/realloc
+ALLOC_OBJS_DIR = $(OBJS_DIR)/alloc
 ZONES_OBJS_DIR = $(OBJS_DIR)/zones
 BLOCKS_OBJS_DIR = $(OBJS_DIR)/blocks
 DISPLAY_OBJS_DIR = $(OBJS_DIR)/display
 OBJS_DIRS = $(FREE_OBJS_DIR) \
-	$(MALLOC_OBJS_DIR) \
-	$(REALLOC_OBJS_DIR) \
+	$(ALLOC_OBJS_DIR) \
 	$(ZONES_OBJS_DIR) \
 	$(BLOCKS_OBJS_DIR) \
 	$(DISPLAY_OBJS_DIR)
@@ -71,8 +68,7 @@ HEADERS = $(addsuffix .h, $(patsubst %, $(INCLUDES_DIR)/%, $(INCLUDES_FILES)))
 HEADERS += $(LIBFT_INCLUDES)/libft.h
 
 OBJS = $(addprefix $(FREE_OBJS_DIR)/, $(FREE_OBJS))
-OBJS += $(addprefix $(MALLOC_OBJS_DIR)/, $(MALLOC_OBJS))
-OBJS += $(addprefix $(REALLOC_OBJS_DIR)/, $(REALLOC_OBJS))
+OBJS += $(addprefix $(ALLOC_OBJS_DIR)/, $(ALLOC_OBJS))
 OBJS += $(addprefix $(ZONES_OBJS_DIR)/, $(ZONES_OBJS))
 OBJS += $(addprefix $(BLOCKS_OBJS_DIR)/, $(BLOCKS_OBJS))
 OBJS += $(addprefix $(DISPLAY_OBJS_DIR)/, $(DISPLAY_OBJS))

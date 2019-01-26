@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_small.c                                     :+:      :+:    :+:   */
+/*   calloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,24 +12,11 @@
 
 #include "malloc.h"
 
-static t_zone	*get_zones(int zone_type)
+void		*calloc(size_t elements_count, size_t element_size)
 {
-	if (zone_type == TINY_ZONE_SIZE)
-		return (g_zones.tinies);
-	return (g_zones.smalls);
-}
+	void	*mem;
 
-void			*malloc_small(size_t size, int zone_size)
-{
-	t_zone		*zones;
-	t_block		*block;
-
-	block = NULL;
-	zones = get_zones(zone_type);
-	// get power of 2 that fits requested size
-	// if no zones get one
-	// for every zone
-	//  search a free block
-	// return ((void*)(block + 1));
-	return (block);
+	if ((mem = malloc(elements_count * element_size)))
+		ft_bzero(mem, elements_count * element_size);
+	return (mem);
 }

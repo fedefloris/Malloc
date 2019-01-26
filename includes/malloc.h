@@ -71,12 +71,15 @@ extern t_zones		g_zones;
 void				*malloc(size_t size);
 void				*malloc_small(size_t size, int zone_size);
 void				*malloc_large(size_t size);
+
+void				*calloc(size_t elements_count, size_t element_size);
+void				*realloc(void *ptr, size_t size);
+
 size_t				round_up_to_page_size(size_t size);
 
 void				free(void *ptr);
 bool				free_large_block(void *ptr);
 
-void				*realloc(void *ptr, size_t size);
 
 void				find_zone(void *ptr, t_zone **zone);
 
