@@ -42,7 +42,7 @@ BLOCKS_FILES = get_block \
 DISPLAY_FILES = display_zone \
 	show_alloc_mem
 
-UTILS_FILES = get_power_of_2 \
+UTILS_FILES = get_size_log2 \
 	round_up_to_page_size
 
 FREE_OBJS = $(addsuffix .o, $(FREE_FILES))

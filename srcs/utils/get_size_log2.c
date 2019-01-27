@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_power_of_2.c                                   :+:      :+:    :+:   */
+/*   get_size_log2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,17 +12,17 @@
 
 #include "malloc.h"
 
-int			get_power_of_2(size_t request)
+int			get_size_log2(size_t request)
 {
-	int			power_of_2;
+	int			size_log2;
 	size_t		size;
 
-	size = 16;
-	power_of_2 = 4;
+	size = 16; // define costants in malloc.h
+	size_log2 = 4; // define costants in malloc.h
 	while (size < request)
 	{
-		power_of_2++;
+		size_log2++;
 		size *= 2;
 	}
-	return (power_of_2);
+	return (size_log2);
 }
