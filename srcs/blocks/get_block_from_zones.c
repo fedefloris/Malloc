@@ -12,6 +12,17 @@
 
 #include "malloc.h"
 
+static void		split_block(t_block *block)
+{
+	t_block		*right_buddy;
+
+	block->size--;
+	right_buddy = (t_block*)((char*)block + (1 << block->size));
+	right_buddy->free = 1;
+	right_buddy->left = 0;
+	right_buddy->size = block->size;
+}
+
 static t_block	*get_block_from_zone(t_zone *zone, int size_log2)
 {
 	t_block		*block;
@@ -19,23 +30,15 @@ static t_block	*get_block_from_zone(t_zone *zone, int size_log2)
 	block = (t_block*)(zone + 1);
 	while ((char*)block < (char*)zone + zone->size)
 	{
-		// ft_printf("Block: %p, size: %zu\n", block, 1 << block->size);
 		if (block->free && size_log2 <= block->size)
 		{
 			if (size_log2 == block->size)
 			{
-				// ft_printf("Perfect match...\n");
 				block->free = 0;
 				return (block);
 			}
 			else
-			{
-				// ft_printf("Splitting...\n");
-				block->size--;
-				((t_block*)((char*)block + (1 << block->size)))->free = 1;
-				((t_block*)((char*)block + (1 << block->size)))->left = 0;
-				((t_block*)((char*)block + (1 << block->size)))->size = block->size;
-			}
+				split_block(block);
 		}
 		else
 			block = (t_block*)((char*)block + (1 << block->size));
