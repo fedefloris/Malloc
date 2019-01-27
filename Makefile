@@ -35,7 +35,7 @@ ALLOC_FILES = calloc \
 	realloc \
 	round_up_to_page_size \
 
-ZONES_FILES = find_zone
+ZONES_FILES = \
 
 BLOCKS_FILES = get_new_block_from_system
 

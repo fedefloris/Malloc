@@ -80,9 +80,6 @@ size_t				round_up_to_page_size(size_t size);
 void				free(void *ptr);
 bool				free_large_block(void *ptr);
 
-
-void				find_zone(void *ptr, t_zone **zone);
-
 void				show_alloc_mem();
 void				display_zone(t_zone *zone, char *zone_name);
 
