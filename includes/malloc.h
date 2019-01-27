@@ -17,23 +17,6 @@
 # include <stdbool.h>
 # include <sys/mman.h>
 
-/*
-** Zone memory management:
-**   - From 1 to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zones.
-**   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD
-**       in SMALL_ZONE_SIZE bytes zones,
-**   - From (M + 1) dedicate a large zone
-*/
-
-# define TINY_THRESHOLD 100
-# define TINY_ZONE_SIZE 1000
-
-# define SMALL_THRESHOLD 500
-# define SMALL_ZONE_SIZE 5000
-
-// Note: MMAP_THRESHOLD is 128 kB by default
-# define LARGE_THRESHOLD 2400
-
 typedef struct		s_block
 {
 	bool			free;
@@ -49,8 +32,24 @@ typedef struct		s_zone
 }					t_zone;
 
 /*
-** Pointers to first elements of zones
+** Zone memory management:
+**   - From 1 to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zones.
+**   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD
+**       in SMALL_ZONE_SIZE bytes zones,
+**   - From (M + 1) dedicate a large zone
 */
+
+# define TINY_THRESHOLD 128 + sizeof(t_block)
+# define TINY_ZONE_SIZE 4096 + sizeof(t_zone)
+# define TINY_BLOCK_LOG2 10
+
+# define SMALL_THRESHOLD 256 + sizeof(t_block)
+# define SMALL_ZONE_SIZE 8192 + sizeof(t_zone)
+# define SMALL_BLOCK_LOG2 13
+
+// Note: MMAP_THRESHOLD is 128 kB by default
+# define LARGE_THRESHOLD 8192 + sizeof(t_block)
+
 typedef struct		s_zones
 {
 	t_zone			*tinies;
