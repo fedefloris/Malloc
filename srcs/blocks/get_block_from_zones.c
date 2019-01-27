@@ -17,18 +17,30 @@ static t_block	*get_block_from_zone(t_zone *zone, int size_log2)
 	t_block		*block;
 
 	block = (t_block*)(zone + 1);
-	(void)size_log2;
-	// block = zone + 1
-	// while not at the end of the zone
-	//   if block is free and block size if greater/equal to size_log2
-	//     if block size == size_log2
-	//       mark block as allocated and return the block
-	//     else
-	//       split block in two blocks of size_log2 - 1
-	//       continue to next iteration
-	//   else
-	//     jump to next block
-	return (block);
+	while ((char*)block < (char*)zone + zone->size)
+	{
+		// ft_printf("Block: %p, size: %zu\n", block, 1 << block->size);
+		if (block->free && size_log2 <= block->size)
+		{
+			if (size_log2 == block->size)
+			{
+				// ft_printf("Perfect match...\n");
+				block->free = 0;
+				return (block);
+			}
+			else
+			{
+				// ft_printf("Splitting...\n");
+				block->size--;
+				((t_block*)((char*)block + (1 << block->size)))->free = 1;
+				((t_block*)((char*)block + (1 << block->size)))->left = 0;
+				((t_block*)((char*)block + (1 << block->size)))->size = block->size;
+			}
+		}
+		else
+			block = (t_block*)((char*)block + (1 << block->size));
+	}
+	return (NULL);
 }
 
 t_block			*get_block_from_zones(t_zone *zones, int size_log2)

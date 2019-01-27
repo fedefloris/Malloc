@@ -12,12 +12,10 @@
 
 #include "malloc.h"
 
-static void		display_zone(t_zone *zone)
+static void		display_blocks(t_zone *zone)
 {
 	t_block		*block;
 
-	ft_printf("Zone at %p, size: %zu, next: %p\n",
-		zone, zone->size, zone->next);
 	block = (t_block*)(zone + 1);
 	ft_printf("Block-> size: %zu, left: %d, free: %d\n",
 		1 << block->size, block->left, block->free);
@@ -29,7 +27,10 @@ void			display_zones(t_zone *zone, char *zones_name)
 	ft_printf("--%s--\n", zones_name);
 	while (zone)
 	{
-		display_zone(zone);
+		ft_printf("Zone from %p to %p, size: %zu, next: %p\n",
+			zone, (char*)zone + zone->size,
+			zone->size, zone->next);
+		display_blocks(zone);
 		zone = zone->next;
 	}
 	ft_putstr("\n");

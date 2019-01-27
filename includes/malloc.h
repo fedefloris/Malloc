@@ -39,16 +39,16 @@ typedef struct		s_zone
 **   - From (M + 1) dedicate a large zone
 */
 
-# define TINY_THRESHOLD 128 + sizeof(t_block)
-# define TINY_ZONE_SIZE 4096 + sizeof(t_zone)
-# define TINY_BLOCK_LOG2 10
+# define TINY_THRESHOLD (64 - sizeof(t_block))
+# define TINY_ZONE_SIZE (8192 - sizeof(t_zone))
+# define TINY_BLOCK_LOG2 13
 
-# define SMALL_THRESHOLD 256 + sizeof(t_block)
-# define SMALL_ZONE_SIZE 8192 + sizeof(t_zone)
-# define SMALL_BLOCK_LOG2 13
+# define SMALL_THRESHOLD (128 - sizeof(t_block))
+# define SMALL_ZONE_SIZE (8192 - sizeof(t_zone))
+# define SMALL_BLOCK_LOG2 14
 
 // Note: MMAP_THRESHOLD is 128 kB by default
-# define LARGE_THRESHOLD 8192 + sizeof(t_block)
+# define LARGE_THRESHOLD 1024 + sizeof(t_block)
 
 typedef struct		s_zones
 {

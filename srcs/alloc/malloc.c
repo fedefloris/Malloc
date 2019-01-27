@@ -20,14 +20,11 @@ void		*malloc(size_t size)
 
 	if (!size)
 		return (NULL);
-	ft_printf("Request of %zu bytes\n", size);
-	// lock thread
 	if (size <= TINY_THRESHOLD)
 		mem = malloc_small(size, TINY_ZONE_SIZE);
 	else if (size <= SMALL_THRESHOLD)
 		mem = malloc_small(size, SMALL_ZONE_SIZE);
 	else
 		mem = malloc_large(size);
-	// unlock thread
 	return (mem);
 }
