@@ -76,7 +76,7 @@ void				*malloc_large(size_t size);
 void				*calloc(size_t elements_count, size_t element_size);
 void				*realloc(void *ptr, size_t size);
 
-void				*get_block_from_zones(t_zone *zones, int power_of_2);
+t_block				*get_block_from_zones(t_zone *zones, int power_of_2);
 
 size_t				round_up_to_page_size(size_t size);
 

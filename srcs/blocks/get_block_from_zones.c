@@ -12,9 +12,36 @@
 
 #include "malloc.h"
 
-void		*get_block_from_zones(t_zone *zones, int power_of_2)
+static t_block	*get_block_from_zone(t_zone *zones, int power_of_2)
 {
+	t_block		*block;
+
+	block = NULL;
 	(void)zones;
 	(void)power_of_2;
-	return (NULL);
+	// block = zone + 1
+	// while not at the end of the zone
+	//   if block is free and block size if greater/equal to power_of_2
+	//     if block size == power_of_2
+	//       mark block as allocated and return the block
+	//     else
+	//       split block in two blocks of power_of_2 - 1
+	//       continue to next iteration
+	//   else
+	//     jump to next block
+	return (block);
+}
+
+t_block			*get_block_from_zones(t_zone *zones, int power_of_2)
+{
+	t_block		*block;
+
+	block = NULL;
+	while (zones)
+	{
+		if ((block = get_block_from_zone(zones, power_of_2)))
+			break ;
+		zones = zones->next;
+	}
+	return (block);
 }
