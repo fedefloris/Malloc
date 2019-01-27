@@ -37,7 +37,7 @@ ALLOC_FILES = calloc \
 
 ZONES_FILES = \
 
-BLOCKS_FILES = get_new_block_from_system
+BLOCKS_FILES = get_block_from_zones
 
 DISPLAY_FILES = display_zone \
 	show_alloc_mem
