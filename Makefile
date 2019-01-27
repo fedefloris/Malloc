@@ -32,8 +32,7 @@ ALLOC_FILES = calloc \
 	malloc \
 	malloc_large \
 	malloc_small \
-	realloc \
-	round_up_to_page_size \
+	realloc
 
 ZONES_FILES = \
 
@@ -42,11 +41,15 @@ BLOCKS_FILES = get_block_from_zones
 DISPLAY_FILES = display_zone \
 	show_alloc_mem
 
+UTILS_FILES = get_power_of_2 \
+	round_up_to_page_size
+
 FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
 ALLOC_OBJS = $(addsuffix .o, $(ALLOC_FILES))
 ZONES_OBJS = $(addsuffix .o, $(ZONES_FILES))
 BLOCKS_OBJS = $(addsuffix .o, $(BLOCKS_FILES))
 DISPLAY_OBJS = $(addsuffix .o, $(DISPLAY_FILES))
+UTILS_OBJS = $(addsuffix .o, $(UTILS_FILES))
 
 OBJS_DIR = objs
 FREE_OBJS_DIR = $(OBJS_DIR)/free
@@ -54,11 +57,13 @@ ALLOC_OBJS_DIR = $(OBJS_DIR)/alloc
 ZONES_OBJS_DIR = $(OBJS_DIR)/zones
 BLOCKS_OBJS_DIR = $(OBJS_DIR)/blocks
 DISPLAY_OBJS_DIR = $(OBJS_DIR)/display
+UTILS_OBJS_DIR = $(OBJS_DIR)/utils
 OBJS_DIRS = $(FREE_OBJS_DIR) \
 	$(ALLOC_OBJS_DIR) \
 	$(ZONES_OBJS_DIR) \
 	$(BLOCKS_OBJS_DIR) \
-	$(DISPLAY_OBJS_DIR)
+	$(DISPLAY_OBJS_DIR) \
+	$(UTILS_OBJS_DIR)
 
 SRCS_DIR = srcs
 
@@ -72,6 +77,7 @@ OBJS += $(addprefix $(ALLOC_OBJS_DIR)/, $(ALLOC_OBJS))
 OBJS += $(addprefix $(ZONES_OBJS_DIR)/, $(ZONES_OBJS))
 OBJS += $(addprefix $(BLOCKS_OBJS_DIR)/, $(BLOCKS_OBJS))
 OBJS += $(addprefix $(DISPLAY_OBJS_DIR)/, $(DISPLAY_OBJS))
+OBJS += $(addprefix $(UTILS_OBJS_DIR)/, $(UTILS_OBJS))
 
 SRCS = $(patsubst $(OBJS_DIR)/%.o, $(SRCS_DIR)/%.c, $(OBJS))
 
