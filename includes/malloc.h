@@ -34,21 +34,12 @@
 // Note: MMAP_THRESHOLD is 128 kB by default
 # define LARGE_THRESHOLD 2400
 
-/*
-** Block contains flags contained inside at least 4 bytes:
-**
-**   0000 000_ block state (free or not free)
-**   0000 00_0 left or right child of binary tree
-**   ____ __00 size of the block as power of 2
-**
-**   The size range from 0 to (2 ^ size) - 1
-*/
 typedef struct		s_block
 {
-	unsigned char	state : 1;
-	unsigned char	left : 1;
-	unsigned char	size : 6;
-	char			padding[7]; // 8-bytes aligned
+	bool			free;
+	bool			left;
+	unsigned char	size;
+	char			padding[4]; // 8-bytes aligned
 }					t_block;
 
 typedef struct		s_zone
