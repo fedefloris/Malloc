@@ -34,7 +34,7 @@ ALLOC_FILES = calloc \
 	malloc_small \
 	realloc
 
-ZONES_FILES = \
+ZONES_FILES = add_zone
 
 BLOCKS_FILES = get_block \
 	get_block_from_zones

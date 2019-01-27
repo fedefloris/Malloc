@@ -78,4 +78,6 @@ void				display_zone(t_zone *zone, char *zone_name);
 
 int					get_size_log2(size_t request);
 size_t				round_up_to_page_size(size_t size);
+
+t_zone				*add_zone(int zone_type, size_t size);
 #endif
