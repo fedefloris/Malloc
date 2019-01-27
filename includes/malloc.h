@@ -48,6 +48,7 @@ typedef struct		s_block
 	unsigned char	state : 1;
 	unsigned char	left : 1;
 	unsigned char	size : 6;
+	char			padding[7]; // 8-bytes aligned
 }					t_block;
 
 typedef struct		s_zone
