@@ -74,7 +74,7 @@ void				free(void *ptr);
 bool				free_large_block(void *ptr);
 
 void				show_alloc_mem();
-void				display_zone(t_zone *zone, char *zone_name);
+void				display_zones(t_zone *zone, char *zones_name);
 
 int					get_size_log2(size_t request);
 size_t				round_up_to_page_size(size_t size);

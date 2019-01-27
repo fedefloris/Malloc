@@ -39,7 +39,7 @@ ZONES_FILES = add_zone
 BLOCKS_FILES = get_block \
 	get_block_from_zones
 
-DISPLAY_FILES = display_zone \
+DISPLAY_FILES = display_zones \
 	show_alloc_mem
 
 UTILS_FILES = get_size_log2 \
