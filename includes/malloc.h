@@ -6,7 +6,7 @@
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 13:39:16 by ffloris           #+#    #+#             */
-/*   Updated: 2018/11/14 17:56:44 by ffloris          ###   ########.fr       */
+/*   Updated: 2019/01/29 20:53:38 by ffloris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 # include <stdbool.h>
 # include <sys/mman.h>
 
+/*
+** 8-bytes aligned
+*/
 typedef struct		s_block
 {
 	bool			free;
 	bool			left;
 	unsigned char	size;
-	char			padding[4]; // 8-bytes aligned
+	char			padding[4];
 }					t_block;
 
 typedef struct		s_zone
@@ -47,7 +50,9 @@ typedef struct		s_zone
 # define SMALL_ZONE_SIZE (8192 - sizeof(t_zone))
 # define SMALL_BLOCK_LOG2 14
 
-// Note: MMAP_THRESHOLD is 128 kB by default
+/*
+** Note: MMAP_THRESHOLD is 128 kB by default
+*/
 # define LARGE_THRESHOLD 1024 + sizeof(t_block)
 
 typedef struct		s_zones
