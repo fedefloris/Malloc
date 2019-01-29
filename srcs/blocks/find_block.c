@@ -6,7 +6,7 @@
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 13:39:16 by ffloris           #+#    #+#             */
-/*   Updated: 2018/11/14 17:56:44 by ffloris          ###   ########.fr       */
+/*   Updated: 2019/01/29 20:55:11 by ffloris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_block			*find_block(void *ptr)
 		if (curr == block)
 			return (block);
 		curr = (t_block*)((char*)curr + (1 << curr->size));
-	} // should I really check all blocks?
+	}
+	// should I really check all blocks?
 	return (NULL);
 }

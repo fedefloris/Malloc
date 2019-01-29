@@ -6,7 +6,7 @@
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 13:39:16 by ffloris           #+#    #+#             */
-/*   Updated: 2018/11/14 17:56:44 by ffloris          ###   ########.fr       */
+/*   Updated: 2019/01/29 20:54:27 by ffloris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_zone	*get_zones(int zone_size)
 	return (g_zones.smalls);
 }
 
-t_block		*get_block(int zone_size, int size_log2)
+t_block			*get_block(int zone_size, int size_log2)
 {
 	t_block		*block;
 	t_zone		*zones;
