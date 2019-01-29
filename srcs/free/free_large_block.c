@@ -6,7 +6,7 @@
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 13:39:16 by ffloris           #+#    #+#             */
-/*   Updated: 2018/11/14 17:56:44 by ffloris          ###   ########.fr       */
+/*   Updated: 2019/01/29 20:48:25 by ffloris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		find_large_zone(void *ptr, t_zone **zone, t_zone **prev)
 	*zone = g_zones.larges;
 	while (*zone)
 	{
-		if ((ptr == *zone + 1))
+		if (((char*)ptr == (char*)(zone + 1)))
 			return ;
 		*prev = *zone;
 		*zone = (*zone)->next;
