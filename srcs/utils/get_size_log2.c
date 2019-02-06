@@ -14,15 +14,10 @@
 
 int			get_size_log2(size_t request)
 {
-	int			size_log2;
-	size_t		size;
+	int		size_log2;
 
-	size = 16; // define costants in malloc.h
-	size_log2 = 4; // define costants in malloc.h
-	while (size < request)
-	{
+	size_log2 = 4; // should define it in malloc.h
+	while (((unsigned int)1 << size_log2) < request)
 		size_log2++;
-		size *= 2;
-	}
 	return (size_log2);
 }
