@@ -51,6 +51,7 @@ t_block			*get_block_from_zones(t_zone *zones, int size_log2)
 	t_block		*block;
 
 	block = NULL;
+	ft_printf("Searching for a new block...\n");
 	while (zones)
 	{
 		if ((block = get_block_from_zone(zones, size_log2)))

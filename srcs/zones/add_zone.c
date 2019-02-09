@@ -42,15 +42,16 @@ static void		config_zone(t_zone *zone, int zone_type, size_t size)
 
 t_zone			*add_zone(int zone_type, size_t size)
 {
-	size_t		memory_size;
+	size_t		zone_size;
 	char		*memory;
 
-	memory_size = round_up_to_page_size(size);
-	memory = mmap(0, memory_size, PROT_READ | PROT_WRITE,
+	zone_size = round_up_to_page_size(size);
+	ft_printf("Adding a new zone of size %zu...\n", zone_size);
+	memory = mmap(0, zone_size, PROT_READ | PROT_WRITE,
 		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 	if (memory == MAP_FAILED)
 		return (NULL);
-	config_zone((t_zone*)memory, zone_type, memory_size);
+	config_zone((t_zone*)memory, zone_type, zone_size);
 	if (zone_type != LARGE_THRESHOLD)
 		add_first_block((t_zone*)memory, zone_type);
 	return ((t_zone*)memory);

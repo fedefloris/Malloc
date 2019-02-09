@@ -18,6 +18,7 @@ void			*malloc_small(size_t size, int zone_size)
 	t_block		*block;
 
 	size_log2 = get_size_log2(sizeof(t_block) + size);
+	ft_printf("size_log2: %zu\n", size_log2);
 	if (!(block = get_block(zone_size, size_log2)))
 		return (NULL);
 	return ((void*)(block + 1));

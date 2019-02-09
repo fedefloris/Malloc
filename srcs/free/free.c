@@ -19,9 +19,11 @@ void			free(void *ptr)
 	if (!ptr || free_large_block(ptr))
 		return ;
 	if (!(block = find_block(ptr)))
-		return ; // invalid pointer
+	{
+		ft_printf("Invalid pointer\n");
+		return ;
+	}
 	block->free = 1;
 	merge_free_blocks(block);
-	// Merge blocks to avoid external fragmentation
 	// when should I call munmap?
 }
