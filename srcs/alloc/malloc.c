@@ -16,15 +16,12 @@ t_zones		g_zones = {NULL, NULL, NULL};
 
 void		*malloc(size_t size)
 {
-	void	*mem;
-
+	ft_printf("Request for %zu\n", size);
 	if (!size)
 		return (NULL);
 	if (size <= TINY_THRESHOLD)
-		mem = malloc_small(size, TINY_ZONE_SIZE);
+		return (malloc_small(size, TINY_ZONE_SIZE));
 	else if (size <= SMALL_THRESHOLD)
-		mem = malloc_small(size, SMALL_ZONE_SIZE);
-	else
-		mem = malloc_large(size);
-	return (mem);
+		return (malloc_small(size, SMALL_ZONE_SIZE));
+	return (malloc_large(size));
 }
