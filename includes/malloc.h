@@ -25,13 +25,14 @@ typedef struct		s_block
 	bool			free;
 	bool			left;
 	unsigned char	size;
-	char			padding[4];
+	char			padding[5];
 }					t_block;
 
 typedef struct		s_zone
 {
 	size_t			size;
 	struct s_zone	*next;
+	// t_block			free_blocks[MAX_LEVEL];
 }					t_zone;
 
 /*
@@ -42,8 +43,11 @@ typedef struct		s_zone
 **   - From (M + 1) dedicate a large zone
 */
 
-# define TINY_THRESHOLD (64 - sizeof(t_block))
-# define TINY_ZONE_SIZE (8192 - sizeof(t_zone))
+# define BLOCK_HEADER_SIZE sizeof(t_block)
+# define MINIMUM_BLOCK_LOG2 2
+
+# define TINY_THRESHOLD (1024 - BLOCK_HEADER_SIZE)
+# define TINY_ZONE_SIZE (8192 - BLOCK_HEADER_SIZE)
 # define TINY_BLOCK_LOG2 13
 
 # define SMALL_THRESHOLD (128 - sizeof(t_block))
