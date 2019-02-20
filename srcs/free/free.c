@@ -23,7 +23,6 @@ void			free(void *ptr)
 		ft_printf("Invalid pointer\n");
 		return ;
 	}
-	block->free = 1;
 	merge_free_blocks(block);
 	// when should I call munmap?
 }
