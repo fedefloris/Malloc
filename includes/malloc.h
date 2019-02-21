@@ -22,11 +22,13 @@
 */
 typedef struct		s_block
 {
+	// struct s_block	*next; // Do I need it?
+	// struct s_block	*prev; // Do I need it?
 	uint8_t			size_log2;
 	char			padding[7];
-	struct s_block	*next;
-	// struct s_block	*prev; // Do I need it?
 }					t_block;
+
+// add list block?
 
 typedef struct		s_zone
 {
@@ -43,7 +45,7 @@ typedef struct		s_zone
 # define BLOCK_SIZE(size_log2) (1 << size_log2)
 
 /*
-** Buckets of free blocks used by the buddy allocator
+** Bucket of free blocks used by the buddy allocator
 */
 typedef struct		s_tiny_blocks
 {

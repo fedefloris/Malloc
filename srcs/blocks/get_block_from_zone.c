@@ -12,33 +12,24 @@
 
 #include "malloc.h"
 
-static void		split_block(t_block *block)
-{
-	t_block		*right_buddy;
-
-	block->size_log2--;
-	right_buddy = (t_block*)((char*)block + (1 << block->size_log2));
-	right_buddy->size_log2 = block->size_log2;
-}
-
 t_block	        *get_block_from_zone(t_zone *zone, int size_log2)
 {
 	t_block		*block;
+	int			i;
 
-	block = (t_block*)(zone + 1);
-	while ((char*)block < (char*)zone + zone->size)
+	// while i < max log2
+	// 	find a block that is available
+	// 	if found it block = block found, break;
+	// if block found
+	// 	remove block from free_blocks[i]
+	// 	split block until i == size_log2
+	// 	return last block
+	i = size_log2;
+	while (i < TINY_MAX_LOG2) // deal SMALL_MAX_LOG2
 	{
-		if (size_log2 <= block->size_log2)
-		{
-			if (size_log2 == block->size_log2)
-			{
-				return (block);
-			}
-			else
-				split_block(block);
-		}
-		else
-			block = (t_block*)((char*)block + (1 << block->size_log2));
+		i++;
 	}
-	return (NULL);
+	block = NULL;
+	(void)zone;
+	return (block);
 }
