@@ -18,46 +18,67 @@
 # include <sys/mman.h>
 
 /*
-** 8-bytes aligned
+** Alignment? 16?
 */
 typedef struct		s_block
 {
-	bool			free;
-	bool			left;
-	unsigned char	size;
-	char			padding[5];
+	uint8_t			size_log2;
+	char			padding[7];
+	struct s_block	*next;
+	// struct s_block	*prev; // Do I need it?
 }					t_block;
 
 typedef struct		s_zone
 {
 	size_t			size;
 	struct s_zone	*next;
-	// t_block			free_blocks[MAX_LEVEL];
 }					t_zone;
 
 /*
-** Zone memory management:
-**   - From 1 to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zones.
-**   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD
-**       in SMALL_ZONE_SIZE bytes zones,
-**   - From (M + 1) dedicate a large zone
+** Block sizes
 */
-
-# define BLOCK_HEADER_SIZE sizeof(t_block)
-# define MINIMUM_BLOCK_LOG2 2
-
-# define TINY_THRESHOLD (1024 - BLOCK_HEADER_SIZE)
-# define TINY_ZONE_SIZE (8192 - BLOCK_HEADER_SIZE)
-# define TINY_BLOCK_LOG2 13
-
-# define SMALL_THRESHOLD (128 - sizeof(t_block))
-# define SMALL_ZONE_SIZE (8192 - sizeof(t_zone))
-# define SMALL_BLOCK_LOG2 14
+# define MINIMUM_LOG2 2
+# define TINY_MAX_LOG2 13
+# define SMALL_MAX_LOG2 14
+# define BLOCK_SIZE(size_log2) (1 << size_log2)
 
 /*
-** Note: MMAP_THRESHOLD is 128 kB by default
+** Buckets of free blocks used by the buddy allocator
 */
-# define LARGE_THRESHOLD 1024 + sizeof(t_block)
+typedef struct		s_tiny_blocks
+{
+	t_block			*free_blocks[TINY_MAX_LOG2];
+}					t_tiny_blocks;
+
+typedef struct		s_small_blocks
+{
+	t_block			*free_blocks[SMALL_MAX_LOG2];
+}					t_small_blocks;
+
+/*
+** Header sizes
+*/
+# define BLOCK_HEADER_SIZE sizeof(t_block)
+# define ZONE_HEADER_SIZE sizeof(t_zone)
+# define TINY_ZONE_HEADER_SIZE ZONE_HEADER_SIZE + sizeof(t_tiny_blocks)
+# define SMALL_ZONE_HEADER_SIZE ZONE_HEADER_SIZE + sizeof(t_small_blocks)
+
+/*
+** Zone memory management:
+**   - From 1 to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zone.
+**   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD
+**       in SMALL_ZONE_SIZE bytes zone
+**   - From (M + 1) dedicate a large zone by directly call mmap
+**       in malloc_large.c
+*/
+
+# define TINY_THRESHOLD (1024 - BLOCK_HEADER_SIZE)
+# define TINY_ZONE_SIZE (TINY_THRESHOLD * 100)
+
+# define SMALL_THRESHOLD (2048 - BLOCK_HEADER_SIZE)
+# define SMALL_ZONE_SIZE (SMALL_THRESHOLD * 100)
+
+# define LARGE_THRESHOLD SMALL_THRESHOLD + 1
 
 typedef struct		s_zones
 {

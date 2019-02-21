@@ -16,7 +16,7 @@ int			get_size_log2(size_t request)
 {
 	int		size_log2;
 
-	size_log2 = MINIMUM_BLOCK_LOG2;
+	size_log2 = MINIMUM_LOG2;
 	while (((unsigned int)1 << size_log2) < request)
 		size_log2++;
 	return (size_log2);

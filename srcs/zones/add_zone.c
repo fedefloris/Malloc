@@ -17,12 +17,10 @@ static void		add_first_block(t_zone *zone, int zone_type)
 	t_block		*block;
 
 	block = (t_block*)(zone + 1);
-	block->left = 1;
-	block->free = 1;
 	if (zone_type == TINY_ZONE_SIZE)
-		block->size = TINY_BLOCK_LOG2;
+		block->size_log2 = TINY_MAX_LOG2;
 	else
-		block->size = SMALL_BLOCK_LOG2;
+		block->size_log2 = SMALL_MAX_LOG2;
 }
 
 static void		config_zone(t_zone *zone, int zone_type, size_t size)
@@ -46,7 +44,12 @@ t_zone			*add_zone(int zone_type, size_t size)
 	char		*memory;
 
 	zone_size = round_up_to_page_size(size);
-	ft_printf("Adding a new zone of size %zu...\n", zone_size);
+	ft_printf("Adding a new zone: \
+		size: %zu, rounded size: %zu...\n",
+		size, zone_size);
+	ft_printf("Zone headers sizes: \
+		tiny: %zu, small: %zu...\n",
+		TINY_ZONE_HEADER_SIZE, SMALL_ZONE_HEADER_SIZE);
 	memory = mmap(0, zone_size, PROT_READ | PROT_WRITE,
 		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 	if (memory == MAP_FAILED)

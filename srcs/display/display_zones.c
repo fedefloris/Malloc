@@ -17,7 +17,7 @@ static void		display_blocks(t_zone *zone)
 	t_block		*block;
 
 	block = (t_block*)(zone + 1);
-	ft_printf("Block-> size: %zu\n", 1 << block->size_log2);
+	ft_printf("Block-> size: %zu\n", BLOCK_SIZE(block->size_log2));
 	ft_printf("\n\n");
 }
 

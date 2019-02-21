@@ -39,7 +39,7 @@ t_block			*find_block(void *ptr)
 	{
 		if (curr == block)
 			return (block);
-		curr = (t_block*)((char*)curr + (1 << curr->size));
+		curr = (t_block*)((char*)curr + (1 << curr->size_log2));
 	}
 	// should I really check all blocks?
 	return (NULL);
