@@ -91,7 +91,7 @@ CREATED_TEXT = $(LIB_NAME) "and" $(SYM_LIB_NAME) "created!"
 all: comp_libft $(NAME)
 
 comp_libft:
-	@make -C $(LIBFT_DIR)/
+	@make -C $(LIBFT_DIR)/ GCC_FLAGS=$(GCC_FLAGS)
 
 $(SYM_LIB_NAME):
 	@ln -s $(LIB_NAME) $(SYM_LIB_NAME)
