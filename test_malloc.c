@@ -1,10 +1,10 @@
 #include "malloc.h"
 
-# define SIZE 1000
+# define SIZE 10
 
 typedef struct	s_test
 {
-	char		a[10];
+	char		a[1024];
 }				t_test;
 
 
@@ -22,9 +22,12 @@ int				main(void)
 			break ;
 		}
 		test[i]->a[2] = 'a';
+		ft_printf("Before free()\n");
+		show_alloc_mem();
 		free(test[i]);
+		ft_printf("After free()\n");
+		show_alloc_mem();
 		i++;
 	}
-	// show_alloc_mem();
 	return (0);
 }
