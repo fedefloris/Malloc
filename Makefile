@@ -1,4 +1,5 @@
-# **************************************************************************** #
+# \
+# **************************************************************************** # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -39,7 +40,8 @@ ZONES_FILES = add_zone
 BLOCKS_FILES = find_block \
 	merge_free_blocks \
 	get_block \
-	get_block_from_zones
+	get_block_from_zones \
+	get_block_from_zone
 
 DISPLAY_FILES = display_zones \
 	show_alloc_mem

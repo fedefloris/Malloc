@@ -100,6 +100,7 @@ t_block				*find_block(void *ptr);
 void				merge_free_blocks(t_block *block);
 t_block				*get_block(int zone_size, int size_log2);
 t_block				*get_block_from_zones(t_zone *zones, int size_log2);
+t_block				*get_block_from_zone(t_zone *zone, int size_log2);
 
 void				free(void *ptr);
 bool				free_large_block(void *ptr);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_block_from_zones.c                             :+:      :+:    :+:   */
+/*   get_block_from_zone.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,17 +12,33 @@
 
 #include "malloc.h"
 
-t_block			*get_block_from_zones(t_zone *zones, int size_log2)
+static void		split_block(t_block *block)
+{
+	t_block		*right_buddy;
+
+	block->size_log2--;
+	right_buddy = (t_block*)((char*)block + (1 << block->size_log2));
+	right_buddy->size_log2 = block->size_log2;
+}
+
+t_block	        *get_block_from_zone(t_zone *zone, int size_log2)
 {
 	t_block		*block;
 
-	block = NULL;
-	ft_printf("Searching for a new block...\n");
-	while (zones)
+	block = (t_block*)(zone + 1);
+	while ((char*)block < (char*)zone + zone->size)
 	{
-		if ((block = get_block_from_zone(zones, size_log2)))
-			break ;
-		zones = zones->next;
+		if (size_log2 <= block->size_log2)
+		{
+			if (size_log2 == block->size_log2)
+			{
+				return (block);
+			}
+			else
+				split_block(block);
+		}
+		else
+			block = (t_block*)((char*)block + (1 << block->size_log2));
 	}
-	return (block);
+	return (NULL);
 }
