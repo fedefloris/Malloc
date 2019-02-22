@@ -49,12 +49,12 @@ typedef struct		s_zone
 */
 typedef struct		s_tiny_blocks
 {
-	t_block			*free_blocks[TINY_MAX_LOG2];
+	t_block			*free_blocks[TINY_MAX_LOG2 + 1];
 }					t_tiny_blocks;
 
 typedef struct		s_small_blocks
 {
-	t_block			*free_blocks[SMALL_MAX_LOG2];
+	t_block			*free_blocks[SMALL_MAX_LOG2 + 1];
 }					t_small_blocks;
 
 /*
