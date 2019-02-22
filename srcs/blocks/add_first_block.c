@@ -17,12 +17,10 @@ static void		add_block(t_block **blocks,
 {
 	blocks[size_log2] = (t_block*)(blocks + max_log2 + 1);
 	blocks[size_log2]->size_log2 = size_log2;
-	blocks[size_log2]->next = NULL;
 }
 
 void			add_first_block(t_zone *zone, int zone_type)
 {
-	// we need to push many initial blocks?
 	if (zone_type == TINY_ZONE_SIZE)
 		add_block(((t_block**)(zone + 1)), TINY_MAX_LOG2, TINY_MAX_LOG2);
 	else

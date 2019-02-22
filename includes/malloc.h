@@ -17,15 +17,10 @@
 # include <stdbool.h>
 # include <sys/mman.h>
 
-/*
-** Alignment 16?
-*/
 typedef struct		s_block
 {
 	uint8_t			size_log2;
 	char			padding[7];
-	struct s_block	*next;
-	// struct s_block	*prev; // Do I need it? add list block?
 }					t_block;
 
 typedef struct		s_zone
