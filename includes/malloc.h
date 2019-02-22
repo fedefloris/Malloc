@@ -29,32 +29,21 @@ typedef struct		s_zone
 	struct s_zone	*next;
 }					t_zone;
 
-# define MINIMUM_LOG2 2
-# define TINY_MAX_LOG2 10
-# define SMALL_MAX_LOG2 15
 # define BLOCK_SIZE(size_log2) (1 << (size_log2))
 # define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
 
-/*
-** Bucket of free blocks used by the buddy allocator
-*/
-typedef struct		s_tiny_blocks
-{
-	t_block			*free_blocks[TINY_MAX_LOG2 + 1];
-}					t_tiny_blocks;
+# define MINIMUM_LOG2 2
+# define TINY_MAX_LOG2 10
+# define SMALL_MAX_LOG2 15
 
-typedef struct		s_small_blocks
-{
-	t_block			*free_blocks[SMALL_MAX_LOG2 + 1];
-}					t_small_blocks;
-
-/*
-** Header sizes
-*/
 # define BLOCK_HEADER_SIZE sizeof(t_block)
 # define ZONE_HEADER_SIZE sizeof(t_zone)
-# define TINY_ZONE_HEADER_SIZE (ZONE_HEADER_SIZE + sizeof(t_tiny_blocks))
-# define SMALL_ZONE_HEADER_SIZE (ZONE_HEADER_SIZE + sizeof(t_small_blocks))
+
+# define TINY_BUCKETS_SIZE (BLOCK_HEADER_SIZE * (TINY_MAX_LOG2 + 1))
+# define TINY_ZONE_HEADER_SIZE (ZONE_HEADER_SIZE + TINY_BUCKETS_SIZE)
+
+# define SMALL_BUCKETS_SIZE (BLOCK_HEADER_SIZE * (SMALL_MAX_LOG2 + 1))
+# define SMALL_ZONE_HEADER_SIZE (ZONE_HEADER_SIZE + SMALL_BUCKETS_SIZE)
 
 /*
 ** Zone memory management:

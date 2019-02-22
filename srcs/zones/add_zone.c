@@ -19,12 +19,12 @@ static void		config_zone(t_zone *zone, int zone_type, size_t size)
 	if (zone_type == TINY_ZONE_SIZE)
 	{
 		zones = &g_zones.tinies;
-		ft_bzero(zone + 1, sizeof(t_tiny_blocks));
+		ft_bzero(zone + 1, TINY_BUCKETS_SIZE);
 	}
 	else if (zone_type == SMALL_ZONE_SIZE)
 	{
 		zones = &g_zones.smalls;
-		ft_bzero(zone + 1, sizeof(t_small_blocks));
+		ft_bzero(zone + 1, SMALL_BUCKETS_SIZE);
 	}
 	else
 		zones = &g_zones.larges;
