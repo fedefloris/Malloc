@@ -12,15 +12,17 @@
 
 #include "malloc.h"
 
-t_block			*get_block_from_zones(t_zone *zones, int size_log2)
+t_block			*get_block_from_zones(t_zone *zones,
+	int zone_size, int size_log2)
 {
 	t_block		*block;
 
 	block = NULL;
-	ft_printf("Searching for a new block...\n");
 	while (zones)
 	{
-		if ((block = get_block_from_zone(zones, size_log2)))
+		ft_printf("Searching for a new block in zone %p, ", zones);
+		ft_printf("size_log2: %d\n", size_log2);
+		if ((block = get_block_from_zone(zones, zone_size, size_log2)))
 			break ;
 		zones = zones->next;
 	}

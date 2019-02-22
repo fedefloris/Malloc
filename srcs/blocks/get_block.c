@@ -25,11 +25,11 @@ t_block			*get_block(int zone_size, int size_log2)
 	t_zone		*zones;
 
 	zones = get_zones(zone_size);
-	if (!(block = get_block_from_zones(zones, size_log2)))
+	if (!(block = get_block_from_zones(zones, zone_size, size_log2)))
 	{
 		if (!(zones = add_zone(zone_size, zone_size)))
 			return (NULL);
-		return (get_block_from_zones(zones, size_log2));
+		return (get_block_from_zones(zones, zone_size, size_log2));
 	}
 	return (block);
 }
