@@ -40,7 +40,7 @@ typedef struct		s_zone
 ** Block sizes
 */
 # define MINIMUM_LOG2 2
-# define TINY_MAX_LOG2 13
+# define TINY_MAX_LOG2 12
 # define SMALL_MAX_LOG2 14
 # define BLOCK_SIZE(size_log2) (1 << size_log2)
 
@@ -62,25 +62,24 @@ typedef struct		s_small_blocks
 */
 # define BLOCK_HEADER_SIZE sizeof(t_block)
 # define ZONE_HEADER_SIZE sizeof(t_zone)
-# define TINY_ZONE_HEADER_SIZE ZONE_HEADER_SIZE + sizeof(t_tiny_blocks)
-# define SMALL_ZONE_HEADER_SIZE ZONE_HEADER_SIZE + sizeof(t_small_blocks)
+# define TINY_ZONE_HEADER_SIZE (ZONE_HEADER_SIZE + sizeof(t_tiny_blocks))
+# define SMALL_ZONE_HEADER_SIZE (ZONE_HEADER_SIZE + sizeof(t_small_blocks))
 
 /*
 ** Zone memory management:
-**   - From 1 to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zone.
-**   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD
-**       in SMALL_ZONE_SIZE bytes zone
-**   - From (M + 1) dedicate a large zone by directly call mmap
-**       in malloc_large.c
+**   - Less than or equal to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zone.
+**   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD included
+**       in SMALL_ZONE_SIZE bytes zone.
+**   - From (SMALL_THRESHOLD + 1) dedicate a large zone
 */
 
-# define TINY_THRESHOLD (1024 - BLOCK_HEADER_SIZE)
-# define TINY_ZONE_SIZE (TINY_THRESHOLD * 100)
+# define TINY_THRESHOLD ((1 << TINY_MAX_LOG2) - BLOCK_HEADER_SIZE)
+# define TINY_ZONE_SIZE (TINY_THRESHOLD * 100 + TINY_ZONE_HEADER_SIZE)
 
-# define SMALL_THRESHOLD (2048 - BLOCK_HEADER_SIZE)
-# define SMALL_ZONE_SIZE (SMALL_THRESHOLD * 100)
+# define SMALL_THRESHOLD ((1 << SMALL_MAX_LOG2) - BLOCK_HEADER_SIZE)
+# define SMALL_ZONE_SIZE (SMALL_THRESHOLD * 100 + SMALL_ZONE_HEADER_SIZE)
 
-# define LARGE_THRESHOLD SMALL_THRESHOLD + 1
+# define LARGE_THRESHOLD (SMALL_THRESHOLD + 1)
 
 typedef struct		s_zones
 {
