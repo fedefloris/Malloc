@@ -12,24 +12,6 @@
 
 #include "malloc.h"
 
-static void		add_first_block(t_zone *zone, int zone_type)
-{
-	t_block		*block;
-
-	block = (t_block*)(zone + 1);
-	if (zone_type == TINY_ZONE_SIZE)
-	{
-		((t_block**)(zone + 1))[TINY_MAX_LOG2] = block;
-		block->size_log2 = TINY_MAX_LOG2;
-	}
-	else
-	{
-		((t_block**)(zone + 1))[SMALL_MAX_LOG2] = block;
-		block->size_log2 = SMALL_MAX_LOG2;
-	}
-	// TODO: memset to zero for freelist
-}
-
 static void		config_zone(t_zone *zone, int zone_type, size_t size)
 {
 	t_zone		**zones;
