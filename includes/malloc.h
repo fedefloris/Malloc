@@ -43,6 +43,7 @@ typedef struct		s_zone
 # define TINY_MAX_LOG2 10
 # define SMALL_MAX_LOG2 15
 # define BLOCK_SIZE(size_log2) (1 << size_log2)
+# define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
 
 /*
 ** Bucket of free blocks used by the buddy allocator
