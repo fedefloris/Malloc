@@ -28,17 +28,12 @@ typedef struct		s_block
 	char			padding[7];
 }					t_block;
 
-// add list block?
-
 typedef struct		s_zone
 {
 	size_t			size;
 	struct s_zone	*next;
 }					t_zone;
 
-/*
-** Block sizes
-*/
 # define MINIMUM_LOG2 2
 # define TINY_MAX_LOG2 10
 # define SMALL_MAX_LOG2 15
