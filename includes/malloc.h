@@ -37,7 +37,7 @@ typedef struct		s_zone
 # define MINIMUM_LOG2 2
 # define TINY_MAX_LOG2 10
 # define SMALL_MAX_LOG2 15
-# define BLOCK_SIZE(size_log2) (1 << size_log2)
+# define BLOCK_SIZE(size_log2) (1 << (size_log2))
 # define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
 
 /*
