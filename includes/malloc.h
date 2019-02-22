@@ -40,8 +40,8 @@ typedef struct		s_zone
 ** Block sizes
 */
 # define MINIMUM_LOG2 2
-# define TINY_MAX_LOG2 12
-# define SMALL_MAX_LOG2 14
+# define TINY_MAX_LOG2 10
+# define SMALL_MAX_LOG2 15
 # define BLOCK_SIZE(size_log2) (1 << size_log2)
 
 /*
