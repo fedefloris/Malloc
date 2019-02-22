@@ -12,23 +12,19 @@
 
 #include "malloc.h"
 
-void		add_first_block(t_zone *zone, int zone_type)
+static void		add_block(t_block **blocks,
+	int max_log2, int size_log2)
 {
-	t_block		*block;
+	blocks[size_log2] = (t_block*)(blocks + max_log2 + 1);
+	blocks[size_log2]->size_log2 = size_log2;
+	blocks[size_log2]->next = NULL;
+}
 
-	ft_printf("size with tinies: %zd\n",
-		zone->size - sizeof(zone) - sizeof(t_tiny_blocks));
+void			add_first_block(t_zone *zone, int zone_type)
+{
+	// we need to push many initial blocks
 	if (zone_type == TINY_ZONE_SIZE)
-	{
-		block = (t_block*)(zone + 1) + TINY_MAX_LOG2 + 1;
-		block->size_log2 = TINY_MAX_LOG2;
-		((t_block**)(zone + 1))[TINY_MAX_LOG2] = block;
-	}
+		add_block(((t_block**)(zone + 1)), TINY_MAX_LOG2, TINY_MAX_LOG2);
 	else
-	{
-		block = (t_block*)(zone + 1) + SMALL_MAX_LOG2 + 1;
-		block->size_log2 = SMALL_MAX_LOG2;
-		((t_block**)(zone + 1))[SMALL_MAX_LOG2] = block;
-	}
-	// TODO: memset to zero for freelist
+		add_block(((t_block**)(zone + 1)), SMALL_MAX_LOG2, TINY_MAX_LOG2);
 }

@@ -17,9 +17,9 @@ static void		display_blocks(t_zone *zone, char *zones_name)
 	t_block		*block;
 
 	if (!ft_strcmp(zones_name, "TINY"))
-		block = (t_block*)(zone + 1) + TINY_MAX_LOG2 + 1;
+		block = (t_block*)((t_block**)(zone + 1) + TINY_MAX_LOG2 + 1);
 	else if (!ft_strcmp(zones_name, "SMALL"))
-		block = (t_block*)(zone + 1) + SMALL_MAX_LOG2 + 1;
+		block = (t_block*)((t_block**)(zone + 1) + SMALL_MAX_LOG2 + 1);
 	else
 		return ;
 	ft_printf("Block-> addr: %p, size: %zu\n",
