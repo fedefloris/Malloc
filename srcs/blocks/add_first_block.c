@@ -22,7 +22,7 @@ static void		add_block(t_block **blocks,
 
 void			add_first_block(t_zone *zone, int zone_type)
 {
-	// we need to push many initial blocks
+	// we need to push many initial blocks?
 	if (zone_type == TINY_ZONE_SIZE)
 		add_block(((t_block**)(zone + 1)), TINY_MAX_LOG2, TINY_MAX_LOG2);
 	else
