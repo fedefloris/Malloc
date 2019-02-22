@@ -14,15 +14,15 @@
 
 void			free(void *ptr)
 {
-	t_block		*block;
+	// t_block		*block;
 
 	if (!ptr || free_large_block(ptr))
 		return ;
-	if (!(block = find_block(ptr)))
-	{
-		ft_printf("Invalid pointer\n");
-		return ;
-	}
-	merge_free_blocks(block);
+	// if (!(block = find_block(ptr)))
+	// {
+	// 	ft_printf("Invalid pointer\n");
+	// 	return ;
+	// }
+	// merge_free_blocks(block);
 	// when should I call munmap?
 }
