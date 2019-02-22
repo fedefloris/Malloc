@@ -26,5 +26,5 @@ void			add_first_block(t_zone *zone, int zone_type)
 	if (zone_type == TINY_ZONE_SIZE)
 		add_block(((t_block**)(zone + 1)), TINY_MAX_LOG2, TINY_MAX_LOG2);
 	else
-		add_block(((t_block**)(zone + 1)), SMALL_MAX_LOG2, TINY_MAX_LOG2);
+		add_block(((t_block**)(zone + 1)), SMALL_MAX_LOG2, SMALL_MAX_LOG2);
 }
