@@ -12,24 +12,40 @@
 
 #include "malloc.h"
 
-t_block	        *get_block_from_zone(t_zone *zone, int size_log2)
+static t_block	*get_block_from_buckets(t_block **blocks,
+	int size_log2, int max_log2)
 {
 	t_block		*block;
 	int			i;
 
-	// while i < max log2
-	// 	find a block that is available
-	// 	if found it block = block found, break;
-	// if block found
-	// 	remove block from free_blocks[i]
-	// 	split block until i == size_log2
-	// 	return last block
+	block = NULL;
 	i = size_log2;
-	while (i < TINY_MAX_LOG2) // deal SMALL_MAX_LOG2
+	while (i <= max_log2)
 	{
+		ft_printf("Getting block from freelist, i: %d\n", i);
+		if (blocks[i])
+		{
+			ft_printf("free block found\n");
+			block = blocks[i];
+			blocks[i] = NULL;
+			break ;
+		}
 		i++;
 	}
-	block = NULL;
-	(void)zone;
+	return (block);
+}
+
+t_block	        *get_block_from_zone(t_zone *zone, int size_log2)
+{
+	int			max_log2;
+	t_block		*block;
+
+	if (zone == g_zones.tinies)
+		max_log2 = TINY_MAX_LOG2;
+	else
+		max_log2 = SMALL_MAX_LOG2;
+	if ((block = get_block_from_buckets((t_block**)(zone + 1),
+		size_log2, max_log2)))
+	{} // 	split block until i == size_log2, save new sizes
 	return (block);
 }
