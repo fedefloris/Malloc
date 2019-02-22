@@ -16,7 +16,8 @@ t_zones		g_zones = {NULL, NULL, NULL};
 
 void		*malloc(size_t size)
 {
-	ft_printf("Request for %zu, sizeof(t_block) => %zu\n", size, sizeof(t_block));
+	ft_printf("Request for %zu, sizeof(t_block) => %zu\n",
+		size, sizeof(t_block));
 	if (!size)
 		return (NULL);
 	if (size <= TINY_THRESHOLD)

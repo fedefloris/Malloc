@@ -22,8 +22,13 @@ static void		display_blocks(t_zone *zone, char *zones_name)
 		block = (t_block*)((t_block**)(zone + 1) + SMALL_MAX_LOG2 + 1);
 	else
 		return ;
-	ft_printf("Block-> addr: %p, size: %zu\n",
-		block, BLOCK_SIZE(block->size_log2));
+	while ((char*)block < (char*)zone + zone->size
+		&& block->size_log2)
+	{
+		ft_printf("Block-> addr: %p, size: %zu\n",
+			block, BLOCK_SIZE(block->size_log2));
+		block = (t_block*)((char*)block + BLOCK_SIZE(block->size_log2));
+	}
 	ft_printf("\n\n");
 }
 
