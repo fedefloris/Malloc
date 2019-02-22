@@ -12,12 +12,18 @@
 
 #include "malloc.h"
 
-static void		display_blocks(t_zone *zone)
+static void		display_blocks(t_zone *zone, char *zones_name)
 {
 	t_block		*block;
 
-	block = (t_block*)(zone + 1);
-	ft_printf("Block-> size: %zu\n", BLOCK_SIZE(block->size_log2));
+	if (!ft_strcmp(zones_name, "TINY"))
+		block = (t_block*)(zone + 1) + TINY_MAX_LOG2 + 1;
+	else if (!ft_strcmp(zones_name, "SMALL"))
+		block = (t_block*)(zone + 1) + SMALL_MAX_LOG2 + 1;
+	else
+		return ;
+	ft_printf("Block-> addr: %p, size: %zu\n",
+		block, BLOCK_SIZE(block->size_log2));
 	ft_printf("\n\n");
 }
 
@@ -29,7 +35,8 @@ void			display_zones(t_zone *zone, char *zones_name)
 		ft_printf("Zone from %p to %p, size: %zu, next: %p\n",
 			zone, (char*)zone + zone->size,
 			zone->size, zone->next);
-		display_blocks(zone);
+
+		display_blocks(zone, zones_name);
 		zone = zone->next;
 	}
 	ft_putstr("\n");
