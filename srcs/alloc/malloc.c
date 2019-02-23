@@ -20,9 +20,9 @@ void		*malloc(size_t size)
 		size, sizeof(t_block));
 	if (!size)
 		return (NULL);
-	if (size <= TINY_THRESHOLD)
+	if (size <= TINY_THRESHOLD + BLOCK_HEADER_SIZE)
 		return (malloc_small(size, TINY_ZONE_SIZE));
-	else if (size <= SMALL_THRESHOLD)
+	else if (size <= SMALL_THRESHOLD + BLOCK_HEADER_SIZE)
 		return (malloc_small(size, SMALL_ZONE_SIZE));
 	return (malloc_large(size));
 }
