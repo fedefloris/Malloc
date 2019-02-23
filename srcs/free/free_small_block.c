@@ -15,6 +15,5 @@
 void	free_small_block(t_block *block)
 {
 	(void)block;
-	// merge_free_blocks(block);
 	// when should I call munmap?
 }

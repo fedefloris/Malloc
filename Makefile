@@ -39,7 +39,6 @@ ZONES_FILES = add_zone
 
 BLOCKS_FILES = add_first_block \
 	find_block \
-	merge_free_blocks \
 	get_block \
 	get_block_from_zones \
 	get_block_from_zone
