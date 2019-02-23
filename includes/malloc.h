@@ -21,6 +21,7 @@ typedef struct		s_block
 {
 	uint8_t			size_log2;
 	char			padding[7];
+	struct s_block	*next;
 }					t_block;
 
 typedef struct		s_zone
