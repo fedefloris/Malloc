@@ -88,6 +88,7 @@ void				add_first_block(t_zone *zone, int zone_type);
 
 void				free(void *ptr);
 bool				free_large_block(void *ptr);
+void				free_small_block(t_block *block);
 
 void				show_alloc_mem();
 void				display_zones(t_zone *zone, char *zones_name);

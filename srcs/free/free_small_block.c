@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_small_block.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,9 @@
 
 #include "malloc.h"
 
-void			free(void *ptr)
+void	free_small_block(t_block *block)
 {
-	t_block		*block;
-
-	if (!ptr || free_large_block(ptr))
-		return ;
-	if (!(block = find_block(ptr)))
-	{
-		ft_printf("Invalid pointer\n");
-		return ;
-	}
-	free_small_block(block);
+	(void)block;
+	// merge_free_blocks(block);
+	// when should I call munmap?
 }

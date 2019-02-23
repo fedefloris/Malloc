@@ -26,7 +26,8 @@ LIBFT_FILE = $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 
 FREE_FILES = free \
-	free_large_block
+	free_large_block \
+	free_small_block
 
 ALLOC_FILES = calloc \
 	malloc \
