@@ -37,7 +37,7 @@ ALLOC_FILES = calloc \
 
 ZONES_FILES = add_zone
 
-BLOCKS_FILES = add_first_block \
+BLOCKS_FILES = add_first_blocks \
 	find_block \
 	get_block \
 	get_block_from_zones \

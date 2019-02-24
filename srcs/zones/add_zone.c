@@ -46,6 +46,6 @@ t_zone			*add_zone(int zone_type, size_t size)
 		return (NULL);
 	config_zone((t_zone*)memory, zone_type, zone_size);
 	if (zone_type != LARGE_THRESHOLD)
-		add_first_block((t_zone*)memory, zone_type);
+		add_first_blocks((t_zone*)memory, zone_type);
 	return ((t_zone*)memory);
 }

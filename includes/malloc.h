@@ -86,7 +86,7 @@ t_block				*get_block_from_zones(t_zone *zones,
 t_block				*get_block_from_zone(t_zone *zone,
 						int zone_size, int size_log2);
 
-void				add_first_block(t_zone *zone, int zone_type);
+void				add_first_blocks(t_zone *zone, int zone_type);
 
 void				free(void *ptr);
 bool				free_large_block(void *ptr);

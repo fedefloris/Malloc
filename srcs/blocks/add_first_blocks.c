@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_first_block.c                                  :+:      :+:    :+:   */
+/*   add_first_blocks.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -22,7 +22,7 @@ static void		add_block(t_block **blocks, char *memory, int size_log2)
 	blocks[size_log2]->next = block;
 }
 
-void			add_first_block(t_zone *zone, int zone_type)
+void			add_first_blocks(t_zone *zone, int zone_type)
 {
 	char		*zone_memory;
 	size_t		zone_size;
