@@ -18,6 +18,8 @@ static t_block	*split_block_until_optimal(t_block **blocks,
 	t_block		*block;
 	t_block		*buddy;
 
+	if (i > max_log2)
+		return (NULL);
 	block = blocks[i];
 	blocks[i] = block->next;
 	while (i != size_log2 && block)
