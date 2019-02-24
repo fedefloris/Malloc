@@ -14,9 +14,9 @@
 
 void		show_alloc_mem(void)
 {
-	ft_printf("\n\n");
+	ft_putstr("\n\n");
 	display_zones(g_zones.tinies, "TINY");
 	display_zones(g_zones.smalls, "SMALL");
 	display_zones(g_zones.larges, "LARGE");
-	ft_printf("\n\n");
+	ft_putstr("\n\n");
 }
