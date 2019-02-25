@@ -22,32 +22,36 @@ static void		add_block(t_block **blocks, char *memory, int size_log2)
 	blocks[size_log2]->next = block;
 }
 
+static void		add_small_blocks(char *zone_memory,
+	size_t zone_size, t_block **blocks)
+{
+	zone_size -= SMALL_ZONE_HEADER_SIZE;
+	zone_memory += SMALL_ZONE_HEADER_SIZE;
+	while (zone_size >= SMALL_THRESHOLD)
+	{
+		add_block(blocks, zone_memory, SMALL_MAX_LOG2);
+		zone_memory += SMALL_THRESHOLD;
+		zone_size -= SMALL_THRESHOLD;
+	}
+}
+
+static void		add_tiny_blocks(char *zone_memory,
+	size_t zone_size, t_block **blocks)
+{
+	zone_size -= TINY_ZONE_HEADER_SIZE;
+	zone_memory += TINY_ZONE_HEADER_SIZE;
+	while (zone_size >= TINY_THRESHOLD)
+	{
+		add_block(blocks, zone_memory, TINY_MAX_LOG2);
+		zone_memory += TINY_THRESHOLD;
+		zone_size -= TINY_THRESHOLD;
+	}
+}
+
 void			add_first_blocks(t_zone *zone, int zone_type)
 {
-	char		*zone_memory;
-	size_t		zone_size;
-
-	zone_memory = (char*)zone;
 	if (zone_type == TINY_ZONE_SIZE)
-	{
-		zone_size = zone->size - TINY_ZONE_HEADER_SIZE;
-		zone_memory += TINY_ZONE_HEADER_SIZE;
-		while (zone_size >= TINY_THRESHOLD)
-		{
-			add_block((t_block**)(zone + 1), zone_memory, TINY_MAX_LOG2);
-			zone_memory += TINY_THRESHOLD;
-			zone_size -= TINY_THRESHOLD;
-		}
-	}
+		add_tiny_blocks((char*)zone, zone->size, (t_block**)(zone + 1));
 	else
-	{
-		zone_size = zone->size - SMALL_ZONE_HEADER_SIZE;
-		zone_memory += SMALL_ZONE_HEADER_SIZE;
-		while (zone_size > SMALL_THRESHOLD)
-		{
-			add_block((t_block**)(zone + 1), zone_memory, SMALL_MAX_LOG2);
-			zone_memory += SMALL_THRESHOLD;
-			zone_size -= SMALL_THRESHOLD;
-		}
-	}
+		add_small_blocks((char*)zone, zone->size, (t_block**)(zone + 1));
 }
