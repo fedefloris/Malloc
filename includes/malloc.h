@@ -79,7 +79,7 @@ void				*calloc(size_t elements_count, size_t element_size);
 void				*realloc(void *ptr, size_t size);
 
 void				find_block_info(void *ptr, t_block **block,
-						int *zone_type);
+						t_zone **zone, int *zone_type);
 
 t_block				*get_block(int zone_size, int size_log2);
 t_block				*get_block_from_zones(t_zone *zones,
@@ -91,7 +91,8 @@ void				add_first_blocks(t_zone *zone, int zone_type);
 
 void				free(void *ptr);
 bool				free_large_block(void *ptr);
-void				free_small_block(t_block *block, int zone_type);
+void				free_small_block(t_block **blocks, t_block *block,
+						t_zone *zone, int zone_type);
 
 void				show_alloc_mem();
 void				display_zones(t_zone *zone, char *zones_name);

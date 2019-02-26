@@ -16,9 +16,10 @@ void			free(void *ptr)
 {
 	int			zone_type;
 	t_block		*block;
+	t_zone		*zone;
 
 	if (!ptr || free_large_block(ptr))
 		return ;
-	find_block_info(ptr, &block, &zone_type);
-	free_small_block(block, zone_type);
+	find_block_info(ptr, &block, &zone, &zone_type);
+	free_small_block((t_block**)(zone + 1), block, zone, zone_type);
 }
