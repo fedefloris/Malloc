@@ -18,6 +18,7 @@ void		*malloc(size_t size)
 {
 	ft_printf("Request for %zu, sizeof(t_block) => %zu\n",
 		size, sizeof(t_block));
+	// define max block size ?
 	if (!size)
 		return (NULL);
 	if (size <= TINY_THRESHOLD - BLOCK_HEADER_SIZE)
