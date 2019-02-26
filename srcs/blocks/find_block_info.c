@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_block.c                                       :+:      :+:    :+:   */
+/*   find_block_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -24,17 +24,19 @@ static t_zone	*find_zone(t_zone *zones, t_block *block)
 	return (NULL);
 }
 
-t_block			*find_block(void *ptr)
+void			find_block_info(void *ptr, t_block **block, int *zone_type)
 {
-	t_block		*block;
 	// t_block		*curr;
 	t_zone		*zone;
 
-	block = (t_block*)((char*)ptr - sizeof(t_block));
-	if (!(zone = find_zone(g_zones.tinies, block))
-		&& !(zone = find_zone(g_zones.smalls, block)))
-		return (NULL);
-	return (block);
+	*zone_type = 0;
+	*block = (t_block*)((char*)ptr - sizeof(t_block));
+	if ((zone = find_zone(g_zones.tinies, *block)))
+		*zone_type = TINY_ZONE_SIZE;
+	else if ((zone = find_zone(g_zones.smalls, *block)))
+		*zone_type = SMALL_ZONE_SIZE;
+	else
+		*block = NULL;
 	// should I really check all blocks?
 	// curr = (t_block*)(zone + 1);
 	// while ((char*)curr < (char*)zone + zone->size)

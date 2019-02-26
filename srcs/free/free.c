@@ -14,14 +14,11 @@
 
 void			free(void *ptr)
 {
+	int			zone_type;
 	t_block		*block;
 
 	if (!ptr || free_large_block(ptr))
 		return ;
-	if (!(block = find_block(ptr)))
-	{
-		ft_printf("Invalid pointer\n");
-		return ;
-	}
-	free_small_block(block);
+	find_block_info(ptr, &block, &zone_type);
+	free_small_block(block, zone_type);
 }
