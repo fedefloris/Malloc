@@ -6,7 +6,7 @@
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 13:39:16 by ffloris           #+#    #+#             */
-/*   Updated: 2018/11/14 17:56:44 by ffloris          ###   ########.fr       */
+/*   Updated: 2019/02/26 21:05:24 by ffloris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 ** to  malloc(),  calloc(), or realloc().
 ** If the area pointed to was moved, a free(ptr) is done.
 */
-void		*realloc(void *ptr, size_t size)
+
+void	*realloc(void *ptr, size_t size)
 {
 	if (!ptr)
 		return (malloc(size));

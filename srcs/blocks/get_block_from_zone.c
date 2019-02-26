@@ -6,7 +6,7 @@
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 13:39:16 by ffloris           #+#    #+#             */
-/*   Updated: 2018/11/14 17:56:44 by ffloris          ###   ########.fr       */
+/*   Updated: 2019/02/26 21:06:19 by ffloris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static t_block	*get_block_from_buckets(t_block **blocks,
 	return (split_block_until_optimal(blocks, i, size_log2, max_log2));
 }
 
-t_block	        *get_block_from_zone(t_zone *zone,
-	int zone_size, int size_log2)
+t_block			*get_block_from_zone(t_zone *zone,
+		int zone_size, int size_log2)
 {
 	return (get_block_from_buckets((t_block**)(zone + 1),
 		size_log2, (zone_size == TINY_ZONE_SIZE) ?
