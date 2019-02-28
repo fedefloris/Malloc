@@ -22,12 +22,14 @@ static t_block	*split_block_until_optimal(t_block **blocks,
 		return (NULL);
 	block = blocks[i];
 	blocks[i] = block->next;
+	block->next = NULL;
 	while (i != size_log2 && block)
 	{
 		ft_printf("i: %d, sizelog2: %d\n", i, size_log2);
 		buddy = (t_block*)BUDDY((char*)(blocks + max_log2 + 1),
 			(char*)block, i - 1);
 		buddy->size_log2 = i - 1;
+		buddy->next = blocks[i - 1];
 		blocks[i - 1] = buddy;
 		block->size_log2 = i - 1;
 		i--;
