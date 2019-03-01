@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-static t_block	*split_block_until_optimal(t_block **blocks,
+static t_block		*split_block_until_optimal(t_block **blocks,
 	int i, int size_log2, int max_log2)
 {
 	t_block		*block;
@@ -34,10 +34,13 @@ static t_block	*split_block_until_optimal(t_block **blocks,
 		block->size_log2 = i - 1;
 		i--;
 	}
+	ft_printf("Return block %p, buddy %p, block->size_log2 = %d\n",
+		block, (t_block*)BUDDY((char*)(blocks + max_log2 + 1),
+		(char*)block, block->size_log2), block->size_log2);
 	return (block);
 }
 
-static void		get_available_bucket_index(t_block **blocks,
+static void			get_available_bucket_index(t_block **blocks,
 	int max_log2, int *i)
 {
 	while (*i <= max_log2)
@@ -50,7 +53,7 @@ static void		get_available_bucket_index(t_block **blocks,
 		ft_printf("Free block found at %d\n", *i);
 }
 
-static t_block	*get_block_from_buckets(t_block **blocks,
+static t_block		*get_block_from_buckets(t_block **blocks,
 	int size_log2, int max_log2)
 {
 	int			i;
@@ -60,7 +63,7 @@ static t_block	*get_block_from_buckets(t_block **blocks,
 	return (split_block_until_optimal(blocks, i, size_log2, max_log2));
 }
 
-t_block			*get_block_from_zone(t_zone *zone,
+t_block				*get_block_from_zone(t_zone *zone,
 		int zone_size, int size_log2)
 {
 	return (get_block_from_buckets((t_block**)(zone + 1),
