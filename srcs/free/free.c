@@ -21,5 +21,10 @@ void			free(void *ptr)
 	if (!ptr || free_large_block(ptr))
 		return ;
 	find_block_info(ptr, &block, &zone, &zone_type);
-	free_small_block((t_block**)(zone + 1), block, zone, zone_type);
+	if (!block)
+		return ; // invalid pointer for block
+	free_small_block((t_block**)(zone + 1), block,
+		(zone_type == TINY_ZONE_SIZE) ?
+			TINY_MAX_LOG2 : SMALL_MAX_LOG2);
+	// when should I call munmap?
 }
