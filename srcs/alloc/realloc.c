@@ -26,10 +26,21 @@
 ** Unless ptr is NULL, it must have been returned by an earlier call
 ** to  malloc(),  calloc(), or realloc().
 ** If the area pointed to was moved, a free(ptr) is done.
+** The realloc() function returns a pointer to the newly allocated memory,
+** which is suitably aligned for any built-in type and
+** may be different from ptr, or NULL if the request fails.
+** If  size was equal to 0, either NULL or a pointer suitable
+** to be passed to free() is returned.
+** If realloc() fails, the original block is left untouched;
+** it is not freed or moved.
 */
 
 void	*realloc(void *ptr, size_t size)
 {
+	int			zone_type;
+	t_block		*block;
+	t_zone		*zone;
+
 	if (!ptr)
 		return (malloc(size));
 	if (!size)
@@ -37,9 +48,15 @@ void	*realloc(void *ptr, size_t size)
 		free(ptr);
 		return (NULL);
 	}
-	// check valid ptr, use same functions of free
-	// try to change size
-	// if it's not possible
-	//   call malloc with the new size, memcpy and free previous
-	return (NULL);
+	find_block_info(ptr, &block, &zone, &zone_type);
+	if (!block)
+		return (NULL);
+	if (BLOCK_SIZE(block->size_log2) - BLOCK_HEADER_SIZE >= size)
+		return (ptr);
+	if (!(ptr = malloc(size)))
+		return (NULL);
+	ft_memcpy(ptr, block + 1,
+		BLOCK_SIZE(block->size_log2) - BLOCK_HEADER_SIZE);
+	free(block + 1);
+	return (ptr);
 }
