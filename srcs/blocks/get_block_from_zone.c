@@ -18,12 +18,11 @@ static t_block		*split_block_until_optimal(t_block **blocks,
 	t_block		*block;
 	t_block		*buddy;
 
-	if (i > max_log2)
-		return (NULL);
 	block = blocks[i];
 	blocks[i] = block->next;
 	block->next = NULL;
-	while (i != size_log2 && block)
+	block->size_log2 = size_log2;
+	while (i > size_log2)
 	{
 		ft_printf("i: %d, sizelog2: %d\n", i, size_log2);
 		buddy = (t_block*)BUDDY((char*)(blocks + max_log2 + 1),
@@ -31,7 +30,6 @@ static t_block		*split_block_until_optimal(t_block **blocks,
 		buddy->size_log2 = i - 1;
 		buddy->next = blocks[i - 1];
 		blocks[i - 1] = buddy;
-		block->size_log2 = i - 1;
 		i--;
 	}
 	ft_printf("Return block %p, buddy %p, block->size_log2 = %d\n",
@@ -60,11 +58,13 @@ static t_block		*get_block_from_buckets(t_block **blocks,
 
 	i = size_log2;
 	get_available_bucket_index(blocks, max_log2, &i);
+	if (i > max_log2)
+		return (NULL);
 	return (split_block_until_optimal(blocks, i, size_log2, max_log2));
 }
 
 t_block				*get_block_from_zone(t_zone *zone,
-		int zone_size, int size_log2)
+	int zone_size, int size_log2)
 {
 	return (get_block_from_buckets((t_block**)(zone + 1),
 		size_log2, (zone_size == TINY_ZONE_SIZE) ?

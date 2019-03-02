@@ -16,14 +16,19 @@ static void		display_free_blocks(t_block **free_blocks,
 	int max_log2)
 {
 	t_block		*block;
+	size_t		max;
 
+	max = max_log2;
 	while (max_log2 >= 0)
 	{
 		ft_printf("free_blocks[%d]:\n\t", max_log2);
 		block = free_blocks[max_log2];
 		while (block)
 		{
-			ft_printf("%p ", block);
+			ft_printf("%p size: %d buddy %p, ",
+				block, block->size_log2,
+				(t_block*)BUDDY((char*)(free_blocks + max + 1),
+					(char*)block, block->size_log2));
 			block = block->next;
 		}
 		ft_putstr("\n\n");

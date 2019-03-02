@@ -14,13 +14,13 @@
 
 // static void		merge_blocks()
 
-static bool		find_buddy(t_block *buddy, t_block *blocks,
+static bool		find_block(t_block *blocks, t_block *block,
 	t_block **prev)
 {
 	*prev = NULL;
 	while (blocks)
 	{
-		if (buddy == blocks)
+		if (block == blocks)
 			return (true);
 		*prev = blocks;
 		blocks = blocks->next;
@@ -43,16 +43,16 @@ void			free_small_block(t_block **blocks, t_block *block,
 		ft_printf("Buddy %p with block %p at %d, max_log2: %d\n",
 			block, buddy, size_log2, max_log2);
 		if (size_log2 == max_log2 ||
-			!find_buddy(buddy, blocks[size_log2], &prev))
+			!find_block(blocks[size_log2], buddy, &prev))
 		{
 			ft_printf("Not found\n");
+			block->size_log2 = size_log2;
 			block->next = blocks[size_log2];
 			blocks[size_log2] = block;
 			return ;
 		}
 		ft_printf("Found, merging...\n");
 		block = (block < buddy) ? block : buddy;
-		block->size_log2 = size_log2 + 1;
 		if (!prev)
 			blocks[size_log2] = buddy->next;
 		else
