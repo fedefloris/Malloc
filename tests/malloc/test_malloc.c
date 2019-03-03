@@ -1,30 +1,17 @@
 #include "malloc.h"
 
-# define SIZE 10
-
-typedef struct	s_test
-{
-	char		a;
-}				t_test;
-
-
 int				main(void)
 {
-	t_test		*test[SIZE];
-	size_t		i;
-
-	i = 0;
-	while (i < SIZE)
-	{
-		if (!(test[i] = (t_test*)malloc(sizeof(t_test))))
-		{
-			ft_printf("malloc() call failed");
-			break ;
-		}
-		test[i]->a = 'a';
-		// free(test[i]);
-		i++;
-	}
+	malloc(NULL);
+	malloc(0);
+	malloc(1);
+	malloc(8);
+	malloc(15);
+	malloc(16);
+	malloc(17);
+	malloc(31);
+	malloc(INT_MAX);
+	malloc(UINT_MAX);
 	show_alloc_mem();
 	return (0);
 }
