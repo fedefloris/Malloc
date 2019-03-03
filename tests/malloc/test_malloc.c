@@ -1,10 +1,10 @@
 #include "malloc.h"
 
-# define SIZE 5
+# define SIZE 10
 
 typedef struct	s_test
 {
-	char		a[10];
+	char		a;
 }				t_test;
 
 
@@ -21,8 +21,10 @@ int				main(void)
 			ft_printf("malloc() call failed");
 			break ;
 		}
-		test[i]->a[2] = 'a';
+		test[i]->a = 'a';
+		// free(test[i]);
 		i++;
 	}
+	show_alloc_mem();
 	return (0);
 }
