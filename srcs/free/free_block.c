@@ -22,7 +22,7 @@ void			free_block(void *ptr)
 		return ;
 	find_block_info(ptr, &block, &zone, &zone_type);
 	if (!block)
-		return ; // invalid pointer for block
+		return ;
 	free_small_block((t_block**)(zone + 1), block,
 		(zone_type == TINY_ZONE_SIZE) ?
 			TINY_MAX_LOG2 : SMALL_MAX_LOG2);

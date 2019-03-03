@@ -17,7 +17,6 @@ void		*calloc(size_t elements_count, size_t element_size)
 	void	*mem;
 
 	pthread_mutex_lock(&g_mutex);
-	// check for overflow
 	if ((mem = allocate(elements_count * element_size)))
 		ft_bzero(mem, elements_count * element_size);
 	pthread_mutex_unlock(&g_mutex);

@@ -43,7 +43,7 @@ static void		*reallocate(void *ptr, size_t size)
 	return (reallocate_block(ptr, size));
 }
 
-void	*realloc(void *ptr, size_t size)
+void			*realloc(void *ptr, size_t size)
 {
 	pthread_mutex_lock(&g_mutex);
 	ptr = reallocate(ptr, size);
