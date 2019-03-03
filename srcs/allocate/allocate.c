@@ -14,8 +14,6 @@
 
 void		*allocate(size_t size)
 {
-	ft_printf("Request for %zu, sizeof(t_block) => %zu\n",
-		size, sizeof(t_block));
 	// define max block size ?
 	if (!size)
 		return (NULL);

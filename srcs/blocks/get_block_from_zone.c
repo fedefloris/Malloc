@@ -24,7 +24,6 @@ static t_block		*split_block_until_optimal(t_block **blocks,
 	block->size_log2 = size_log2;
 	while (i > size_log2)
 	{
-		ft_printf("i: %d, sizelog2: %d\n", i, size_log2);
 		buddy = (t_block*)BUDDY((char*)(blocks + max_log2 + 1),
 			(char*)block, i - 1);
 		buddy->size_log2 = i - 1;
@@ -32,9 +31,6 @@ static t_block		*split_block_until_optimal(t_block **blocks,
 		blocks[i - 1] = buddy;
 		i--;
 	}
-	ft_printf("Return block %p, buddy %p, block->size_log2 = %d\n",
-		block, BUDDY((char*)(blocks + max_log2 + 1),
-		(char*)block, block->size_log2), block->size_log2);
 	return (block);
 }
 
@@ -47,8 +43,6 @@ static void			get_available_bucket_index(t_block **blocks,
 			break ;
 		(*i)++;
 	}
-	if (*i <= max_log2)
-		ft_printf("Free block found at %d\n", *i);
 }
 
 static t_block		*get_block_from_buckets(t_block **blocks,

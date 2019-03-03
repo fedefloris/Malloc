@@ -20,8 +20,6 @@ t_block			*get_block_from_zones(t_zone *zones,
 	block = NULL;
 	while (zones)
 	{
-		ft_printf("Searching for a new block in zone %p, ", zones);
-		ft_printf("size_log2: %d\n", size_log2);
 		if ((block = get_block_from_zone(zones, zone_size, size_log2)))
 			break ;
 		zones = zones->next;

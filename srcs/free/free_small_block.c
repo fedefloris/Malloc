@@ -41,13 +41,11 @@ void			free_small_block(t_block **blocks, t_block *block,
 		if (size_log2 == max_log2 ||
 			!find_block(blocks[size_log2], buddy, &prev))
 		{
-			ft_printf("Not found\n");
 			block->size_log2 = size_log2;
 			block->next = blocks[size_log2];
 			blocks[size_log2] = block;
 			return ;
 		}
-		ft_printf("Found, merging...\n");
 		if (!prev)
 			blocks[size_log2] = buddy->next;
 		else

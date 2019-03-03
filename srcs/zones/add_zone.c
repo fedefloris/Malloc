@@ -38,7 +38,6 @@ t_zone			*add_zone(int zone_type, size_t size)
 	size_t		zone_size;
 	char		*memory;
 
-	ft_printf("Add new zone...\n");
 	zone_size = round_up_to_page_size(size);
 	memory = mmap(0, zone_size, PROT_READ | PROT_WRITE,
 		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
