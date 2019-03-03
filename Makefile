@@ -30,7 +30,7 @@ FREE_FILES = free \
 	free_large_block \
 	free_small_block
 
-ALLOC_FILES = allocate \
+ALLOCATE_FILES = allocate \
 	allocate_large \
 	allocate_small \
 	calloc \
@@ -52,7 +52,7 @@ UTILS_FILES = get_size_log2 \
 	round_up_to_page_size
 
 FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
-ALLOC_OBJS = $(addsuffix .o, $(ALLOC_FILES))
+ALLOCATE_OBJS = $(addsuffix .o, $(ALLOCATE_FILES))
 ZONES_OBJS = $(addsuffix .o, $(ZONES_FILES))
 BLOCKS_OBJS = $(addsuffix .o, $(BLOCKS_FILES))
 DISPLAY_OBJS = $(addsuffix .o, $(DISPLAY_FILES))
@@ -60,13 +60,13 @@ UTILS_OBJS = $(addsuffix .o, $(UTILS_FILES))
 
 OBJS_DIR = objs
 FREE_OBJS_DIR = $(OBJS_DIR)/free
-ALLOC_OBJS_DIR = $(OBJS_DIR)/alloc
+ALLOCATE_OBJS_DIR = $(OBJS_DIR)/allocate
 ZONES_OBJS_DIR = $(OBJS_DIR)/zones
 BLOCKS_OBJS_DIR = $(OBJS_DIR)/blocks
 DISPLAY_OBJS_DIR = $(OBJS_DIR)/display
 UTILS_OBJS_DIR = $(OBJS_DIR)/utils
 OBJS_DIRS = $(FREE_OBJS_DIR) \
-	$(ALLOC_OBJS_DIR) \
+	$(ALLOCATE_OBJS_DIR) \
 	$(ZONES_OBJS_DIR) \
 	$(BLOCKS_OBJS_DIR) \
 	$(DISPLAY_OBJS_DIR) \
@@ -80,7 +80,7 @@ HEADERS = $(addsuffix .h, $(patsubst %, $(INCLUDES_DIR)/%, $(INCLUDES_FILES)))
 HEADERS += $(LIBFT_INCLUDES)/libft.h
 
 OBJS = $(addprefix $(FREE_OBJS_DIR)/, $(FREE_OBJS))
-OBJS += $(addprefix $(ALLOC_OBJS_DIR)/, $(ALLOC_OBJS))
+OBJS += $(addprefix $(ALLOCATE_OBJS_DIR)/, $(ALLOCATE_OBJS))
 OBJS += $(addprefix $(ZONES_OBJS_DIR)/, $(ZONES_OBJS))
 OBJS += $(addprefix $(BLOCKS_OBJS_DIR)/, $(BLOCKS_OBJS))
 OBJS += $(addprefix $(DISPLAY_OBJS_DIR)/, $(DISPLAY_OBJS))
