@@ -73,8 +73,9 @@ extern t_zones			g_zones;
 extern pthread_mutex_t	g_mutex;
 
 void				*malloc(size_t size);
-void				*malloc_small(size_t size, int zone_size);
-void				*malloc_large(size_t size);
+void				*allocate(size_t size);
+void				*allocate_small(size_t size, int zone_size);
+void				*allocate_large(size_t size);
 
 void				*calloc(size_t elements_count, size_t element_size);
 void				*realloc(void *ptr, size_t size);
@@ -91,6 +92,7 @@ t_block				*get_block_from_zone(t_zone *zone,
 void				add_first_blocks(t_zone *zone, int zone_type);
 
 void				free(void *ptr);
+void				free_block(void *ptr);
 bool				free_large_block(void *ptr);
 void				free_small_block(t_block **blocks, t_block *block,
 						int max_log2);

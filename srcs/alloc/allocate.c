@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_small.c                                     :+:      :+:    :+:   */
+/*   allocate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,16 @@
 
 #include "malloc.h"
 
-void			*malloc_small(size_t size, int zone_size)
+void		*allocate(size_t size)
 {
-	int			size_log2;
-	t_block		*block;
-
-	size_log2 = get_size_log2(sizeof(t_block) + size);
-	ft_printf("zone_size: %d, size_log2: %d\n", zone_size, size_log2);
-	ft_printf("tiny zone header: %d, small zone header: %d\n",
-		TINY_ZONE_HEADER_SIZE, SMALL_ZONE_HEADER_SIZE);
-	if (!(block = get_block(zone_size, size_log2)))
+	ft_printf("Request for %zu, sizeof(t_block) => %zu\n",
+		size, sizeof(t_block));
+	// define max block size ?
+	if (!size)
 		return (NULL);
-	return ((void*)(block + 1));
+	if (size <= TINY_THRESHOLD - sizeof(t_block))
+		return (allocate_small(size, TINY_ZONE_SIZE));
+	else if (size <= SMALL_THRESHOLD - sizeof(t_block))
+		return (allocate_small(size, SMALL_ZONE_SIZE));
+	return (allocate_large(size));
 }

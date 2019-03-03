@@ -41,22 +41,25 @@ void	*realloc(void *ptr, size_t size)
 	t_block		*block;
 	t_zone		*zone;
 
+	pthread_mutex_lock(&g_mutex);
 	if (!ptr)
-		return (malloc(size));
+		return (allocate(size));
 	if (!size)
 	{
-		free(ptr);
+		free_block(ptr);
 		return (NULL);
 	}
+	pthread_mutex_unlock(&g_mutex);
 	find_block_info(ptr, &block, &zone, &zone_type);
 	if (!block)
 		return (NULL);
 	if (BLOCK_SIZE(block->size_log2) - sizeof(t_block) >= size)
 		return (ptr);
-	if (!(ptr = malloc(size)))
+	if (!(ptr = allocate(size)))
 		return (NULL);
 	ft_memcpy(ptr, block + 1,
 		BLOCK_SIZE(block->size_log2) - sizeof(t_block));
-	free(block + 1);
+	free_block(block + 1);
+	pthread_mutex_unlock(&g_mutex);
 	return (ptr);
 }

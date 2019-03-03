@@ -12,8 +12,6 @@
 
 #include "malloc.h"
 
-// static void		merge_blocks()
-
 static bool		find_block(t_block *blocks, t_block *block,
 	t_block **prev)
 {
@@ -40,8 +38,6 @@ void			free_small_block(t_block **blocks, t_block *block,
 	{
 		buddy = (t_block*)BUDDY((char*)(blocks + max_log2 + 1),
 			(char*)block, size_log2);
-		ft_printf("Buddy %p with block %p at %d, max_log2: %d\n",
-			block, buddy, size_log2, max_log2);
 		if (size_log2 == max_log2 ||
 			!find_block(blocks[size_log2], buddy, &prev))
 		{
@@ -52,11 +48,11 @@ void			free_small_block(t_block **blocks, t_block *block,
 			return ;
 		}
 		ft_printf("Found, merging...\n");
-		block = (block < buddy) ? block : buddy;
 		if (!prev)
 			blocks[size_log2] = buddy->next;
 		else
 			prev->next = buddy->next;
+		block = (block < buddy) ? block : buddy;
 		size_log2++;
 	}
 }

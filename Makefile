@@ -26,13 +26,15 @@ LIBFT_FILE = $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 
 FREE_FILES = free \
+	free_block \
 	free_large_block \
 	free_small_block
 
-ALLOC_FILES = calloc \
+ALLOC_FILES = allocate \
+	allocate_large \
+	allocate_small \
+	calloc \
 	malloc \
-	malloc_large \
-	malloc_small \
 	realloc
 
 ZONES_FILES = add_zone

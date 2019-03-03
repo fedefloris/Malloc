@@ -33,7 +33,7 @@ static t_block		*split_block_until_optimal(t_block **blocks,
 		i--;
 	}
 	ft_printf("Return block %p, buddy %p, block->size_log2 = %d\n",
-		block, (t_block*)BUDDY((char*)(blocks + max_log2 + 1),
+		block, BUDDY((char*)(blocks + max_log2 + 1),
 		(char*)block, block->size_log2), block->size_log2);
 	return (block);
 }

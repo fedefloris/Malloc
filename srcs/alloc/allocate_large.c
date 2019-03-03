@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_large.c                                     :+:      :+:    :+:   */
+/*   allocate_large.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-void			*malloc_large(size_t size)
+void			*allocate_large(size_t size)
 {
 	t_zone		*zone;
 

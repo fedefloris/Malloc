@@ -14,17 +14,7 @@
 
 void			free(void *ptr)
 {
-	int			zone_type;
-	t_block		*block;
-	t_zone		*zone;
-
-	if (!ptr || free_large_block(ptr))
-		return ;
-	find_block_info(ptr, &block, &zone, &zone_type);
-	if (!block)
-		return ; // invalid pointer for block
-	free_small_block((t_block**)(zone + 1), block,
-		(zone_type == TINY_ZONE_SIZE) ?
-			TINY_MAX_LOG2 : SMALL_MAX_LOG2);
-	// when should I call munmap?
+	pthread_mutex_lock(&g_mutex);
+	free_block(ptr);
+	pthread_mutex_unlock(&g_mutex);
 }

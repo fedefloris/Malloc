@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.c                                           :+:      :+:    :+:   */
+/*   allocate_small.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,16 @@
 
 #include "malloc.h"
 
-t_zones			g_zones = {NULL, NULL, NULL};
-
-pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-void		*malloc(size_t size)
+void			*allocate_small(size_t size, int zone_size)
 {
-	void	*ptr;
+	int			size_log2;
+	t_block		*block;
 
-	pthread_mutex_lock(&g_mutex);
-	ptr = allocate(size);
-	pthread_mutex_unlock(&g_mutex);
-	return (ptr);
+	size_log2 = get_size_log2(sizeof(t_block) + size);
+	ft_printf("zone_size: %d, size_log2: %d\n", zone_size, size_log2);
+	ft_printf("tiny zone header: %d, small zone header: %d\n",
+		TINY_ZONE_HEADER_SIZE, SMALL_ZONE_HEADER_SIZE);
+	if (!(block = get_block(zone_size, size_log2)))
+		return (NULL);
+	return ((void*)(block + 1));
 }

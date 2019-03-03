@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.c                                           :+:      :+:    :+:   */
+/*   free_block.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,19 @@
 
 #include "malloc.h"
 
-t_zones			g_zones = {NULL, NULL, NULL};
-
-pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-void		*malloc(size_t size)
+void			free_block(void *ptr)
 {
-	void	*ptr;
+	int			zone_type;
+	t_block		*block;
+	t_zone		*zone;
 
-	pthread_mutex_lock(&g_mutex);
-	ptr = allocate(size);
-	pthread_mutex_unlock(&g_mutex);
-	return (ptr);
+	if (!ptr || free_large_block(ptr))
+		return ;
+	find_block_info(ptr, &block, &zone, &zone_type);
+	if (!block)
+		return ; // invalid pointer for block
+	free_small_block((t_block**)(zone + 1), block,
+		(zone_type == TINY_ZONE_SIZE) ?
+			TINY_MAX_LOG2 : SMALL_MAX_LOG2);
+	// when should I call munmap?
 }
