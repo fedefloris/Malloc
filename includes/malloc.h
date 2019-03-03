@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <stdbool.h>
+# include <pthread.h>
 # include <sys/mman.h>
 
 typedef struct		s_block
@@ -68,7 +69,8 @@ typedef struct		s_zones
 	t_zone			*larges;
 }					t_zones;
 
-extern t_zones		g_zones;
+extern t_zones			g_zones;
+extern pthread_mutex_t	mutex;
 
 void				*malloc(size_t size);
 void				*malloc_small(size_t size, int zone_size);
