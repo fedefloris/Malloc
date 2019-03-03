@@ -21,9 +21,9 @@ void		*malloc(size_t size)
 	// define max block size ?
 	if (!size)
 		return (NULL);
-	if (size <= TINY_THRESHOLD - BLOCK_HEADER_SIZE)
+	if (size <= TINY_THRESHOLD - sizeof(t_block))
 		return (malloc_small(size, TINY_ZONE_SIZE));
-	else if (size <= SMALL_THRESHOLD - BLOCK_HEADER_SIZE)
+	else if (size <= SMALL_THRESHOLD - sizeof(t_block))
 		return (malloc_small(size, SMALL_ZONE_SIZE));
 	return (malloc_large(size));
 }

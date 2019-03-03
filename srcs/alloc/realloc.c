@@ -51,12 +51,12 @@ void	*realloc(void *ptr, size_t size)
 	find_block_info(ptr, &block, &zone, &zone_type);
 	if (!block)
 		return (NULL);
-	if (BLOCK_SIZE(block->size_log2) - BLOCK_HEADER_SIZE >= size)
+	if (BLOCK_SIZE(block->size_log2) - sizeof(t_block) >= size)
 		return (ptr);
 	if (!(ptr = malloc(size)))
 		return (NULL);
 	ft_memcpy(ptr, block + 1,
-		BLOCK_SIZE(block->size_log2) - BLOCK_HEADER_SIZE);
+		BLOCK_SIZE(block->size_log2) - sizeof(t_block));
 	free(block + 1);
 	return (ptr);
 }
