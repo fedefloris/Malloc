@@ -19,16 +19,13 @@ static void		display_free_blocks(t_block **free_blocks,
 	size_t		max;
 
 	max = max_log2;
-	while (max_log2 >= 0)
+	while (max_log2 >= MINIMUM_LOG2)
 	{
-		ft_printf("free_blocks[%d]:\n\t", max_log2);
+		ft_printf("free_blocks[%d]:", max_log2);
 		block = free_blocks[max_log2];
 		while (block)
 		{
-			ft_printf("%p size: %d buddy %p, ",
-				block, block->size_log2,
-				(t_block*)BUDDY((char*)(free_blocks + max + 1),
-					(char*)block, block->size_log2));
+			ft_printf(" %p", block);
 			block = block->next;
 		}
 		ft_putstr("\n\n");
@@ -55,11 +52,10 @@ void			display_zones(t_zone *zone, char *zones_name)
 	ft_printf("--%s--\n", zones_name);
 	while (zone)
 	{
-		ft_printf("Zone from %p to %p, size: %zu bytes, next: %p\n",
+		ft_printf("\nZone from %p to %p, size: %zu bytes, next: %p\n\n",
 			zone, (char*)zone + zone->size,
 			zone->size, zone->next);
 		display_blocks(zone, zones_name);
-		ft_putstr("\n\n");
 		zone = zone->next;
 	}
 	ft_putstr("\n");
