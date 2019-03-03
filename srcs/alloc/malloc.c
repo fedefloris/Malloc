@@ -14,7 +14,7 @@
 
 t_zones			g_zones = {NULL, NULL, NULL};
 
-pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void		*malloc(size_t size)
 {

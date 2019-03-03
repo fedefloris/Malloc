@@ -70,7 +70,7 @@ typedef struct		s_zones
 }					t_zones;
 
 extern t_zones			g_zones;
-extern pthread_mutex_t	mutex;
+extern pthread_mutex_t	g_mutex;
 
 void				*malloc(size_t size);
 void				*malloc_small(size_t size, int zone_size);
