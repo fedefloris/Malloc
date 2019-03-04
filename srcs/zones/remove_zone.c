@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_block.c                                       :+:      :+:    :+:   */
+/*   remove_zone.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,8 @@
 
 #include "malloc.h"
 
-void			free_block(void *ptr)
+void		remove_zone(t_zone *zone, int zone_type)
 {
-	int			zone_type;
-	t_block		*block;
-	t_zone		*zone;
-
-	if (!ptr || free_large_block(ptr))
-		return ;
-	find_block_info(ptr, &block, &zone, &zone_type);
-	if (!block)
-		return ;
-	free_small_block((t_block**)(zone + 1), block,
-		(zone_type == TINY_ZONE_SIZE) ?
-			TINY_MAX_LOG2 : SMALL_MAX_LOG2);
-	// if (zone->max_blocks_count == max_blocks && zone->next)
-	// 	remove_zone(zone, zone_type);
+	(void)zone;
+    (void)zone_type;
 }

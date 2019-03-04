@@ -37,7 +37,8 @@ ALLOCATE_FILES = allocate \
 	malloc \
 	realloc
 
-ZONES_FILES = add_zone
+ZONES_FILES = add_zone \
+	remove_zone
 
 BLOCKS_FILES = add_first_blocks \
 	find_block_info \
