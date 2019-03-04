@@ -58,7 +58,7 @@ static void		display_blocks(t_zone *zone, char *zones_name)
 	// 	max_log2 = SMALL_MAX_LOG2;
 	// else
 	// 	return ;
-	// display_free_blocks((t_block**)((char*)zone + ZONE_HEADER_SIZE),
+	// display_free_blocks((t_block**)(zone 1),
 	// 	max_log2);
 }
 

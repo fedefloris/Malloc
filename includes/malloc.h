@@ -38,13 +38,11 @@ typedef struct		s_zone
 # define TINY_MAX_LOG2 10
 # define SMALL_MAX_LOG2 15
 
-# define ZONE_HEADER_SIZE sizeof(t_zone)
-
 # define TINY_BUCKETS_SIZE (sizeof(t_block*) * (TINY_MAX_LOG2 + 1))
-# define TINY_ZONE_HEADER_SIZE (ZONE_HEADER_SIZE + TINY_BUCKETS_SIZE)
+# define TINY_ZONE_HEADER_SIZE (sizeof(t_zone) + TINY_BUCKETS_SIZE)
 
 # define SMALL_BUCKETS_SIZE (sizeof(t_block*) * (SMALL_MAX_LOG2 + 1))
-# define SMALL_ZONE_HEADER_SIZE (ZONE_HEADER_SIZE + SMALL_BUCKETS_SIZE)
+# define SMALL_ZONE_HEADER_SIZE (sizeof(t_zone) + SMALL_BUCKETS_SIZE)
 
 /*
 ** Zone memory management:
