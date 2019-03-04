@@ -30,7 +30,6 @@ void			remove_zone(t_zone *zone, int zone_type)
 	t_zone		**zones;
 	t_zone		*prev;
 
-	ft_printf("remove zone...\n");
 	zones = get_zones(zone_type);
 	if (!find_zone(*zones, zone, &prev))
 		return ;
