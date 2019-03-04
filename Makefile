@@ -96,6 +96,9 @@ CREATED_TEXT = $(LIB_NAME) "and" $(SYM_LIB_NAME) "created!"
 
 all: comp_libft $(NAME)
 
+tests: all
+	./tests/test.sh
+
 comp_libft:
 	@make -C $(LIBFT_DIR)/ GCC_FLAGS=$(GCC_FLAGS)
 
@@ -123,4 +126,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all comp_libft clean fclean re
+.PHONY: all tests comp_libft clean fclean re
