@@ -30,6 +30,7 @@ static void		config_zone(t_zone *zone, int zone_type, size_t size)
 		zones = &g_zones.larges;
 	zone->size = size;
 	zone->next = *zones;
+	zone->max_blocks_count = 0;
 	*zones = zone;
 }
 

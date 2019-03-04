@@ -29,6 +29,7 @@ typedef struct		s_zone
 {
 	size_t			size;
 	struct s_zone	*next;
+	size_t			max_blocks_count;
 }					t_zone;
 
 # define BLOCK_SIZE(size_log2) (1 << (size_log2))
