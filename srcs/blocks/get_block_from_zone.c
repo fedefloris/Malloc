@@ -60,7 +60,14 @@ static t_block		*get_block_from_buckets(t_block **blocks,
 t_block				*get_block_from_zone(t_zone *zone,
 	int zone_size, int size_log2)
 {
-	return (get_block_from_buckets((t_block**)(zone + 1),
-		size_log2, (zone_size == TINY_ZONE_SIZE) ?
-			TINY_MAX_LOG2 : SMALL_MAX_LOG2));
+	t_block		*block;
+	int			max_log2;
+
+	max_log2 = (zone_size == TINY_ZONE_SIZE) ?
+		TINY_MAX_LOG2 : SMALL_MAX_LOG2;
+	block = get_block_from_buckets((t_block**)(zone + 1),
+		size_log2, max_log2);
+	if (size_log2 == max_log2)
+		zone->max_blocks_count--;
+	return (block);
 }
