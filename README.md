@@ -1,4 +1,5 @@
 # Ft_malloc - 42Born2Code
+[![Build Status](https://travis-ci.com/fedefloris/Malloc.svg?branch=master)](https://travis-ci.com/fedefloris/Malloc) ![](https://img.shields.io/github/license/fedefloris/Malloc.svg)
 
 ## Challenge
 
