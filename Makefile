@@ -38,6 +38,7 @@ ALLOCATE_FILES = allocate \
 	realloc
 
 ZONES_FILES = add_zone \
+	get_zones \
 	remove_zone
 
 BLOCKS_FILES = add_first_blocks \
