@@ -12,8 +12,31 @@
 
 #include "malloc.h"
 
-void		remove_zone(t_zone *zone, int zone_type)
+static bool		find_zone(t_zone *zones, t_zone *zone, t_zone **prev)
 {
-	(void)zone;
-	(void)zone_type;
+	*prev = NULL;
+	while (zones)
+	{
+		if (zones == zone)
+			return (true);
+		*prev = zones;
+		zones = (zones)->next;
+	}
+	return (false);
+}
+
+void			remove_zone(t_zone *zone, int zone_type)
+{
+	t_zone		**zones;
+	t_zone		*prev;
+
+	ft_printf("remove zone...\n");
+	zones = get_zones(zone_type);
+	if (!find_zone(*zones, zone, &prev))
+		return ;
+	if (!prev)
+		*zones = (*zones)->next;
+	else
+		prev->next = zone->next;
+	munmap((void*)zone, zone->size); // check return code?
 }
