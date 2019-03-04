@@ -40,10 +40,17 @@ typedef struct		s_zone
 # define TINY_MAX_LOG2 10
 # define SMALL_MAX_LOG2 15
 
-# define TINY_BUCKETS_SIZE (sizeof(t_block*) * (TINY_MAX_LOG2 + 1))
+# define ROUND_UP(from, to) ((int)round_up_to(from, to))
+
+/*
+** TINY_BUCKETS_SIZE and SMALL_BUCKETS_SIZE must be visible of 16,
+** otherwise they'll break the 16-bytes alignment.
+*/
+
+# define TINY_BUCKETS_SIZE ROUND_UP(sizeof(t_block*) * (TINY_MAX_LOG2 + 1), 16)
 # define TINY_ZONE_HEADER_SIZE (sizeof(t_zone) + TINY_BUCKETS_SIZE)
 
-# define SMALL_BUCKETS_SIZE (sizeof(t_block*) * (SMALL_MAX_LOG2 + 1))
+# define SMALL_BUCKETS_SIZE ROUND_UP(sizeof(t_block*) * (SMALL_MAX_LOG2+ 1), 16)
 # define SMALL_ZONE_HEADER_SIZE (sizeof(t_zone) + SMALL_BUCKETS_SIZE)
 
 /*
@@ -94,7 +101,7 @@ t_zone				**get_zones(int zone_type);
 void				remove_zone(t_zone *zone, int zone_type);
 
 int					get_size_log2(size_t request);
-size_t				round_up_to_page_size(size_t size);
+size_t				round_up_to(size_t from, size_t to);
 
 void				add_first_blocks(t_zone *zone, int zone_type);
 

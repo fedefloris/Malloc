@@ -4,7 +4,7 @@
 
 int				main(void)
 {
-	void		*mem[COUNT];
+	char		*mem[COUNT];
 	int			count;
 
 	count = 0;

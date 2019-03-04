@@ -51,7 +51,7 @@ DISPLAY_FILES = display_zones \
 	show_alloc_mem
 
 UTILS_FILES = get_size_log2 \
-	round_up_to_page_size
+	round_up_to
 
 FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
 ALLOCATE_OBJS = $(addsuffix .o, $(ALLOCATE_FILES))

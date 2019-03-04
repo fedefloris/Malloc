@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   round_up_to_page_size.c                            :+:      :+:    :+:   */
+/*   round_up_to.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,12 +12,9 @@
 
 #include "malloc.h"
 
-size_t		round_up_to_page_size(size_t size)
+size_t		round_up_to(size_t from, size_t to)
 {
-	long	page_size;
-
-	page_size = sysconf(_SC_PAGESIZE);
-	if (size % page_size)
-		return (size - (size % page_size) + page_size);
-	return (size);
+	if (from % to)
+		return (from - (from % to) + to);
+	return (from);
 }
