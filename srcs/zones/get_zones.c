@@ -12,11 +12,11 @@
 
 #include "malloc.h"
 
-t_zone	     *get_zones(int zone_type)
+t_zone	     **get_zones(int zone_type)
 {
 	if (zone_type == TINY_ZONE_SIZE)
-		return (g_zones.tinies);
+		return (&g_zones.tinies);
 	else if (zone_type == SMALL_ZONE_SIZE)
-		return (g_zones.smalls);
-	return (g_zones.larges);
+		return (&g_zones.smalls);
+	return (&g_zones.larges);
 }

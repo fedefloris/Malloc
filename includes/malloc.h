@@ -90,7 +90,7 @@ t_block				*get_block_from_zone(t_zone *zone,
 						int zone_size, int size_log2);
 
 t_zone				*add_zone(int zone_type, size_t size);
-t_zone				*get_zones(int zone_type);
+t_zone				**get_zones(int zone_type);
 void				remove_zone(t_zone *zone, int zone_type);
 
 int					get_size_log2(size_t request);
