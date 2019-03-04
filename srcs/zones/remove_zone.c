@@ -15,5 +15,5 @@
 void		remove_zone(t_zone *zone, int zone_type)
 {
 	(void)zone;
-    (void)zone_type;
+	(void)zone_type;
 }
