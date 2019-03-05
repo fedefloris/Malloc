@@ -26,31 +26,31 @@ static bool		find_block(t_block *blocks, t_block *block,
 	return (false);
 }
 
-void			free_small_block(t_block **blocks, t_block *block,
+void			free_small_block(t_block **blocks, t_block **block,
 	int max_log2)
 {
 	int			size_log2;
 	t_block		*buddy;
 	t_block		*prev;
 
-	size_log2 = block->size_log2;
+	size_log2 = (*block)->size_log2;
 	while (size_log2 <= max_log2)
 	{
 		buddy = (t_block*)BUDDY((char*)(blocks + max_log2 + 1),
-			(char*)block, size_log2);
+			(char*)*block, size_log2);
 		if (size_log2 == max_log2 ||
 			!find_block(blocks[size_log2], buddy, &prev))
 		{
-			block->size_log2 = size_log2;
-			block->next = blocks[size_log2];
-			blocks[size_log2] = block;
+			(*block)->size_log2 = size_log2;
+			(*block)->next = blocks[size_log2];
+			blocks[size_log2] = *block;
 			return ;
 		}
 		if (!prev)
 			blocks[size_log2] = buddy->next;
 		else
 			prev->next = buddy->next;
-		block = (block < buddy) ? block : buddy;
+		*block = (*block < buddy) ? *block : buddy;
 		size_log2++;
 	}
 }

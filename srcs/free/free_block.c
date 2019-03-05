@@ -15,6 +15,7 @@
 void			free_block(void *ptr)
 {
 	int			zone_type;
+	int			max_log2;
 	t_block		*block;
 	t_zone		*zone;
 
@@ -23,9 +24,11 @@ void			free_block(void *ptr)
 	find_block_info(ptr, &block, &zone, &zone_type);
 	if (!block)
 		return ;
-	free_small_block((t_block**)(zone + 1), block,
-		(zone_type == TINY_ZONE_SIZE) ?
-			TINY_MAX_LOG2 : SMALL_MAX_LOG2);
+	max_log2 = (zone_type == TINY_ZONE_SIZE) ?
+		TINY_MAX_LOG2 : SMALL_MAX_LOG2;
+	free_small_block((t_block**)(zone + 1), &block, max_log2);
+	if (block->size_log2 == max_log2)
+		zone->max_blocks_count++;
 	if (zone->max_blocks_count == zone->max_blocks && zone->next)
 		remove_zone(zone, zone_type);
 }
