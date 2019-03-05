@@ -12,15 +12,8 @@
 
 #include "malloc.h"
 
-static t_zone	*find_zone(t_zone *zones, t_block *block)
-{
-	while (zones)
-	{
-		if ((char*)block >= (char*)(zones + 1)
-			&& (char*)block < (char*)zones + zones->size)
-			return (zones);
-		zones = zones->next;
-	}
+// static bool		find_block()
+// {
 	// t_block		*curr;
 	// should I check all blocks?
 	// curr = (t_block*)(zone + 1);
@@ -32,6 +25,26 @@ static t_zone	*find_zone(t_zone *zones, t_block *block)
 	// 	curr = (t_block*)((char*)curr + (1 << curr->size_log2));
 	// }
 	// return (NULL);
+// }
+
+static t_zone	*find_zone(t_zone *zones,
+	int zone_type, t_block *block)
+{
+	char		*lower_limit;
+	char		*upper_limit;
+
+	while (zones)
+	{
+		if (zone_type == TINY_ZONE_SIZE)
+			lower_limit = (char*)zones + TINY_ZONE_HEADER_SIZE;
+		else
+			lower_limit = (char*)zones + SMALL_ZONE_HEADER_SIZE;
+		upper_limit = (char*)zones + zones->size;
+		if ((char*)block >= lower_limit && (char*)block < upper_limit)
+			return (zones);
+		zones = zones->next;
+	}
+	// if debugging variable SAFE check also block addr in blocks
 	return (NULL);
 }
 
@@ -40,9 +53,9 @@ void			find_block_info(void *ptr, t_block **block,
 {
 	*zone_type = 0;
 	*block = (t_block*)((char*)ptr - sizeof(t_block));
-	if ((*zone = find_zone(g_zones.tinies, *block)))
+	if ((*zone = find_zone(g_zones.tinies, TINY_ZONE_SIZE, *block)))
 		*zone_type = TINY_ZONE_SIZE;
-	else if ((*zone = find_zone(g_zones.smalls, *block)))
+	else if ((*zone = find_zone(g_zones.smalls, SMALL_ZONE_SIZE, *block)))
 		*zone_type = SMALL_ZONE_SIZE;
 	else
 		*block = NULL;
