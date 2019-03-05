@@ -43,15 +43,15 @@ typedef struct		s_zone
 # define ROUND_UP(from, to) ((int)round_up_to(from, to))
 
 /*
-** TINY_BUCKETS_SIZE and SMALL_BUCKETS_SIZE must be visible of 16,
+** TINY_BUCKETS_SIZE and SMALL_BUCKETS_SIZE must be multiple of 16
 ** otherwise they'll break the 16-bytes alignment.
 */
 
 # define TINY_BUCKETS_SIZE ROUND_UP(sizeof(t_block*) * (TINY_MAX_LOG2 + 1), 16)
-# define TINY_ZONE_HEADER_SIZE (sizeof(t_zone) + TINY_BUCKETS_SIZE)
+# define TINY_ZONE_HEADER_SIZE ((int)sizeof(t_zone) + TINY_BUCKETS_SIZE)
 
 # define SMALL_BUCKETS_SIZE ROUND_UP(sizeof(t_block*) * (SMALL_MAX_LOG2+ 1), 16)
-# define SMALL_ZONE_HEADER_SIZE (sizeof(t_zone) + SMALL_BUCKETS_SIZE)
+# define SMALL_ZONE_HEADER_SIZE ((int)sizeof(t_zone) + SMALL_BUCKETS_SIZE)
 
 /*
 ** Zone memory management:
