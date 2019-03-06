@@ -39,6 +39,7 @@ typedef struct		s_zone
 # define MINIMUM_LOG2 5
 # define TINY_MAX_LOG2 10
 # define SMALL_MAX_LOG2 15
+# define MAX_BLOCK_SIZE UINT_MAX
 
 # define ROUND_UP(from, to) ((int)round_up_to(from, to))
 
