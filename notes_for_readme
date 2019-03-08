@@ -1,0 +1,15 @@
+/*
+** We design the buddy system so that blocks of size 2^n always
+*  begin at memory addresses where the n least significant bits are zero.
+** For instance:
+**   - n = 0, blocks can begin at any address.
+**   - n = 1, blocks can only begin at even addresses.
+**   - n = 2, blocks can only begin at addresses with
+*        the least significant 2 bits equal to zero.
+** So when a block of size 2n+1 is split
+** into two blocks of size 2n, the addresses of these two blocks will differ
+** in exactly one bit, bit n, using the counting scheme that
+** numbers bits starting with 0 at the least significant end.
+*Thus, given a block of size 2n at address a,
+*we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring a with 2n. **
+*/
