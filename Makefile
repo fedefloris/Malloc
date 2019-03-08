@@ -75,6 +75,7 @@ OBJS_DIRS = $(FREE_OBJS_DIR) \
 	$(UTILS_OBJS_DIR)
 
 SRCS_DIR = srcs
+TEST_DIR = tests
 
 INCLUDES_DIR = includes
 INCLUDES_FILES = malloc
@@ -97,7 +98,7 @@ CREATED_TEXT = $(LIB_NAME) "and" $(SYM_LIB_NAME) "created!"
 all: comp_libft $(NAME)
 
 tests: all
-	./tests/test.sh
+	@make -C $(TEST_DIR)/ tests
 
 comp_libft:
 	@make -C $(LIBFT_DIR)/ GCC_FLAGS=$(GCC_FLAGS)

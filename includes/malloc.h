@@ -41,8 +41,8 @@ typedef struct		s_zone
 # define SMALL_MAX_LOG2 15
 
 # define BLOCK_SIZE(size_log2) (1 << (size_log2))
-# define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
 # define ROUND_UP(from, to) ((int)round_up_to(from, to))
+# define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
 
 /*
 ** TINY_BUCKETS_SIZE and SMALL_BUCKETS_SIZE must be multiple of 16

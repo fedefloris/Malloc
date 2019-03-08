@@ -13,6 +13,8 @@
 #ifndef MALLOC_TEST_H
 # define MALLOC_TEST_H
 
+# include "malloc.h"
+
 # define ERROR_MESSAGE_HEADER "Error: "
 # define EXIT_ERROR_STATUS 1
 # define STD_ERROR 2

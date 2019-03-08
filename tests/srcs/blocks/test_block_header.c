@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc.h"
 #include "malloc_test.h"
 
 void			test_block_header(void *ptr, size_t size,
