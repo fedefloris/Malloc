@@ -90,8 +90,8 @@ OBJS += $(addprefix $(UTILS_OBJS_DIR)/, $(UTILS_OBJS))
 
 SRCS = $(patsubst $(OBJS_DIR)/%.o, $(SRCS_DIR)/%.c, $(OBJS))
 
-GREEN_COLOR = "\033[0;32m"
-DEFAULT_COLOR = "\033[0m"
+DEFAULT_COLOR = $(shell tput setaf 7)
+GREEN_COLOR = $(shell tput setaf 2)
 CREATED_TEXT = $(LIB_NAME) "and" $(SYM_LIB_NAME) "created!"
 
 all: comp_libft $(NAME)
