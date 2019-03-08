@@ -7,6 +7,9 @@ A dynamic zone memory allocator based on the buddy system.
 For more details look at the [subject](subject.pdf).
 
 ## Using the project
+```console
+git clone --recursive https://github.com/fedefloris/Malloc.git && cd Malloc && make
+```
 
 ## Running the tests
 ```console
