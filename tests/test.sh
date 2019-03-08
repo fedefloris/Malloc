@@ -11,7 +11,8 @@ GREEN=$(tput setaf 2)
 BOLD_TEXT=$(tput bold)
 NORMAL_TEXT=$(tput sgr0)
 
-# Testing 16-byte alignment
+echo "${BOLD_TEXT}Testing 16-byte alignment:${NORMAL_TEXT}"
+
 commands=(
     "ls"
     "ls -lRh"
@@ -20,5 +21,10 @@ commands=(
 )
 for command in "${commands[@]}"; do
     LD_PRELOAD=./libft_malloc.so ${command} 2>&1 > /dev/null
-    echo "Testing with ${BOLD_TEXT}${command}${NORMAL_TEXT} ${GREEN}OK${WHITE}"
+    if [ $? -eq 0 ]; then
+        RESULT=${GREEN}OK${WHITE}
+    else
+        RESULT=${RED}KO${WHITE}
+    fi
+    echo "  - Testing with ${BOLD_TEXT}${command}${NORMAL_TEXT} ${RESULT}"
 done
