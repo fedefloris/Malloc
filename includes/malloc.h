@@ -33,14 +33,15 @@ typedef struct		s_zone
 	size_t			max_blocks_count;
 }					t_zone;
 
-# define BLOCK_SIZE(size_log2) (1 << (size_log2))
-# define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
-
+/*
+** Block sizes as a power of 2.
+*/
 # define MINIMUM_LOG2 5
 # define TINY_MAX_LOG2 10
 # define SMALL_MAX_LOG2 15
-# define MAX_BLOCK_SIZE UINT_MAX
 
+# define BLOCK_SIZE(size_log2) (1 << (size_log2))
+# define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
 # define ROUND_UP(from, to) ((int)round_up_to(from, to))
 
 /*
@@ -53,6 +54,8 @@ typedef struct		s_zone
 
 # define SMALL_BUCKETS_SIZE ROUND_UP(sizeof(t_block*) * (SMALL_MAX_LOG2+ 1), 16)
 # define SMALL_ZONE_HEADER_SIZE ((int)sizeof(t_zone) + SMALL_BUCKETS_SIZE)
+
+# define LARGE_ZONE_HEADER_SIZE sizeof(t_zone)
 
 /*
 ** Zone memory management:
@@ -70,6 +73,8 @@ typedef struct		s_zone
 
 # define LARGE_THRESHOLD (SMALL_THRESHOLD + 1)
 
+# define MAX_BLOCK_SIZE (UINT_MAX - LARGE_ZONE_HEADER_SIZE)
+
 typedef struct		s_zones
 {
 	t_zone			*tinies;
@@ -81,12 +86,12 @@ extern t_zones			g_zones;
 extern pthread_mutex_t	g_mutex;
 
 void				*malloc(size_t size);
+void				*calloc(size_t elements_count, size_t element_size);
+void				*realloc(void *ptr, size_t size);
+
 void				*allocate(size_t size);
 void				*allocate_small(size_t size, int zone_size);
 void				*allocate_large(size_t size);
-
-void				*calloc(size_t elements_count, size_t element_size);
-void				*realloc(void *ptr, size_t size);
 
 void				find_block_info(void *ptr, t_block **block,
 						t_zone **zone, int *zone_type);
@@ -98,13 +103,13 @@ t_block				*get_block_from_zone(t_zone *zone,
 						int zone_size, int size_log2);
 
 t_zone				*add_zone(int zone_type, size_t size);
-t_zone				**get_zones(int zone_type);
 void				remove_zone(t_zone *zone, int zone_type);
+t_zone				**get_zones(int zone_type);
+
+void				add_first_blocks(t_zone *zone, int zone_type);
 
 int					get_size_log2(size_t request);
 size_t				round_up_to(size_t from, size_t to);
-
-void				add_first_blocks(t_zone *zone, int zone_type);
 
 void				free(void *ptr);
 void				free_block(void *ptr);

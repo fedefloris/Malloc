@@ -16,7 +16,7 @@ void			*allocate_large(size_t size)
 {
 	t_zone		*zone;
 
-	if (!(zone = add_zone(LARGE_THRESHOLD, sizeof(t_zone) + size)))
+	if (!(zone = add_zone(LARGE_THRESHOLD, LARGE_ZONE_HEADER_SIZE + size)))
 		return (NULL);
 	return ((void*)(zone + 1));
 }
