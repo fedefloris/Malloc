@@ -1,4 +1,5 @@
 #include "malloc.h"
+#include "malloc_test.h"
 
 # define COUNT 250
 
@@ -20,6 +21,7 @@ int				main(void)
 		free(mem[count]);
 		count++;
 	}
+	test_block_header(NULL, 0);
 	show_alloc_mem();
 	return (0);
 }
