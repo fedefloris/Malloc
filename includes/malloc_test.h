@@ -13,8 +13,22 @@
 #ifndef MALLOC_TEST_H
 # define MALLOC_TEST_H
 
-# include "assert.h"
+# define ERROR_MESSAGE_HEADER "Error: "
+# define EXIT_ERROR_STATUS 1
+# define STD_ERROR 2
 
-void		test_block_header(void *ptr, size_t size);
+typedef enum    e_block_status
+{
+	Free,
+	Allocated
+}
+				t_block_status;
+
+void			error_exit(char *message);
+
+void			test_block(void *ptr, size_t size,
+					t_block_status status);
+void			test_block_header(void *ptr, size_t size,
+					t_block_status status);
 
 #endif

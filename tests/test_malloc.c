@@ -18,10 +18,10 @@ int				main(void)
 	count = 0;
 	while (count < COUNT)
 	{
+		test_block(mem[count], 450, Allocated);
 		free(mem[count]);
 		count++;
 	}
-	test_block_header(NULL, 0);
 	show_alloc_mem();
 	return (0);
 }

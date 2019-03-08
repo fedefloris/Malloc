@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_block_header.c                                :+:      :+:    :+:   */
+/*   test_block.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,14 +13,7 @@
 #include "malloc.h"
 #include "malloc_test.h"
 
-void			test_block_header(void *ptr, size_t size,
-					t_block_status status)
+void			test_block(void *ptr, size_t size, t_block_status status)
 {
-	t_block		*block;
-
-	block = (t_block*)ptr - 1;
-	if (BLOCK_SIZE(block->size_log2) <= size)
-		error_exit("bad value of block->size_log2");
-	if (status == Allocated && block->next)
-		error_exit("block->next of allocated block is not null");
+	test_block_header(ptr, size, status);
 }
