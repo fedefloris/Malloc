@@ -19,14 +19,19 @@ LIBFT_DIR = ../libft
 LIBFT_FILE = $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 
+ERRORS_FILES = error_exit
+
 BLOCKS_FILES = test_block \
 	test_block_header
 
 BLOCKS_OBJS = $(addsuffix .o, $(BLOCKS_FILES))
+ERRORS_OBJS = $(addsuffix .o, $(ERRORS_FILES))
 
 OBJS_DIR = objs
 BLOCKS_OBJS_DIR = $(OBJS_DIR)/blocks
-OBJS_DIRS = $(BLOCKS_OBJS_DIR)
+ERRORS_OBJS_DIR = $(OBJS_DIR)/errors
+OBJS_DIRS = $(BLOCKS_OBJS_DIR) \
+	$(ERRORS_OBJS_DIR)
 
 SRCS_DIR = srcs
 
@@ -37,6 +42,7 @@ HEADERS = $(addsuffix .h, $(patsubst %, $(INCLUDES_DIR)/%, $(INCLUDES_FILES)))
 HEADERS += $(LIBFT_INCLUDES)/libft.h $(MALLOC_INCLUDES)/malloc.h
 
 OBJS = $(addprefix $(BLOCKS_OBJS_DIR)/, $(BLOCKS_OBJS))
+OBJS += $(addprefix $(ERRORS_OBJS_DIR)/, $(ERRORS_OBJS))
 
 SRCS = $(patsubst $(OBJS_DIR)/%.o, $(SRCS_DIR)/%.c, $(OBJS))
 
