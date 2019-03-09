@@ -71,15 +71,15 @@ DEFAULT_COLOR = $(shell tput setaf 7)
 GREEN_COLOR = $(shell tput setaf 2)
 CREATED_TEXT = $(NAME) "created!"
 
-all: comp_libft $(NAME)
+all: comp_libft_malloc $(NAME)
 
 tests: all
 	./$(TEST_SCRIPT)
 
-comp_libft:
-	@make -C $(LIBFT_DIR)/ GCC_FLAGS=$(GCC_FLAGS)
+comp_libft_malloc:
+	@make -C $(MALLOC_DIR)/
 
-$(NAME): $(LIBFT_FILE) $(OBJS_DIRS) $(OBJS)
+$(NAME): $(LIBFT_FILE) $(LIBFT_MALLOC_FILE) $(OBJS_DIRS) $(OBJS)
 	@$(CC) $(OBJS) $(LIBFT_FILE) $(LIBFT_MALLOC_FILE) -o $(NAME)
 	@echo $(CREATED_TEXT)
 
@@ -92,13 +92,11 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
 		-I $(MALLOC_INCLUDES)
 
 clean:
-	@make -C $(LIBFT_DIR)/ clean
 	@rm -rf $(OBJS) $(OBJS_DIR)
 
-fclean:
-	@make -C $(LIBFT_DIR)/ fclean
-	@rm -rf $(NAME) $(OBJS) $(OBJS_DIR)
+fclean: clean
+	@rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: all tests comp_libft clean fclean re
+.PHONY: all tests comp_libft_malloc clean fclean re
