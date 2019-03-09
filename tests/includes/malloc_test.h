@@ -26,6 +26,9 @@ typedef enum    e_block_status
 }
 				t_block_status;
 
+void			test_free(void);
+void			test_malloc(void);
+
 void			error_exit(char *message);
 
 void			test_block(void *ptr, size_t size,
