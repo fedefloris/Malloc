@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft_malloc_test.so
+NAME = malloc_test
 TEST_SCRIPT = run_tests
 
 GCC_FLAGS = -fPIC -Werror -Wextra -Wall
@@ -19,18 +19,33 @@ LIBFT_DIR = ../libft
 LIBFT_FILE = $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 
+MAIN_FILES = test
+
+ALLOC_FILES = test_malloc
+
+FREE_FILES = test_free
+
 ERRORS_FILES = error_exit
 
 BLOCKS_FILES = test_block \
 	test_block_header
 
-BLOCKS_OBJS = $(addsuffix .o, $(BLOCKS_FILES))
+MAIN_OBJS = $(addsuffix .o, $(MAIN_FILES))
+ALLOC_OBJS = $(addsuffix .o, $(ALLOC_FILES))
+FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
+ERRORS_OBJS = $(addsuffix .o, $(ERRORS_FILES))
 ERRORS_OBJS = $(addsuffix .o, $(ERRORS_FILES))
 
 OBJS_DIR = objs
+MAIN_OBJS_DIR = $(OBJS_DIR)/main
+ALLOC_OBJS_DIR = $(OBJS_DIR)/alloc
+FREE_OBJS_DIR = $(OBJS_DIR)/free
 BLOCKS_OBJS_DIR = $(OBJS_DIR)/blocks
 ERRORS_OBJS_DIR = $(OBJS_DIR)/errors
-OBJS_DIRS = $(BLOCKS_OBJS_DIR) \
+OBJS_DIRS = $(MAIN_OBJS_DIR) \
+	$(ALLOC_OBJS_DIR) \
+	$(FREE_OBJS_DIR) \
+	$(BLOCKS_OBJS_DIR) \
 	$(ERRORS_OBJS_DIR)
 
 SRCS_DIR = srcs
@@ -41,7 +56,10 @@ INCLUDES_FILES = malloc_test
 HEADERS = $(addsuffix .h, $(patsubst %, $(INCLUDES_DIR)/%, $(INCLUDES_FILES)))
 HEADERS += $(LIBFT_INCLUDES)/libft.h $(MALLOC_INCLUDES)/malloc.h
 
-OBJS = $(addprefix $(BLOCKS_OBJS_DIR)/, $(BLOCKS_OBJS))
+OBJS = $(addprefix $(MAIN_OBJS_DIR)/, $(MAIN_OBJS))
+OBJS += $(addprefix $(ALLOC_OBJS_DIR)/, $(ALLOC_OBJS))
+OBJS += $(addprefix $(FREE_OBJS_DIR)/, $(FREE_OBJS))
+OBJS += $(addprefix $(BLOCKS_OBJS_DIR)/, $(BLOCKS_OBJS))
 OBJS += $(addprefix $(ERRORS_OBJS_DIR)/, $(ERRORS_OBJS))
 
 SRCS = $(patsubst $(OBJS_DIR)/%.o, $(SRCS_DIR)/%.c, $(OBJS))
@@ -59,7 +77,7 @@ comp_libft:
 	@make -C $(LIBFT_DIR)/ GCC_FLAGS=$(GCC_FLAGS)
 
 $(NAME): $(LIBFT_FILE) $(OBJS_DIRS) $(OBJS)
-	@$(CC) -shared $(OBJS) $(LIBFT_FILE) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBFT_FILE) -o $(NAME)
 	@echo $(CREATED_TEXT)
 
 $(OBJS_DIRS):
