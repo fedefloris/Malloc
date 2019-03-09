@@ -61,7 +61,8 @@ $(OBJS_DIRS):
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADERS)
 	@echo Malloc_test: $(GREEN_COLOR) $< $(DEFAULT_COLOR)
-	@$(CC) $(GCC_FLAGS) -c $< -o $@ -I $(INCLUDES_DIR) -I $(LIBFT_INCLUDES)
+	@$(CC) $(GCC_FLAGS) -c $< -o $@ -I $(INCLUDES_DIR) -I $(LIBFT_INCLUDES) \
+		-I $(MALLOC_INCLUDES)
 
 clean:
 	@make -C $(LIBFT_DIR)/ clean

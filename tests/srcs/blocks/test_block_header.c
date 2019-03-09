@@ -18,7 +18,7 @@ void			test_block_header(void *ptr, size_t size,
 	t_block		*block;
 
 	block = (t_block*)ptr - 1;
-	if (BLOCK_SIZE(block->size_log2) <= size)
+	if ((size_t)BLOCK_SIZE(block->size_log2) <= size)
 		error_exit("bad value of block->size_log2");
 	if (status == Allocated && block->next)
 		error_exit("block->next of allocated block is not null");
