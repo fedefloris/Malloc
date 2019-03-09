@@ -36,7 +36,7 @@ BLOCKS_FILES = test_block \
 MAIN_OBJS = $(addsuffix .o, $(MAIN_FILES))
 ALLOC_OBJS = $(addsuffix .o, $(ALLOC_FILES))
 FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
-ERRORS_OBJS = $(addsuffix .o, $(ERRORS_FILES))
+BLOCKS_OBJS = $(addsuffix .o, $(BLOCKS_FILES))
 ERRORS_OBJS = $(addsuffix .o, $(ERRORS_FILES))
 
 OBJS_DIR = objs
