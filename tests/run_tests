@@ -9,6 +9,11 @@ GREEN=$(tput setaf 2)
 BOLD_TEXT=$(tput bold)
 NORMAL_TEXT=$(tput sgr0)
 
+TEST_MAIN=malloc_test
+
+# Run unit testing
+./$TEST_MAIN
+
 echo "${BOLD_TEXT}Testing 16-byte alignment:${NORMAL_TEXT}"
 
 # Inject dynamic lib on MacOS
