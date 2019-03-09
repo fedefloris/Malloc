@@ -19,6 +19,9 @@ LIBFT_DIR = ../libft
 LIBFT_FILE = $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDES = $(LIBFT_DIR)/includes
 
+MALLOC_DIR=..
+LIBFT_MALLOC_FILE = $(MALLOC_DIR)/libft_malloc.so
+
 MAIN_FILES = test
 
 ALLOC_FILES = test_malloc
@@ -77,7 +80,7 @@ comp_libft:
 	@make -C $(LIBFT_DIR)/ GCC_FLAGS=$(GCC_FLAGS)
 
 $(NAME): $(LIBFT_FILE) $(OBJS_DIRS) $(OBJS)
-	@$(CC) $(OBJS) $(LIBFT_FILE) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBFT_FILE) $(LIBFT_MALLOC_FILE) -o $(NAME)
 	@echo $(CREATED_TEXT)
 
 $(OBJS_DIRS):
