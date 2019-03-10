@@ -30,8 +30,7 @@ FREE_FILES = test_free
 
 ERRORS_FILES = error_exit
 
-BLOCKS_FILES = test_block \
-	test_block_header
+BLOCKS_FILES = test_block
 
 MAIN_OBJS = $(addsuffix .o, $(MAIN_FILES))
 ALLOC_OBJS = $(addsuffix .o, $(ALLOC_FILES))

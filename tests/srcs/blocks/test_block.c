@@ -12,6 +12,15 @@
 
 #include "malloc_test.h"
 
+static bool		is_block_in_bucket(t_block *block, t_zone *zone,
+	int zone_type)
+{
+	(void)block;
+	(void)zone;
+	(void)zone_type;
+	return (false);
+}
+
 void			test_block(void *ptr, size_t size, t_block_status status)
 {
 	int			zone_type;
@@ -19,7 +28,11 @@ void			test_block(void *ptr, size_t size, t_block_status status)
 	t_block		*block;
 
 	if (!(block = get_block_info(ptr, &zone, &zone_type)))
-	{} //error
-	test_block_header(block, size, status);
-	// test_block_
+		error_exit("ptr is an invalid pointer");
+	if ((size_t)BLOCK_SIZE(block->size_log2) <= size)
+		error_exit("bad value of block->size_log2");
+	if (status == Allocated && block->next)
+		error_exit("block->next of allocated block is not null");
+	if (status == Allocated && is_block_in_bucket(block, zone, zone_type))
+		error_exit("block is both allocated and inside bucket");
 }
