@@ -12,12 +12,9 @@
 
 #include "malloc_test.h"
 
-void			test_block_header(void *ptr, size_t size,
-					t_block_status status)
+void	test_block_header(t_block *block, size_t size,
+			t_block_status status)
 {
-	t_block		*block;
-
-	block = (t_block*)ptr - 1;
 	if ((size_t)BLOCK_SIZE(block->size_log2) <= size)
 		error_exit("bad value of block->size_log2");
 	if (status == Allocated && block->next)

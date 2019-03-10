@@ -93,8 +93,8 @@ void				*allocate(size_t size);
 void				*allocate_small(size_t size, int zone_size);
 void				*allocate_large(size_t size);
 
-void				find_block_info(void *ptr, t_block **block,
-						t_zone **zone, int *zone_type);
+t_block				*get_block_info(void *ptr, t_zone **zone,
+						int *zone_type);
 
 t_block				*get_block(int zone_size, int size_log2);
 t_block				*get_block_from_zones(t_zone *zones,

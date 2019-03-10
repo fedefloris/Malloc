@@ -33,7 +33,7 @@ void			error_exit(char *message);
 
 void			test_block(void *ptr, size_t size,
 					t_block_status status);
-void			test_block_header(void *ptr, size_t size,
+void			test_block_header(t_block *block, size_t size,
 					t_block_status status);
 
 #endif

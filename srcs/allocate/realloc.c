@@ -18,8 +18,7 @@ static void		*reallocate_block(void *ptr, size_t size)
 	t_block		*block;
 	t_zone		*zone;
 
-	find_block_info(ptr, &block, &zone, &zone_type);
-	if (!block)
+	if (!(block = get_block_info(ptr, &zone, &zone_type)))
 		return (NULL);
 	if (BLOCK_SIZE(block->size_log2) - sizeof(t_block) >= size)
 		return (ptr);

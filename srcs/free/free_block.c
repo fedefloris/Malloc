@@ -21,8 +21,7 @@ void			free_block(void *ptr)
 
 	if (!ptr || free_large_block(ptr))
 		return ;
-	find_block_info(ptr, &block, &zone, &zone_type);
-	if (!block)
+	if (!(block = get_block_info(ptr, &zone, &zone_type)))
 		return ;
 	max_log2 = (zone_type == TINY_ZONE_SIZE) ?
 		TINY_MAX_LOG2 : SMALL_MAX_LOG2;

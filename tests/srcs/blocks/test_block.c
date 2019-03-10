@@ -14,5 +14,12 @@
 
 void			test_block(void *ptr, size_t size, t_block_status status)
 {
-	test_block_header(ptr, size, status);
+	int			zone_type;
+	t_zone		*zone;
+	t_block		*block;
+
+	if (!(block = get_block_info(ptr, &zone, &zone_type)))
+	{} //error
+	test_block_header(block, size, status);
+	// test_block_
 }

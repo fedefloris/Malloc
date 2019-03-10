@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_block_info.c                                  :+:      :+:    :+:   */
+/*   get_block_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -48,15 +48,17 @@ static t_zone	*find_zone(t_zone *zones,
 	return (NULL);
 }
 
-void			find_block_info(void *ptr, t_block **block,
-	t_zone **zone, int *zone_type)
+t_block			*get_block_info(void *ptr,	t_zone **zone, int *zone_type)
 {
+	t_block		*block;
+
 	*zone_type = 0;
-	*block = (t_block*)((char*)ptr - sizeof(t_block));
-	if ((*zone = find_zone(g_zones.tinies, TINY_ZONE_SIZE, *block)))
+	block = (t_block*)ptr - 1;
+	if ((*zone = find_zone(g_zones.tinies, TINY_ZONE_SIZE, block)))
 		*zone_type = TINY_ZONE_SIZE;
-	else if ((*zone = find_zone(g_zones.smalls, SMALL_ZONE_SIZE, *block)))
+	else if ((*zone = find_zone(g_zones.smalls, SMALL_ZONE_SIZE, block)))
 		*zone_type = SMALL_ZONE_SIZE;
 	else
-		*block = NULL;
+		return (NULL);
+	return (block);
 }
