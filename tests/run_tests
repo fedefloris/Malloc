@@ -24,10 +24,11 @@ NORMAL_TEXT=$(tput sgr0)
 TEST_MAIN=malloc_test
 
 # Run unit testing
+printf "\n${BOLD_TEXT}Run unit testing:${NORMAL_TEXT}\n"
 ./$TEST_MAIN
 
 # If unit testing was successful, test the 16-byte alignment
-echo "${BOLD_TEXT}Testing 16-byte alignment:${NORMAL_TEXT}"
+printf "\n${BOLD_TEXT}Testing 16-byte alignment:${NORMAL_TEXT}\n"
 
 # Inject dynamic lib on MacOS
 set env DYLD_INSERT_LIBRARIES ../libft_malloc.so
@@ -45,5 +46,7 @@ for command in "${commands[@]}"; do
     else
         RESULT=${RED}KO${WHITE}
     fi
-    echo "  - Testing with ${BOLD_TEXT}${command}${NORMAL_TEXT} ${RESULT}"
+    printf "  - Testing with ${BOLD_TEXT}${command}${NORMAL_TEXT} ${RESULT}\n"
 done
+
+printf "\n"
