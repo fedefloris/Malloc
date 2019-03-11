@@ -14,9 +14,11 @@
 
 void		show_alloc_mem(void)
 {
+	pthread_mutex_lock(&g_mutex);
 	ft_putstr("\n\nMemory state:\n\n");
 	display_zones(g_zones.tinies, "TINY");
 	display_zones(g_zones.smalls, "SMALL");
 	display_zones(g_zones.larges, "LARGE");
 	ft_putstr("\n\n");
+	pthread_mutex_unlock(&g_mutex);
 }
