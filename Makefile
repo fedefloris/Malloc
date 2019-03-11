@@ -6,7 +6,7 @@
 #    By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/13 09:39:19 by ffloris           #+#    #+#              #
-#    Updated: 2019/02/21 20:16:29 by ffloris          ###   ########.fr        #
+#    Updated: 2019/03/11 07:46:11 by ffloris          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,12 +103,11 @@ tests: all
 comp_libft:
 	@make -C $(LIBFT_DIR)/ GCC_FLAGS=$(GCC_FLAGS)
 
-$(SYM_LIB_NAME):
-	@ln -s $(LIB_NAME) $(SYM_LIB_NAME)
-
-$(LIB_NAME): $(LIBFT_FILE) $(OBJS_DIRS) $(OBJS)
+$(NAME): $(LIBFT_FILE) $(OBJS_DIRS) $(OBJS)
 	@$(CC) -shared $(OBJS) $(LIBFT_FILE) -o $(LIB_NAME)
 	@echo $(CREATED_TEXT)
+	@rm -rf $(SYM_LIB_NAME)
+	@ln -s $(LIB_NAME) $(SYM_LIB_NAME)
 
 $(OBJS_DIRS):
 	@mkdir -p $(OBJS_DIRS)
