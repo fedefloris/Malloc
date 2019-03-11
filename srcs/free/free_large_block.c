@@ -41,6 +41,6 @@ bool			free_large_block(void *ptr)
 		g_zones.larges = zone->next;
 	else
 		prev->next = zone->next;
-	munmap((void*)zone, zone->size); // check return code?
+	munmap((void*)zone, zone->size);
 	return (true);
 }

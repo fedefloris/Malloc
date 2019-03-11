@@ -12,21 +12,6 @@
 
 #include "malloc.h"
 
-// static bool		find_block()
-// {
-	// t_block		*curr;
-	// should I check all blocks?
-	// curr = (t_block*)(zone + 1);
-	// while ((char*)curr < (char*)zone + zone->size)
-	// {
-	// check if curr->size_log2 == 0 to avoid useless loop cycles
-	// 	if (curr == block)
-	// 		return (block);
-	// 	curr = (t_block*)((char*)curr + (1 << curr->size_log2));
-	// }
-	// return (NULL);
-// }
-
 static t_zone	*find_zone(t_zone *zones,
 	int zone_type, char *block)
 {
@@ -46,11 +31,10 @@ static t_zone	*find_zone(t_zone *zones,
 			return (zones);
 		zones = zones->next;
 	}
-	// if debugging variable SAFE check also block addr in blocks
 	return (NULL);
 }
 
-t_block			*get_block_info(void *ptr,	t_zone **zone, int *zone_type)
+t_block			*get_block_info(void *ptr, t_zone **zone, int *zone_type)
 {
 	t_block		*block;
 

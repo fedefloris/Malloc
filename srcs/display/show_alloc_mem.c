@@ -14,7 +14,7 @@
 
 void		show_alloc_mem(void)
 {
-	ft_putstr("\n\n");
+	ft_putstr("\n\nMemory state:\n\n");
 	display_zones(g_zones.tinies, "TINY");
 	display_zones(g_zones.smalls, "SMALL");
 	display_zones(g_zones.larges, "LARGE");

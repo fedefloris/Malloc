@@ -37,5 +37,5 @@ void			remove_zone(t_zone *zone, int zone_type)
 		*zones = (*zones)->next;
 	else
 		prev->next = zone->next;
-	munmap((void*)zone, zone->size); // check return code?
+	munmap((void*)zone, zone->size);
 }
