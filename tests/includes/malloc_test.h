@@ -15,7 +15,10 @@
 
 # include "malloc.h"
 
-# define ERROR_MESSAGE_HEADER "Error: "
+# define ERROR_COLOR "\033[1;31m"
+# define STANDARD_COLOR "\033[0m"
+
+# define ERROR_MESSAGE_HEADER "  Error: "
 # define EXIT_ERROR_STATUS 1
 # define STD_ERROR 2
 
