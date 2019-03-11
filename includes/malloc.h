@@ -93,14 +93,16 @@ void				*allocate(size_t size);
 void				*allocate_small(size_t size, int zone_size);
 void				*allocate_large(size_t size);
 
-t_block				*get_block_info(void *ptr, t_zone **zone,
-						int *zone_type);
-
 t_block				*get_block(int zone_size, int size_log2);
 t_block				*get_block_from_zones(t_zone *zones,
 						int zone_size, int size_log2);
 t_block				*get_block_from_zone(t_zone *zone,
 						int zone_size, int size_log2);
+
+t_block				*get_block_info(void *ptr, t_zone **zone,
+						int *zone_type);
+bool				find_block(t_block *blocks, t_block *block,
+						t_block **prev);
 
 t_zone				*add_zone(int zone_type, size_t size);
 void				remove_zone(t_zone *zone, int zone_type);

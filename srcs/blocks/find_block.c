@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_small_block.c                                 :+:      :+:    :+:   */
+/*   find_block.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,31 +12,18 @@
 
 #include "malloc.h"
 
-void			free_small_block(t_block **blocks, t_block **block,
-	int max_log2)
+bool		find_block(t_block *blocks, t_block *block,
+	t_block **prev)
 {
-	int			size_log2;
-	t_block		*buddy;
-	t_block		*prev;
-
-	size_log2 = (*block)->size_log2;
-	while (size_log2 <= max_log2)
+	if (prev)
+		*prev = NULL;
+	while (blocks)
 	{
-		buddy = (t_block*)BUDDY((char*)(blocks + max_log2 + 1),
-			(char*)*block, size_log2);
-		if (size_log2 == max_log2 ||
-			!find_block(blocks[size_log2], buddy, &prev))
-		{
-			(*block)->size_log2 = size_log2;
-			(*block)->next = blocks[size_log2];
-			blocks[size_log2] = *block;
-			return ;
-		}
-		if (!prev)
-			blocks[size_log2] = buddy->next;
-		else
-			prev->next = buddy->next;
-		*block = (*block < buddy) ? *block : buddy;
-		size_log2++;
+		if (block == blocks)
+			return (true);
+		if (prev)
+			*prev = blocks;
+		blocks = blocks->next;
 	}
+	return (false);
 }
