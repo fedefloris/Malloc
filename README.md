@@ -10,6 +10,33 @@ For more details look at the [subject](subject.pdf).
 ```console
 git clone --recursive https://github.com/fedefloris/Malloc.git && cd Malloc && make
 ```
+Now you should see **libft_malloc.so** in the root folder.
+```console
+gcc your_file.c libft_malloc.so -I includes -I libft/includes
+```
+Example of **your_file.c**:
+```c
+#include "malloc.h"
+
+int     main(void)
+{
+  void  *ptr;
+
+  if (!(ptr = malloc(30)))
+    ft_printf("malloc call failed\n");
+  // ...
+  // use ptr
+  // ...
+  free(ptr);
+  return (0);
+}
+```
+Unless you copy the library into one of the standard directories (e.g., /usr/lib), you need to specify the location of **libft_malloc.so**.
+
+On Linux you can use **LD_LIBRARY_PATH**.
+```console
+export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH
+```
 
 ## Running the tests
 ```console
