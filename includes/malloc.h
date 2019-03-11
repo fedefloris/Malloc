@@ -73,8 +73,6 @@ typedef struct		s_zone
 
 # define LARGE_THRESHOLD (SMALL_THRESHOLD + 1)
 
-# define MAX_BLOCK_SIZE (ULONG_MAX - LARGE_ZONE_HEADER_SIZE)
-
 typedef struct		s_zones
 {
 	t_zone			*tinies;
