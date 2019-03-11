@@ -35,7 +35,4 @@ void			test_blocks(size_t block_size, size_t tests_count);
 void			test_block(void *ptr, size_t size,
 					t_block_status status);
 
-bool			is_block_in_bucket(t_block *block, t_zone *zone,
-					int zone_type);
-
 #endif

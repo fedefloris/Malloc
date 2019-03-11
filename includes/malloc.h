@@ -100,6 +100,8 @@ t_block				*get_block_from_zone(t_zone *zone,
 
 t_block				*get_block_info(void *ptr, t_zone **zone,
 						int *zone_type);
+bool				is_block_in_bucket(t_block *block, t_zone *zone,
+						int zone_type);
 bool				find_block(t_block *blocks, t_block *block,
 						t_block **prev);
 

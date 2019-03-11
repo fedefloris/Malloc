@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc_test.h"
+#include "malloc.h"
 
 bool		is_block_in_bucket(t_block *block, t_zone *zone,
 	int zone_type)
