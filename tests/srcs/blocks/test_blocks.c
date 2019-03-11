@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_free.c                                        :+:      :+:    :+:   */
+/*   test_blocks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,16 @@
 
 #include "malloc_test.h"
 
-void		test_free(void)
+void		test_blocks(size_t block_size, size_t tests_count)
 {
+	void	*ptr;
 
+	while (tests_count--)
+	{
+		if (!(ptr = malloc(block_size)))
+			error_exit("malloc returned a null pointer");
+		test_block(ptr, block_size, Allocated);
+		free(ptr);
+		test_block(ptr, block_size, Free);
+	}
 }

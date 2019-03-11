@@ -24,30 +24,21 @@ LIBFT_MALLOC_FILE = $(MALLOC_DIR)/libft_malloc.so
 
 MAIN_FILES = test
 
-ALLOC_FILES = test_malloc
-
-FREE_FILES = test_free
-
 ERRORS_FILES = error_exit
 
 BLOCKS_FILES = is_block_in_bucket \
-	test_block
+	test_block \
+	test_blocks
 
 MAIN_OBJS = $(addsuffix .o, $(MAIN_FILES))
-ALLOC_OBJS = $(addsuffix .o, $(ALLOC_FILES))
-FREE_OBJS = $(addsuffix .o, $(FREE_FILES))
 BLOCKS_OBJS = $(addsuffix .o, $(BLOCKS_FILES))
 ERRORS_OBJS = $(addsuffix .o, $(ERRORS_FILES))
 
 OBJS_DIR = objs
 MAIN_OBJS_DIR = $(OBJS_DIR)/main
-ALLOC_OBJS_DIR = $(OBJS_DIR)/alloc
-FREE_OBJS_DIR = $(OBJS_DIR)/free
 BLOCKS_OBJS_DIR = $(OBJS_DIR)/blocks
 ERRORS_OBJS_DIR = $(OBJS_DIR)/errors
 OBJS_DIRS = $(MAIN_OBJS_DIR) \
-	$(ALLOC_OBJS_DIR) \
-	$(FREE_OBJS_DIR) \
 	$(BLOCKS_OBJS_DIR) \
 	$(ERRORS_OBJS_DIR)
 
@@ -60,8 +51,6 @@ HEADERS = $(addsuffix .h, $(patsubst %, $(INCLUDES_DIR)/%, $(INCLUDES_FILES)))
 HEADERS += $(LIBFT_INCLUDES)/libft.h $(MALLOC_INCLUDES)/malloc.h
 
 OBJS = $(addprefix $(MAIN_OBJS_DIR)/, $(MAIN_OBJS))
-OBJS += $(addprefix $(ALLOC_OBJS_DIR)/, $(ALLOC_OBJS))
-OBJS += $(addprefix $(FREE_OBJS_DIR)/, $(FREE_OBJS))
 OBJS += $(addprefix $(BLOCKS_OBJS_DIR)/, $(BLOCKS_OBJS))
 OBJS += $(addprefix $(ERRORS_OBJS_DIR)/, $(ERRORS_OBJS))
 

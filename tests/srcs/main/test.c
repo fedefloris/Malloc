@@ -14,7 +14,13 @@
 
 int		main(void)
 {
-	test_malloc();
-	test_free();
+	test_blocks(1, 1000);
+	test_blocks(16, 1000);
+	test_blocks(350, 1000);
+	test_blocks(TINY_THRESHOLD - sizeof(t_block), 1000);
+	test_blocks(SMALL_THRESHOLD - sizeof(t_block), 1000);
+	test_blocks(TINY_THRESHOLD, 1000);
+	test_blocks(SMALL_THRESHOLD, 1000);
+	test_blocks(LARGE_THRESHOLD, 1000);
 	return (0);
 }
