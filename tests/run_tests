@@ -41,8 +41,8 @@ if ! ./$TEST_MAIN; then
 	EXIT_STATUS=$EXIT_ERROR_STATUS
 fi
 
-# If unit testing was successful, test the 16-byte alignment
-printf "\n${BOLD_TEXT}Testing 16-byte alignment:${NORMAL_TEXT}\n"
+# If unit testing was successful, test malloc with some commands
+printf "\n${BOLD_TEXT}Testing commands:${NORMAL_TEXT}\n"
 
 commands=(
 	"ls"

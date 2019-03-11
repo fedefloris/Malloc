@@ -12,19 +12,25 @@
 
 #include "malloc_test.h"
 
-# define COUNT 250
-
-void		test_malloc(void)
+static void		test_blocks(size_t block_size, size_t tests_count)
 {
-	char	*mem[COUNT];
-	int		count;
+	void		*ptr;
 
-	count = 0;
-	while (count < COUNT)
+	while (tests_count--)
 	{
-		if (!(mem[count] = malloc(450)))
+		if (!(ptr = malloc(block_size)))
 			error_exit("malloc returned null");
-		test_block(mem[count], 450, Allocated);
-		count++;
+		test_block(ptr, block_size, Allocated);
 	}
+}
+
+void			test_malloc(void)
+{
+	test_blocks(1, 1000);
+	test_blocks(TINY_THRESHOLD - sizeof(t_block), 1000);
+	test_blocks(SMALL_THRESHOLD - sizeof(t_block), 1000);
+	test_blocks(TINY_THRESHOLD, 1000);
+	test_blocks(SMALL_THRESHOLD, 1000);
+	test_blocks(LARGE_THRESHOLD, 1000);
+	// test_blocks(MAX_BLOCK_SIZE, 1000);
 }

@@ -19,13 +19,13 @@ void			test_block(void *ptr, size_t size, t_block_status status)
 	t_block		*block;
 
 	if ((intptr_t)ptr % 16 != 0)
-		error_exit("ptr is not 16-byte aligned");
+		error_exit("ptr is not 16-bytes aligned");
 	block = get_block_info(ptr, &zone, &zone_type);
 	if (zone_type == LARGE_THRESHOLD)
 		return ;
 	if (!block)
 		error_exit("ptr is an invalid pointer");
-	if ((size_t)BLOCK_SIZE(block->size_log2) <= size)
+	if (status == Allocated && (size_t)BLOCK_SIZE(block->size_log2) <= size)
 		error_exit("bad value of block->size_log2");
 	if (status == Allocated && block->next)
 		error_exit("block->next of allocated block is not null");
