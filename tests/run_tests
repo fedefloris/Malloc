@@ -12,6 +12,10 @@
 #                                                                              #
 # **************************************************************************** #
 
+# Exits status
+EXIT_ERROR_STATUS=1
+EXIT_STATUS=0
+
 # Colors
 RED=$(tput setaf 1)
 WHITE=$(tput setaf 7)
@@ -33,7 +37,9 @@ export LD_PRELOAD="../libft_malloc.so"
 
 # Run unit testing
 printf "\n${BOLD_TEXT}Run unit testing:${NORMAL_TEXT}\n"
-./$TEST_MAIN
+if ! ./$TEST_MAIN; then
+	EXIT_STATUS=$EXIT_ERROR_STATUS
+fi
 
 # If unit testing was successful, test the 16-byte alignment
 printf "\n${BOLD_TEXT}Testing 16-byte alignment:${NORMAL_TEXT}\n"
@@ -47,11 +53,14 @@ commands=(
 for command in "${commands[@]}"; do
 	${command} 2>&1 > /dev/null
 	if [ $? -eq 0 ]; then
-		RESULT=${GREEN}OK${WHITE}
+		RESULT="${GREEN}OK${WHITE}"
 	else
-		RESULT=${RED}KO${WHITE}
+		RESULT="${RED}KO${WHITE}"
+		EXIT_STATUS=$EXIT_ERROR_STATUS
 	fi
 	printf "  - Testing with ${BOLD_TEXT}${command}${NORMAL_TEXT} ${RESULT}\n"
 done
 
 printf "\n"
+
+exit $EXIT_STATUS
