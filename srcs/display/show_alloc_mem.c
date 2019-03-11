@@ -15,10 +15,11 @@
 void		show_alloc_mem(void)
 {
 	pthread_mutex_lock(&g_mutex);
-	ft_putstr("\n\nMemory state:\n\n");
-	display_zones(g_zones.tinies, "TINY");
-	display_zones(g_zones.smalls, "SMALL");
-	display_zones(g_zones.larges, "LARGE");
-	ft_putstr("\n\n");
+	ft_printf("-- Allocated tiny blocks --\n");
+	display_zones(g_zones.tinies, TINY_ZONE_SIZE);
+	ft_printf("-- Allocated small blocks --\n");
+	display_zones(g_zones.smalls, SMALL_ZONE_SIZE);
+	ft_printf("-- Allocated large blocks --\n");
+	display_zones(g_zones.larges, LARGE_THRESHOLD);
 	pthread_mutex_unlock(&g_mutex);
 }

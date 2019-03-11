@@ -12,65 +12,36 @@
 
 #include "malloc.h"
 
-// static void		display_free_blocks(t_block **free_blocks,
-// 	int max_log2)
-// {
-// 	t_block		*block;
-// 	size_t		max;
-//
-// 	max = max_log2;
-// 	while (max_log2 >= MINIMUM_LOG2)
-// 	{
-// 		ft_printf("free_blocks[%d]:", max_log2);
-// 		block = free_blocks[max_log2];
-// 		while (block)
-// 		{
-// 			ft_printf(" %p", block);
-// 			block = block->next;
-// 		}
-// 		ft_putstr("\n\n");
-// 		max_log2--;
-// 	}
-// }
-
-static void		display_blocks(t_zone *zone, char *zones_name)
+static void		display_blocks(t_zone *zone, int zone_type)
 {
 	t_block		*block;
 
-	if (!ft_strcmp(zones_name, "TINY"))
+	if (zone_type == TINY_ZONE_SIZE)
 		block = (t_block*)((char*)zone + TINY_ZONE_HEADER_SIZE);
-	else if (!ft_strcmp(zones_name, "SMALL"))
+	else if (zone_type == SMALL_ZONE_SIZE)
 		block = (t_block*)((char*)zone + SMALL_ZONE_HEADER_SIZE);
 	else
 		return ;
 	while ((char*)block < (char*)zone + zone->size
 		&& block->size_log2)
 	{
-		ft_printf("%p - %zd bytes\n",
-			block, (size_t)BLOCK_SIZE(block->size_log2));
+		if (!is_block_in_bucket(block, zone, zone_type))
+		{
+			ft_printf("%p - %zd bytes\n",
+				block, (size_t)BLOCK_SIZE(block->size_log2));
+		}
 		block = (t_block*)((char*)block + BLOCK_SIZE(block->size_log2));
 	}
-	// int			max_log2;
-	//
-	// if (!ft_strcmp(zones_name, "TINY"))
-	// 	max_log2 = TINY_MAX_LOG2;
-	// else if (!ft_strcmp(zones_name, "SMALL"))
-	// 	max_log2 = SMALL_MAX_LOG2;
-	// else
-	// 	return ;
-	// display_free_blocks((t_block**)(zone 1),
-	// 	max_log2);
 }
 
-void			display_zones(t_zone *zone, char *zones_name)
+void			display_zones(t_zone *zone, int zone_type)
 {
-	ft_printf("--%s--\n", zones_name);
 	while (zone)
 	{
 		ft_printf("\nZone from %p to %p, size: %zu bytes, next: %p\n\n",
 			zone, (char*)zone + zone->size,
 			zone->size, zone->next);
-		display_blocks(zone, zones_name);
+		display_blocks(zone, zone_type);
 		zone = zone->next;
 	}
 	ft_putstr("\n");

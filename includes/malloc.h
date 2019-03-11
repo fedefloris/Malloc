@@ -121,6 +121,6 @@ void				free_small_block(t_block **blocks, t_block **block,
 						int max_log2);
 
 void				show_alloc_mem();
-void				display_zones(t_zone *zone, char *zones_name);
+void				display_zones(t_zone *zone, int zone_type);
 
 #endif
