@@ -23,15 +23,8 @@ void		test_malloc(void)
 	while (count < COUNT)
 	{
 		if (!(mem[count] = malloc(450)))
-			ft_printf("Fail to allocate\n");
-		count++;
-	}
-	count = 0;
-	while (count < COUNT)
-	{
+			error_exit("malloc returned null");
 		test_block(mem[count], 450, Allocated);
-		free(mem[count]);
 		count++;
 	}
-	show_alloc_mem();
 }
