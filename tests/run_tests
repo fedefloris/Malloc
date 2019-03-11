@@ -21,7 +21,15 @@ GREEN=$(tput setaf 2)
 BOLD_TEXT=$(tput bold)
 NORMAL_TEXT=$(tput sgr0)
 
-TEST_MAIN=malloc_test
+TEST_MAIN="malloc_test"
+
+# Inject dynamic lib on macOS
+export DYLD_INSERT_LIBRARIES="../libft_malloc.so"
+export DYLD_FORCE_FLAT_NAMESPACE="1"
+export DYLD_LIBRARY_PATH="../"
+
+# Inject dynamic lib on Linux
+export LD_PRELOAD="../libft_malloc.so"
 
 # Run unit testing
 printf "\n${BOLD_TEXT}Run unit testing:${NORMAL_TEXT}\n"
@@ -29,14 +37,6 @@ printf "\n${BOLD_TEXT}Run unit testing:${NORMAL_TEXT}\n"
 
 # If unit testing was successful, test the 16-byte alignment
 printf "\n${BOLD_TEXT}Testing 16-byte alignment:${NORMAL_TEXT}\n"
-
-# Inject dynamic lib on macOS
-set env DYLD_INSERT_LIBRARIES ../libft_malloc.so
-set env DYLD_FORCE_FLAT_NAMESPACE 1
-set env DYLD_LIBRARY_PATH ../
-
-# Inject dynamic lib on Linux
-set env LD_PRELOAD ../libft_malloc.so
 
 commands=(
 	"ls"
