@@ -37,8 +37,8 @@ typedef struct		s_zone
 ** Block sizes as a power of 2.
 */
 # define MINIMUM_LOG2 5
-# define TINY_MAX_LOG2 10
-# define SMALL_MAX_LOG2 15
+# define TINY_MAX_LOG2 11
+# define SMALL_MAX_LOG2 16
 
 # define BLOCK_SIZE(size_log2) (1 << (size_log2))
 # define ROUND_UP(from, to) ((int)round_up_to(from, to))
