@@ -45,10 +45,13 @@ fi
 printf "\n${BOLD_TEXT}Testing commands:${NORMAL_TEXT}\n"
 
 commands=(
-	"ls"
-	"ls -lRh"
-	"ls -l /"
 	"find ."
+	"ls"
+	"ls -l /"
+	"ls -lRh"
+	"ls -lRh ../"
+	"grep -r '#' ."
+	"nm ./malloc_test"
 )
 for command in "${commands[@]}"; do
 	${command} 2>&1 > /dev/null
