@@ -18,8 +18,10 @@ void			test_block(void *ptr, size_t size, t_block_status status)
 	t_zone		*zone;
 	t_block		*block;
 
-	// deal with large blocks
-	if (!(block = get_block_info(ptr, &zone, &zone_type)))
+	block = get_block_info(ptr, &zone, &zone_type);
+	if (zone_type == LARGE_THRESHOLD)
+		return ;
+	if (!block)
 		error_exit("ptr is an invalid pointer");
 	if ((size_t)BLOCK_SIZE(block->size_log2) <= size)
 		error_exit("bad value of block->size_log2");
