@@ -30,7 +30,8 @@ FREE_FILES = test_free
 
 ERRORS_FILES = error_exit
 
-BLOCKS_FILES = test_block
+BLOCKS_FILES = is_block_in_bucket \
+	test_block
 
 MAIN_OBJS = $(addsuffix .o, $(MAIN_FILES))
 ALLOC_OBJS = $(addsuffix .o, $(ALLOC_FILES))

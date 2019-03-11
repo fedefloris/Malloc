@@ -12,28 +12,6 @@
 
 #include "malloc_test.h"
 
-static bool		is_block_in_bucket(t_block *block, t_zone *zone,
-	int zone_type)
-{
-	t_block		**buckets;
-	int			size_log2;
-	int			max_log2;
-
-	if (zone_type == LARGE_THRESHOLD)
-		return (false);
-	size_log2 = MINIMUM_LOG2;
-	buckets = (t_block**)(zone + 1);
-	max_log2 = (zone_type == TINY_ZONE_SIZE)
-		? TINY_MAX_LOG2 : SMALL_MAX_LOG2;
-	while (size_log2 <= max_log2)
-	{
-		if (find_block(buckets[size_log2], block, NULL))
-			return (true);
-		size_log2++;
-	}
-	return (false);
-}
-
 void			test_block(void *ptr, size_t size, t_block_status status)
 {
 	int			zone_type;
