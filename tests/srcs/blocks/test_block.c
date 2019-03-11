@@ -15,9 +15,22 @@
 static bool		is_block_in_bucket(t_block *block, t_zone *zone,
 	int zone_type)
 {
-	(void)block;
-	(void)zone;
-	(void)zone_type;
+	t_block		**buckets;
+	int			size_log2;
+	int			max_log2;
+
+	if (zone_type == LARGE_THRESHOLD)
+		return (false);
+	size_log2 = MINIMUM_LOG2;
+	buckets = (t_block**)(zone + 1);
+	max_log2 = (zone_type == TINY_ZONE_SIZE)
+		? TINY_MAX_LOG2 : SMALL_MAX_LOG2;
+	while (size_log2 <= max_log2)
+	{
+		if (find_block(buckets[size_log2], block, NULL))
+			return (true);
+		size_log2++;
+	}
 	return (false);
 }
 
@@ -27,6 +40,7 @@ void			test_block(void *ptr, size_t size, t_block_status status)
 	t_zone		*zone;
 	t_block		*block;
 
+	// deal with large blocks
 	if (!(block = get_block_info(ptr, &zone, &zone_type)))
 		error_exit("ptr is an invalid pointer");
 	if ((size_t)BLOCK_SIZE(block->size_log2) <= size)
