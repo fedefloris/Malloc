@@ -32,5 +32,4 @@ void			test_malloc(void)
 	test_blocks(TINY_THRESHOLD, 1000);
 	test_blocks(SMALL_THRESHOLD, 1000);
 	test_blocks(LARGE_THRESHOLD, 1000);
-	// test_blocks(MAX_BLOCK_SIZE, 1000);
 }

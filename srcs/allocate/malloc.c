@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-t_zones			g_zones = {NULL, NULL, NULL};
+t_zones			g_zones = {NULL, NULL, NULL, {'\0'}};
 
 pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
 

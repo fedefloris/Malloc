@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-void			free(void *ptr)
+void		free(void *ptr)
 {
 	pthread_mutex_lock(&g_mutex);
 	free_block(ptr);

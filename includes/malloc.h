@@ -80,6 +80,7 @@ typedef struct		s_zones
 	t_zone			*tinies;
 	t_zone			*smalls;
 	t_zone			*larges;
+	char			empty_malloc[1];
 }					t_zones;
 
 extern t_zones			g_zones;

@@ -19,7 +19,7 @@ void			free_block(void *ptr)
 	t_block		*block;
 	t_zone		*zone;
 
-	if (!ptr || free_large_block(ptr))
+	if (!ptr || ptr == g_zones.empty_malloc || free_large_block(ptr))
 		return ;
 	if (!(block = get_block_info(ptr, &zone, &zone_type)))
 		return ;
