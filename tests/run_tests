@@ -30,23 +30,28 @@ printf "\n${BOLD_TEXT}Run unit testing:${NORMAL_TEXT}\n"
 # If unit testing was successful, test the 16-byte alignment
 printf "\n${BOLD_TEXT}Testing 16-byte alignment:${NORMAL_TEXT}\n"
 
-# Inject dynamic lib on MacOS
+# Inject dynamic lib on macOS
 set env DYLD_INSERT_LIBRARIES ../libft_malloc.so
+set env DYLD_FORCE_FLAT_NAMESPACE 1
+set env DYLD_LIBRARY_PATH ../
+
+# Inject dynamic lib on Linux
+set env LD_PRELOAD ../libft_malloc.so
 
 commands=(
-    "ls"
-    "ls -lRh"
-    "ls -l /"
-    "find ."
+	"ls"
+	"ls -lRh"
+	"ls -l /"
+	"find ."
 )
 for command in "${commands[@]}"; do
-    LD_PRELOAD=../libft_malloc.so ${command} 2>&1 > /dev/null
-    if [ $? -eq 0 ]; then
-        RESULT=${GREEN}OK${WHITE}
-    else
-        RESULT=${RED}KO${WHITE}
-    fi
-    printf "  - Testing with ${BOLD_TEXT}${command}${NORMAL_TEXT} ${RESULT}\n"
+	${command} 2>&1 > /dev/null
+	if [ $? -eq 0 ]; then
+		RESULT=${GREEN}OK${WHITE}
+	else
+		RESULT=${RED}KO${WHITE}
+	fi
+	printf "  - Testing with ${BOLD_TEXT}${command}${NORMAL_TEXT} ${RESULT}\n"
 done
 
 printf "\n"
