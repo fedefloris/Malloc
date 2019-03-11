@@ -13,7 +13,7 @@
 #include "malloc.h"
 #include "malloc_test.h"
 
-void	   error_exit(char *message)
+void		error_exit(char *message)
 {
 	ft_putstr_fd(ERROR_MESSAGE_HEADER, STD_ERROR);
 	ft_putendl_fd(message, STD_ERROR);

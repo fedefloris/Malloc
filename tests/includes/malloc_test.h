@@ -19,7 +19,7 @@
 # define EXIT_ERROR_STATUS 1
 # define STD_ERROR 2
 
-typedef enum    e_block_status
+typedef enum	e_block_status
 {
 	Free,
 	Allocated
