@@ -63,9 +63,9 @@ t_block			*get_block_info(void *ptr,	t_zone **zone, int *zone_type)
 			SMALL_ZONE_SIZE, (char*)block)))
 		*zone_type = SMALL_ZONE_SIZE;
 	else if ((*zone = find_zone(g_zones.larges,
-			TINY_THRESHOLD, (char*)ptr)))
+			LARGE_THRESHOLD, (char*)ptr)))
 	{
-		*zone_type = TINY_THRESHOLD;
+		*zone_type = LARGE_THRESHOLD;
 		return (NULL);
 	}
 	else
