@@ -10,11 +10,11 @@ For more details look at the [subject](subject.pdf).
 ```console
 git clone --recursive https://github.com/fedefloris/Malloc.git && cd Malloc && make
 ```
-Now you should see **libft_malloc.so** in the root folder.
+Now you should see `libft_malloc.so` in the root folder.
 ```console
 gcc your_file.c libft_malloc.so -I includes -I libft/includes
 ```
-Example of **your_file.c**:
+Example of `your_file.c`:
 ```c
 #include "malloc.h"
 
@@ -31,13 +31,17 @@ int     main(void)
   return (0);
 }
 ```
-Unless you copy the library into one of the standard directories (e.g., /usr/lib), you need to specify the location of **libft_malloc.so**.
+Unless you copy the library into one of the standard directories (e.g., /usr/lib), you need to specify the location of `libft_malloc.so`.
 
-On Linux you can use **LD_LIBRARY_PATH**.
+On Linux you can use `LD_LIBRARY_PATH`.
 ```console
 export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH
 ```
 
+You could also use `LD_PRELOAD` to run programs with `libft_malloc.so` implementations of `malloc()`, `realloc()`, `calloc()` and `free()`:
+```console
+LD_PRELOAD=./libft_malloc.so ls
+```
 ## Running the tests
 ```console
 make tests
