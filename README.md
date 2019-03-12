@@ -22,7 +22,7 @@ int     main(void)
 {
   void  *ptr;
 
-  if (!(ptr = malloc(30)))
+  if (!(ptr = malloc(15)))
     ft_printf("malloc call failed\n");
   // ...
   // use ptr
