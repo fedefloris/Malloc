@@ -12,14 +12,30 @@
 
 #include "malloc.h"
 
+static void		*reallocate_large_block(void *ptr, size_t size)
+{
+	t_zone		*zone;
+
+	zone = (t_zone*)ptr - 1;
+	if (zone->size - LARGE_ZONE_HEADER_SIZE >= size)
+		return (ptr);
+	if (!(ptr = allocate(size)))
+		return (NULL);
+	ft_memcpy(ptr, zone + 1, zone->size - LARGE_ZONE_HEADER_SIZE);
+	free_large_block(zone + 1);
+	return (ptr);
+}
+
 static void		*reallocate_block(void *ptr, size_t size)
 {
 	int			zone_type;
 	t_block		*block;
 	t_zone		*zone;
 
-	// deal with large block
-	if (!(block = get_block_info(ptr, &zone, &zone_type)))
+	block = get_block_info(ptr, &zone, &zone_type);
+	if (zone_type == LARGE_THRESHOLD)
+		return (reallocate_large_block(ptr, size));
+	if (!block)
 		return (NULL);
 	if (BLOCK_SIZE(block->size_log2) - sizeof(t_block) >= size)
 		return (ptr);
