@@ -21,7 +21,7 @@ void			test_allocated_block(void *ptr, size_t size)
 	if ((intptr_t)ptr % 16 != 0)
 		error_exit("ptr is not 16-bytes aligned");
 	block = get_block_info(ptr, &zone, &zone_type);
-	if (zone_type == LARGE_THRESHOLD)
+	if (ptr == g_zones.empty_malloc || zone_type == LARGE_THRESHOLD)
 		return ;
 	if (!block)
 		error_exit("ptr is an invalid pointer");
