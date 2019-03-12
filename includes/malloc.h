@@ -18,12 +18,26 @@
 # include <pthread.h>
 # include <sys/mman.h>
 
+/*
+** Block header for tiny and small blocks
+*/
 typedef struct		s_block
 {
 	uint8_t			size_log2;
 	char			padding[7];
 	struct s_block	*next;
 }					t_block;
+
+/*
+**  Block sizes as a power of 2.
+*/
+# define MINIMUM_LOG2 5
+# define TINY_MAX_LOG2 11
+# define SMALL_MAX_LOG2 16
+
+# define BLOCK_SIZE(size_log2) (1 << (size_log2))
+# define ROUND_UP(from, to) ((int)round_up_to(from, to))
+# define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
 
 typedef struct		s_zone
 {
@@ -34,19 +48,8 @@ typedef struct		s_zone
 }					t_zone;
 
 /*
-** Block sizes as a power of 2.
-*/
-# define MINIMUM_LOG2 5
-# define TINY_MAX_LOG2 11
-# define SMALL_MAX_LOG2 16
-
-# define BLOCK_SIZE(size_log2) (1 << (size_log2))
-# define ROUND_UP(from, to) ((int)round_up_to(from, to))
-# define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
-
-/*
-** TINY_BUCKETS_SIZE and SMALL_BUCKETS_SIZE must be multiple of 16
-** otherwise they'll break the 16-bytes alignment.
+**  TINY_BUCKETS_SIZE and SMALL_BUCKETS_SIZE must be multiple of 16
+**  otherwise they'll break the 16-bytes alignment.
 */
 
 # define TINY_BUCKETS_SIZE ROUND_UP(sizeof(t_block*) * (TINY_MAX_LOG2 + 1), 16)
@@ -58,11 +61,13 @@ typedef struct		s_zone
 # define LARGE_ZONE_HEADER_SIZE sizeof(t_zone)
 
 /*
-** Zone memory management:
-**   - Less than or equal to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zone.
-**   - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD included
-**       in SMALL_ZONE_SIZE bytes zone.
-**   - From (SMALL_THRESHOLD + 1) dedicate a large zone
+**  Zone memory management:
+**    - Less than or equal to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zone.
+**    - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD included
+**        in SMALL_ZONE_SIZE bytes zone.
+**    - From (SMALL_THRESHOLD + 1) dedicate a large zone
+**  Nota bene, zone sizes must be multiple of page size, this is done
+**  by using round_up_to(zone_size, sysconf(_SC_PAGESIZE)) in add_zone.c
 */
 
 # define TINY_THRESHOLD (1 << TINY_MAX_LOG2)

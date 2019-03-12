@@ -20,5 +20,5 @@ void			*allocate_small(size_t size, int zone_size)
 	size_log2 = get_size_log2(sizeof(t_block) + size);
 	if (!(block = get_block(zone_size, size_log2)))
 		return (NULL);
-	return ((void*)(block + 1));
+	return (block + 1);
 }
