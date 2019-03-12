@@ -21,8 +21,21 @@ void		test_blocks(size_t block_size, size_t tests_count)
 		if (!(ptr = (char*)malloc(block_size)))
 			error_exit("malloc returned a null pointer");
 		*ptr = 'a';
-		test_block(ptr, block_size, Allocated);
+		test_allocated_block(ptr, block_size);
 		free(ptr);
-		test_block(ptr, block_size, Free);
+		if (!(ptr = (char*)realloc(NULL, block_size)))
+			error_exit("realloc returned a null pointer");
+		*ptr = 'b';
+		test_allocated_block(ptr, block_size);
+		free(ptr);
+		if (!(ptr = (char*)malloc(block_size)))
+			error_exit("malloc returned a null pointer");
+		*ptr = 'a';
+		test_allocated_block(ptr, block_size);
+		if (!(ptr = (char*)realloc(ptr, block_size * 2)))
+			error_exit("realloc returned a null pointer");
+		*ptr = 'b';
+		test_allocated_block(ptr, block_size * 2);
+		free(ptr);
 	}
 }

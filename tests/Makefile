@@ -26,7 +26,7 @@ MAIN_FILES = test
 
 ERRORS_FILES = error_exit
 
-BLOCKS_FILES = test_block \
+BLOCKS_FILES = test_allocated_block \
 	test_blocks
 
 MAIN_OBJS = $(addsuffix .o, $(MAIN_FILES))

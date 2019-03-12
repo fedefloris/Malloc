@@ -22,17 +22,9 @@
 # define EXIT_ERROR_STATUS 1
 # define STD_ERROR 2
 
-typedef enum	e_block_status
-{
-	Free,
-	Allocated
-}
-				t_block_status;
-
 void			error_exit(char *message);
 
 void			test_blocks(size_t block_size, size_t tests_count);
-void			test_block(void *ptr, size_t size,
-					t_block_status status);
+void			test_allocated_block(void *ptr, size_t size);
 
 #endif

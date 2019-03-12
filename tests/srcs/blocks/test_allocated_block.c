@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_block.c                                       :+:      :+:    :+:   */
+/*   test_allocated_block.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "malloc_test.h"
 
-void			test_block(void *ptr, size_t size, t_block_status status)
+void			test_allocated_block(void *ptr, size_t size)
 {
 	int			zone_type;
 	t_zone		*zone;
@@ -25,10 +25,10 @@ void			test_block(void *ptr, size_t size, t_block_status status)
 		return ;
 	if (!block)
 		error_exit("ptr is an invalid pointer");
-	if (status == Allocated && (size_t)BLOCK_SIZE(block->size_log2) <= size)
+	if ((size_t)BLOCK_SIZE(block->size_log2) <= size)
 		error_exit("bad value of block->size_log2");
-	if (status == Allocated && block->next)
+	if (block->next)
 		error_exit("block->next of allocated block is not null");
-	if (status == Allocated && is_block_in_bucket(block, zone, zone_type))
+	if (is_block_in_bucket(block, zone, zone_type))
 		error_exit("block is both allocated and inside bucket");
 }
