@@ -63,7 +63,6 @@ void			test_blocks(size_t block_size, size_t tests_count)
 {
 	while (tests_count--)
 	{
-		test_malloc(block_size);
 		test_malloc_free(block_size);
 		test_realloc_free(block_size);
 		test_malloc_realloc_free(block_size);

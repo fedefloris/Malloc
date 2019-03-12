@@ -24,5 +24,6 @@ int		main(void)
 	test_blocks(TINY_THRESHOLD, 1000);
 	test_blocks(SMALL_THRESHOLD, 1000);
 	test_blocks(LARGE_THRESHOLD, 1000);
+	show_alloc_mem();
 	return (0);
 }
