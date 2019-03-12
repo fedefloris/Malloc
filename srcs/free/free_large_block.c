@@ -18,7 +18,7 @@ static void		find_large_zone(void *ptr, t_zone **zone, t_zone **prev)
 	*zone = g_zones.larges;
 	while (*zone)
 	{
-		if (((char*)ptr == (char*)(zone + 1)))
+		if (((char*)ptr == (char*)(*zone + 1)))
 			return ;
 		*prev = *zone;
 		*zone = (*zone)->next;
