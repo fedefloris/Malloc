@@ -35,14 +35,14 @@ export DYLD_LIBRARY_PATH="../"
 # Inject dynamic lib on Linux
 export LD_PRELOAD="../libft_malloc.so"
 
-# Run unit testing
-printf "\n${BOLD_TEXT}Run unit testing:${NORMAL_TEXT}\n"
+# Run functional testing
+printf "\n${BOLD_TEXT}Run functional testing:${NORMAL_TEXT}\n\n"
 if ! ./$TEST_MAIN; then
 	EXIT_STATUS=$EXIT_ERROR_STATUS
 fi
 
-# If unit testing was successful, test malloc with some commands
-printf "\n${BOLD_TEXT}Testing commands:${NORMAL_TEXT}\n"
+# If funtional testing was successful, test malloc with some commands
+printf "\n${BOLD_TEXT}Testing commands:${NORMAL_TEXT}\n\n"
 
 commands=(
 	"find ."

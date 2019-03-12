@@ -24,6 +24,9 @@ int		main(void)
 	test_blocks(TINY_THRESHOLD, 1000);
 	test_blocks(SMALL_THRESHOLD, 1000);
 	test_blocks(LARGE_THRESHOLD, 1000);
+	test_blocks(LARGE_THRESHOLD * 2, 1000);
+	ft_printf("Memory state after testing:\n\n");
 	show_alloc_mem();
+	ft_printf("Testing %ssuccessful%s\n", SUCCESS_COLOR, STANDARD_COLOR);
 	return (0);
 }
