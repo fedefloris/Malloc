@@ -47,7 +47,7 @@ On Linux you can use `LD_LIBRARY_PATH`.
 export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH
 ```
 
-You could also use `LD_PRELOAD` to run programs with `libft_malloc.so` implementations of `malloc()`, `realloc()`, `calloc()` and `free()`.
+You could also use `LD_PRELOAD` to run programs with `libft_malloc.so` implementations of [malloc()](srcs/allocate/malloc.c), [realloc()](srcs/allocate/realloc.c), [calloc()](srcs/allocate/calloc.c) and [free()](srcs/free/free.c).
 ```console
 LD_PRELOAD=./libft_malloc.so ls
 ```
