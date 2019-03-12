@@ -12,30 +12,49 @@
 
 #include "malloc_test.h"
 
-void		test_blocks(size_t block_size, size_t tests_count)
+static void		test_malloc_realloc_free(size_t block_size)
 {
-	char	*ptr;
+	char		*ptr;
 
+	if (!(ptr = (char*)malloc(block_size)))
+		error_exit("malloc returned a null pointer");
+	*ptr = 'a';
+	test_allocated_block(ptr, block_size);
+	if (!(ptr = (char*)realloc(ptr, block_size * 2)))
+		error_exit("realloc returned a null pointer");
+	*ptr = 'b';
+	test_allocated_block(ptr, block_size * 2);
+	free(ptr);
+}
+
+static void		test_realloc_free(size_t block_size)
+{
+	char		*ptr;
+
+	if (!(ptr = (char*)realloc(NULL, block_size)))
+		error_exit("realloc returned a null pointer");
+	*ptr = 'b';
+	test_allocated_block(ptr, block_size);
+	free(ptr);
+}
+
+static void		test_malloc_free(size_t block_size)
+{
+	char		*ptr;
+
+	if (!(ptr = (char*)malloc(block_size)))
+		error_exit("malloc returned a null pointer");
+	*ptr = 'a';
+	test_allocated_block(ptr, block_size);
+	free(ptr);
+}
+
+void			test_blocks(size_t block_size, size_t tests_count)
+{
 	while (tests_count--)
 	{
-		if (!(ptr = (char*)malloc(block_size)))
-			error_exit("malloc returned a null pointer");
-		*ptr = 'a';
-		test_allocated_block(ptr, block_size);
-		free(ptr);
-		if (!(ptr = (char*)realloc(NULL, block_size)))
-			error_exit("realloc returned a null pointer");
-		*ptr = 'b';
-		test_allocated_block(ptr, block_size);
-		free(ptr);
-		if (!(ptr = (char*)malloc(block_size)))
-			error_exit("malloc returned a null pointer");
-		*ptr = 'a';
-		test_allocated_block(ptr, block_size);
-		if (!(ptr = (char*)realloc(ptr, block_size * 2)))
-			error_exit("realloc returned a null pointer");
-		*ptr = 'b';
-		test_allocated_block(ptr, block_size * 2);
-		free(ptr);
+		test_malloc_free(block_size);
+		test_realloc_free(block_size);
+		test_malloc_realloc_free(block_size);
 	}
 }

@@ -14,8 +14,10 @@
 
 int		main(void)
 {
+	test_blocks(0, 1000);
 	test_blocks(1, 1000);
 	test_blocks(16, 1000);
+	test_blocks(45, 1000);
 	test_blocks(350, 1000);
 	test_blocks(TINY_THRESHOLD - sizeof(t_block), 1000);
 	test_blocks(SMALL_THRESHOLD - sizeof(t_block), 1000);
