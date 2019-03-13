@@ -28,12 +28,12 @@ static void		*reallocate_large_block(void *ptr, size_t size)
 
 static void		*reallocate_block(void *ptr, size_t size)
 {
-	int			zone_type;
+	t_zone_type	zone_type;
 	t_block		*block;
 	t_zone		*zone;
 
 	block = get_block_info(ptr, &zone, &zone_type);
-	if (zone_type == LARGE_THRESHOLD)
+	if (IS_LARGE_ZONE(zone_type))
 		return (reallocate_large_block(ptr, size));
 	if (!block)
 		return (NULL);

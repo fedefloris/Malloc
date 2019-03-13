@@ -12,13 +12,13 @@
 
 #include "malloc.h"
 
-static void		display_blocks(t_zone *zone, int zone_type)
+static void		display_blocks(t_zone *zone, t_zone_type zone_type)
 {
 	t_block		*block;
 
-	if (zone_type == TINY_ZONE_SIZE)
+	if (IS_TINY_ZONE(zone_type))
 		block = (t_block*)((char*)zone + TINY_ZONE_HEADER_SIZE);
-	else if (zone_type == SMALL_ZONE_SIZE)
+	else if (IS_SMALL_ZONE(zone_type))
 		block = (t_block*)((char*)zone + SMALL_ZONE_HEADER_SIZE);
 	else
 		return ;
@@ -33,7 +33,7 @@ static void		display_blocks(t_zone *zone, int zone_type)
 	}
 }
 
-void			display_zones(t_zone *zone, int zone_type)
+void			display_zones(t_zone *zone, t_zone_type zone_type)
 {
 	while (zone)
 	{

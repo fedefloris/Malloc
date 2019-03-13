@@ -16,10 +16,10 @@ void		show_alloc_mem(void)
 {
 	pthread_mutex_lock(&g_mutex);
 	ft_printf("-- Allocated tiny blocks --\n");
-	display_zones(g_zones.tinies, TINY_ZONE_SIZE);
+	display_zones(g_zones.tinies, TINY_ZONE);
 	ft_printf("-- Allocated small blocks --\n");
-	display_zones(g_zones.smalls, SMALL_ZONE_SIZE);
+	display_zones(g_zones.smalls, SMALL_ZONE);
 	ft_printf("-- Allocated large blocks --\n");
-	display_zones(g_zones.larges, LARGE_THRESHOLD);
+	display_zones(g_zones.larges, LARGE_ZONE);
 	pthread_mutex_unlock(&g_mutex);
 }

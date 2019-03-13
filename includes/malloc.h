@@ -47,6 +47,17 @@ typedef struct		s_zone
 	size_t			max_blocks_count;
 }					t_zone;
 
+typedef enum		e_zone_type
+{
+	TINY_ZONE,
+	SMALL_ZONE,
+	LARGE_ZONE
+}					t_zone_type;
+
+# define IS_TINY_ZONE(zone_type) (zone_type == TINY_ZONE)
+# define IS_SMALL_ZONE(zone_type) (zone_type == SMALL_ZONE)
+# define IS_LARGE_ZONE(zone_type) (zone_type == LARGE_ZONE)
+
 /*
 **  TINY_BUCKETS_SIZE and SMALL_BUCKETS_SIZE must be multiple of 16
 **  otherwise they'll break the 16-bytes alignment.
@@ -76,8 +87,6 @@ typedef struct		s_zone
 # define SMALL_THRESHOLD (1 << SMALL_MAX_LOG2)
 # define SMALL_ZONE_SIZE (SMALL_THRESHOLD * 100 + SMALL_ZONE_HEADER_SIZE)
 
-# define LARGE_THRESHOLD (SMALL_THRESHOLD + 1)
-
 typedef struct		s_zones
 {
 	char			empty_malloc[1];
@@ -94,27 +103,27 @@ void				*calloc(size_t elements_count, size_t element_size);
 void				*realloc(void *ptr, size_t size);
 
 void				*allocate(size_t size);
-void				*allocate_small(size_t size, int zone_size);
+void				*allocate_small(size_t size, t_zone_type zone_type);
 void				*allocate_large(size_t size);
 
-t_block				*get_block(int zone_size, int size_log2);
+t_block				*get_block(t_zone_type zone_type, int size_log2);
 t_block				*get_block_from_zones(t_zone *zones,
-						int zone_size, int size_log2);
+						t_zone_type zone_type, int size_log2);
 t_block				*get_block_from_zone(t_zone *zone,
-						int zone_size, int size_log2);
+						t_zone_type zone_type, int size_log2);
 
 t_block				*get_block_info(void *ptr, t_zone **zone,
-						int *zone_type);
+						t_zone_type *zone_type);
 bool				is_block_in_bucket(t_block *block, t_zone *zone,
-						int zone_type);
+						t_zone_type zone_type);
 bool				find_block(t_block *blocks, t_block *block,
 						t_block **prev);
 
-t_zone				*add_zone(int zone_type, size_t size);
-void				remove_zone(t_zone *zone, int zone_type);
-t_zone				**get_zones(int zone_type);
+t_zone				*add_zone(t_zone_type zone_type, size_t size);
+void				remove_zone(t_zone *zone, t_zone_type zone_type);
+t_zone				**get_zones(t_zone_type zone_type);
 
-void				add_first_blocks(t_zone *zone, int zone_type);
+void				add_first_blocks(t_zone *zone, t_zone_type zone_type);
 
 int					get_size_log2(size_t request);
 size_t				round_up_to(size_t from, size_t to);
@@ -126,6 +135,6 @@ void				free_small_block(t_block **blocks, t_block **block,
 						int max_log2);
 
 void				show_alloc_mem();
-void				display_zones(t_zone *zone, int zone_type);
+void				display_zones(t_zone *zone, t_zone_type zone_type);
 
 #endif

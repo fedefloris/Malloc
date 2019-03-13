@@ -12,13 +12,13 @@
 
 #include "malloc.h"
 
-void			*allocate_small(size_t size, int zone_size)
+void			*allocate_small(size_t size, t_zone_type zone_type)
 {
 	int			size_log2;
 	t_block		*block;
 
 	size_log2 = get_size_log2(sizeof(t_block) + size);
-	if (!(block = get_block(zone_size, size_log2)))
+	if (!(block = get_block(zone_type, size_log2)))
 		return (NULL);
 	return (block + 1);
 }

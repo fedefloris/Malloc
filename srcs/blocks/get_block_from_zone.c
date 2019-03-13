@@ -62,9 +62,8 @@ static t_block		*get_block_from_buckets(t_zone *zone,
 }
 
 t_block				*get_block_from_zone(t_zone *zone,
-	int zone_size, int size_log2)
+	t_zone_type zone_type, int size_log2)
 {
 	return (get_block_from_buckets(zone, size_log2,
-		(zone_size == TINY_ZONE_SIZE) ?
-			TINY_MAX_LOG2 : SMALL_MAX_LOG2));
+		IS_TINY_ZONE(zone_type) ? TINY_MAX_LOG2 : SMALL_MAX_LOG2));
 }

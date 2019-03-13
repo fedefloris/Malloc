@@ -25,7 +25,7 @@ static bool		find_zone(t_zone *zones, t_zone *zone, t_zone **prev)
 	return (false);
 }
 
-void			remove_zone(t_zone *zone, int zone_type)
+void			remove_zone(t_zone *zone, t_zone_type zone_type)
 {
 	t_zone		**zones;
 	t_zone		*prev;

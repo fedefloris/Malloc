@@ -17,8 +17,8 @@ void		*allocate(size_t size)
 	if (!size)
 		return (g_zones.empty_malloc);
 	if (size <= TINY_THRESHOLD - sizeof(t_block))
-		return (allocate_small(size, TINY_ZONE_SIZE));
+		return (allocate_small(size, TINY_ZONE));
 	else if (size <= SMALL_THRESHOLD - sizeof(t_block))
-		return (allocate_small(size, SMALL_ZONE_SIZE));
+		return (allocate_small(size, SMALL_ZONE));
 	return (allocate_large(size));
 }

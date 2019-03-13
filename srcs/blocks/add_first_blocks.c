@@ -22,10 +22,10 @@ static void		add_block(t_block **blocks, char *memory, int size_log2)
 	blocks[size_log2]->next = block;
 }
 
-static void		set_thresholds(int zone_type,
+static void		set_thresholds(t_zone_type zone_type,
 	size_t *threshold, int *max_log2)
 {
-	if (zone_type == TINY_ZONE_SIZE)
+	if (IS_TINY_ZONE(zone_type))
 	{
 		*threshold = TINY_THRESHOLD;
 		*max_log2 = TINY_MAX_LOG2;
@@ -37,7 +37,7 @@ static void		set_thresholds(int zone_type,
 	}
 }
 
-void			add_first_blocks(t_zone *zone, int zone_type)
+void			add_first_blocks(t_zone *zone, t_zone_type zone_type)
 {
 	char		*zone_memory;
 	size_t		zone_size;
@@ -45,7 +45,7 @@ void			add_first_blocks(t_zone *zone, int zone_type)
 	int			max_log2;
 
 	set_thresholds(zone_type, &threshold, &max_log2);
-	if (zone_type == TINY_ZONE_SIZE)
+	if (IS_TINY_ZONE(zone_type))
 	{
 		zone_size = zone->size - TINY_ZONE_HEADER_SIZE;
 		zone_memory = (char*)zone + TINY_ZONE_HEADER_SIZE;

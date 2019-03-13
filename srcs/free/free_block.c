@@ -14,7 +14,7 @@
 
 void			free_block(void *ptr)
 {
-	int			zone_type;
+	t_zone_type	zone_type;
 	int			max_log2;
 	t_block		*block;
 	t_zone		*zone;
@@ -23,8 +23,7 @@ void			free_block(void *ptr)
 		return ;
 	if (!(block = get_block_info(ptr, &zone, &zone_type)))
 		return ;
-	max_log2 = (zone_type == TINY_ZONE_SIZE) ?
-		TINY_MAX_LOG2 : SMALL_MAX_LOG2;
+	max_log2 = IS_TINY_ZONE(zone_type) ? TINY_MAX_LOG2 : SMALL_MAX_LOG2;
 	free_small_block((t_block**)(zone + 1), &block, max_log2);
 	if (block->size_log2 == max_log2)
 		zone->max_blocks_count++;

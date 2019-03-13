@@ -14,14 +14,14 @@
 
 void			test_allocated_block(void *ptr, size_t size)
 {
-	int			zone_type;
+	t_zone_type	zone_type;
 	t_zone		*zone;
 	t_block		*block;
 
 	if ((intptr_t)ptr % 16 != 0)
 		error_exit("ptr is not 16-bytes aligned");
 	block = get_block_info(ptr, &zone, &zone_type);
-	if (ptr == g_zones.empty_malloc || zone_type == LARGE_THRESHOLD)
+	if (ptr == g_zones.empty_malloc || IS_LARGE_ZONE(zone_type))
 		return ;
 	if (!block)
 		error_exit("ptr is an invalid pointer");

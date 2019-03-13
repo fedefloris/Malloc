@@ -12,16 +12,17 @@
 
 #include "malloc.h"
 
-static void		config_zone(t_zone *zone, int zone_type, size_t size)
+static void		config_zone(t_zone *zone, t_zone_type zone_type,
+	size_t size)
 {
 	t_zone		**zones;
 
-	if (zone_type == TINY_ZONE_SIZE)
+	if (IS_TINY_ZONE(zone_type))
 	{
 		zones = &g_zones.tinies;
 		ft_bzero(zone + 1, TINY_BUCKETS_SIZE);
 	}
-	else if (zone_type == SMALL_ZONE_SIZE)
+	else if (IS_SMALL_ZONE(zone_type))
 	{
 		zones = &g_zones.smalls;
 		ft_bzero(zone + 1, SMALL_BUCKETS_SIZE);
@@ -34,7 +35,7 @@ static void		config_zone(t_zone *zone, int zone_type, size_t size)
 	*zones = zone;
 }
 
-t_zone			*add_zone(int zone_type, size_t size)
+t_zone			*add_zone(t_zone_type zone_type, size_t size)
 {
 	size_t		zone_size;
 	char		*memory;
@@ -45,7 +46,7 @@ t_zone			*add_zone(int zone_type, size_t size)
 	if (memory == MAP_FAILED)
 		return (NULL);
 	config_zone((t_zone*)memory, zone_type, zone_size);
-	if (zone_type != LARGE_THRESHOLD)
+	if (!IS_LARGE_ZONE(zone_type))
 		add_first_blocks((t_zone*)memory, zone_type);
 	((t_zone*)memory)->max_blocks = ((t_zone*)memory)->max_blocks_count;
 	return ((t_zone*)memory);
