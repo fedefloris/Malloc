@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_block_in_bucket.c                               :+:      :+:    :+:   */
+/*   is_block_allocated.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-bool		is_block_in_bucket(t_block *block, t_zone *zone,
+bool		is_block_allocated(t_block *block, t_zone *zone,
 	t_zone_type zone_type)
 {
 	t_block		**buckets;
@@ -27,8 +27,8 @@ bool		is_block_in_bucket(t_block *block, t_zone *zone,
 	while (size_log2 <= max_log2)
 	{
 		if (find_block(buckets[size_log2], block, NULL))
-			return (true);
+			return (false);
 		size_log2++;
 	}
-	return (false);
+	return (true);
 }

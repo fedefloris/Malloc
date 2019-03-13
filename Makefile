@@ -47,7 +47,7 @@ BLOCKS_FILES = add_first_blocks \
 	get_block_info \
 	get_block_from_zones \
 	get_block_from_zone \
-	is_block_in_bucket
+	is_block_allocated
 
 DISPLAY_FILES = display_zones \
 	show_alloc_mem

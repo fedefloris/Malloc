@@ -28,7 +28,7 @@ static void		display_blocks(t_zone *zone, t_zone_type zone_type)
 		ft_printf("  From %p to %p - %zd bytes - allocated: %s\n",
 			block, (char*)block + BLOCK_SIZE(block->size_log2),
 			(size_t)BLOCK_SIZE(block->size_log2),
-			!is_block_in_bucket(block, zone, zone_type) ? "yes" : "no");
+			is_block_allocated(block, zone, zone_type) ? "yes" : "no");
 		block = (t_block*)((char*)block + BLOCK_SIZE(block->size_log2));
 	}
 }

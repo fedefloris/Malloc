@@ -29,6 +29,6 @@ void			test_allocated_block(void *ptr, size_t size)
 		error_exit("bad value of block->size_log2");
 	if (block->next)
 		error_exit("block->next of allocated block is not null");
-	if (is_block_in_bucket(block, zone, zone_type))
+	if (!is_block_allocated(block, zone, zone_type))
 		error_exit("block is both allocated and inside bucket");
 }
