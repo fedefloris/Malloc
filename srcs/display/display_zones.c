@@ -25,11 +25,10 @@ static void		display_blocks(t_zone *zone, int zone_type)
 	while ((char*)block < (char*)zone + zone->size
 		&& block->size_log2)
 	{
-		if (!is_block_in_bucket(block, zone, zone_type))
-		{
-			ft_printf("%p - %zd bytes\n",
-				block, (size_t)BLOCK_SIZE(block->size_log2));
-		}
+		ft_printf("  From %p to %p - %zd bytes - allocated: %s\n",
+			block, (char*)block + BLOCK_SIZE(block->size_log2),
+			(size_t)BLOCK_SIZE(block->size_log2),
+			!is_block_in_bucket(block, zone, zone_type) ? "yes" : "no");
 		block = (t_block*)((char*)block + BLOCK_SIZE(block->size_log2));
 	}
 }
@@ -38,7 +37,7 @@ void			display_zones(t_zone *zone, int zone_type)
 {
 	while (zone)
 	{
-		ft_printf("\nZone from %p to %p, size: %zu bytes, next: %p\n\n",
+		ft_printf("\nZone from %p to %p - %zu bytes - next: %p\n\n",
 			zone, (char*)zone + zone->size,
 			zone->size, zone->next);
 		display_blocks(zone, zone_type);
