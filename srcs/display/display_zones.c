@@ -23,4 +23,5 @@ void			display_zones(t_zone *zone, t_zone_type zone_type,
 		display_blocks(zone, zone_type, hexdump);
 		zone = zone->next;
 	}
+	ft_putstr("\n");
 }
