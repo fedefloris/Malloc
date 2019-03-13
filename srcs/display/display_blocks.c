@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_zones.c                                    :+:      :+:    :+:   */
+/*   display_blocks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffloris <ffloris@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,15 +12,23 @@
 
 #include "malloc.h"
 
-void			display_zones(t_zone *zone, t_zone_type zone_type,
+void			display_blocks(t_zone *zone, t_zone_type zone_type,
 	bool hexdump)
 {
-	while (zone)
+	t_block		*block;
+
+	if (IS_TINY_ZONE(zone_type))
+		block = (t_block*)((char*)zone + TINY_ZONE_HEADER_SIZE);
+	else if (IS_SMALL_ZONE(zone_type))
+		block = (t_block*)((char*)zone + SMALL_ZONE_HEADER_SIZE);
+	else
+		return ;
+	while ((char*)block < (char*)zone + zone->size
+		&& block->size_log2)
 	{
-		ft_printf("\nZone from %p to %p - %zu bytes - next: %p\n\n",
-			zone, (char*)zone + zone->size,
-			zone->size, zone->next);
-		display_blocks(zone, zone_type, hexdump);
-		zone = zone->next;
+		display_block(block,
+			is_block_allocated(block, zone, zone_type),
+			hexdump);
+		block = (t_block*)((char*)block + BLOCK_SIZE(block->size_log2));
 	}
 }

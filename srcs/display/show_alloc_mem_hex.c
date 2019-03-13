@@ -15,5 +15,13 @@
 void		show_alloc_mem_hex(void)
 {
 	pthread_mutex_lock(&g_mutex);
+	ft_printf("[ ] - free blocks\n");
+	ft_printf("[x] - allocated blocks\n\n");
+	ft_printf("-- Allocated tiny blocks --\n");
+	display_zones(g_zones.tinies, TINY_ZONE, true);
+	ft_printf("-- Allocated small blocks --\n");
+	display_zones(g_zones.smalls, SMALL_ZONE, true);
+	ft_printf("-- Allocated large blocks --\n");
+	display_zones(g_zones.larges, LARGE_ZONE, true);
 	pthread_mutex_unlock(&g_mutex);
 }

@@ -50,6 +50,8 @@ BLOCKS_FILES = add_first_blocks \
 	is_block_allocated
 
 DISPLAY_FILES = display_zones \
+	display_block \
+	display_blocks \
 	show_alloc_mem \
 	show_alloc_mem_hex
 

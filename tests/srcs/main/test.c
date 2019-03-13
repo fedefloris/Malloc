@@ -26,7 +26,7 @@ int		main(void)
 	test_blocks(SMALL_THRESHOLD + 1, 1000);
 	test_blocks((SMALL_THRESHOLD + 1) * 2, 1000);
 	ft_printf("Memory state after testing:\n\n");
-	show_alloc_mem();
+	show_alloc_mem_hex();
 	ft_printf("Testing $green$successful$eoc$\n");
 	return (0);
 }

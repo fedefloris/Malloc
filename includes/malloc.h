@@ -136,6 +136,11 @@ void				free_small_block(t_block **blocks, t_block **block,
 
 void				show_alloc_mem();
 void				show_alloc_mem_hex();
-void				display_zones(t_zone *zone, t_zone_type zone_type);
+void				display_zones(t_zone *zone, t_zone_type zone_type,
+						bool hexdump);
+void				display_blocks(t_zone *zone, t_zone_type zone_type,
+						bool hexdump);
+void				display_block(t_block *block, bool allocated,
+						bool hexdump);
 
 #endif
