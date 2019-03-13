@@ -33,7 +33,7 @@ typedef struct		s_block
 */
 # define MINIMUM_LOG2 5
 # define TINY_MAX_LOG2 11
-# define SMALL_MAX_LOG2 16
+# define SMALL_MAX_LOG2 17
 
 # define BLOCK_SIZE(size_log2) (1 << (size_log2))
 # define ROUND_UP(from, to) ((int)round_up_to(from, to))
