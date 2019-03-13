@@ -18,7 +18,7 @@ static void		*test_malloc(size_t block_size)
 
 	if (!(ptr = (char*)malloc(block_size)))
 		error_exit("malloc returned a null pointer");
-	ft_memset(ptr, 'a', block_size);
+	ft_memset(ptr, 42, block_size);
 	test_allocated_block(ptr, block_size);
 	return (ptr);
 }
@@ -33,7 +33,7 @@ static void		test_malloc_realloc_free(size_t block_size)
 		error_exit("realloc returned a null pointer");
 	if (block_size * 2 != 0)
 	{
-		ft_memset(ptr, 'a', block_size);
+		ft_memset(ptr, 42, block_size);
 		test_allocated_block(ptr, block_size * 2);
 	}
 	free(ptr);
@@ -47,7 +47,7 @@ static void		test_realloc_free(size_t block_size)
 		error_exit("realloc returned a null pointer");
 	if (block_size)
 	{
-		ft_memset(ptr, 'a', block_size);
+		ft_memset(ptr, 42, block_size);
 		test_allocated_block(ptr, block_size);
 	}
 	free(ptr);
