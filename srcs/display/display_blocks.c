@@ -23,6 +23,14 @@ void			display_blocks(t_zone *zone, t_zone_type zone_type,
 		block = (t_block*)((char*)zone + SMALL_ZONE_HEADER_SIZE);
 	else
 		return ;
+	ft_printf("  Blocks:\n\n");
+	ft_printf("    [ ] - free blocks\n");
+	ft_printf("    [x] - allocated blocks\n\n");
+	if (hexdump)
+	{
+		ft_printf("    Block header:   $blue$blue$eoc$\n");
+		ft_printf("    Block payload:  $cyan$cyan$eoc$\n\n");
+	}
 	while ((char*)block < (char*)zone + zone->size
 		&& block->size_log2)
 	{

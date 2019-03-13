@@ -19,7 +19,7 @@ static void		display_block_hexdump(t_block *block)
 
 	byte = (char*)block;
 	final_byte = byte + BLOCK_SIZE(block->size_log2);
-	ft_printf("    ");
+	ft_printf("      ");
 	while (byte < final_byte)
 	{
 		ft_printf((byte < (char*)(block + 1))
@@ -27,14 +27,14 @@ static void		display_block_hexdump(t_block *block)
 		ft_printf("%08x ", *byte++);
 		if (byte != final_byte
 				&& ((intptr_t)byte - (intptr_t)block) % 6 == 0)
-			ft_printf("\n    ");
+			ft_printf("\n      ");
 	}
-	ft_printf("\n$eoc$");
+	ft_printf("\n\n$eoc$");
 }
 
 void			display_block(t_block *block, bool allocated, bool hexdump)
 {
-	ft_printf("  %p to %p - %6zd bytes - %s\n",
+	ft_printf("    - %p to %p   %6zd bytes   %s\n\n",
 		block, (char*)block + BLOCK_SIZE(block->size_log2),
 		(size_t)BLOCK_SIZE(block->size_log2),
 		(allocated) ? "[x]" : "[ ]");
