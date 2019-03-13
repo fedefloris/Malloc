@@ -18,14 +18,14 @@ static void		display_block_hexdump(t_block *block)
 	char		*byte;
 
 	byte = (char*)block;
-	final_byte = byte + sizeof(t_block) + BLOCK_SIZE(block->size_log2);
+	final_byte = byte + BLOCK_SIZE(block->size_log2);
 	ft_printf("    ");
-	while (byte <= final_byte)
+	while (byte < final_byte)
 	{
 		ft_printf((byte < (char*)(block + 1))
 			? "$blue$" : "$cyan$");
 		ft_printf("%08x ", *byte++);
-		if (byte != final_byte + 1
+		if (byte != final_byte
 				&& ((intptr_t)byte - (intptr_t)block) % 6 == 0)
 			ft_printf("\n    ");
 	}
@@ -34,7 +34,7 @@ static void		display_block_hexdump(t_block *block)
 
 void			display_block(t_block *block, bool allocated, bool hexdump)
 {
-	ft_printf("  %p to %p - % 6zd bytes - %s\n",
+	ft_printf("  %p to %p - %6zd bytes - %s\n",
 		block, (char*)block + BLOCK_SIZE(block->size_log2),
 		(size_t)BLOCK_SIZE(block->size_log2),
 		(allocated) ? "[x]" : "[ ]");
