@@ -50,7 +50,8 @@ BLOCKS_FILES = add_first_blocks \
 	is_block_allocated
 
 DISPLAY_FILES = display_zones \
-	show_alloc_mem
+	show_alloc_mem \
+	show_alloc_mem_hex
 
 UTILS_FILES = get_size_log2 \
 	round_up_to
