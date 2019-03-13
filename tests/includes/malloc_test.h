@@ -15,13 +15,8 @@
 
 # include "malloc.h"
 
-# define ERROR_COLOR "\033[1;31m"
-# define SUCCESS_COLOR "\033[1;32m"
-# define STANDARD_COLOR "\033[0m"
-
 # define ERROR_MESSAGE_HEADER "  Error: "
 # define EXIT_ERROR_STATUS 1
-# define STD_ERROR 2
 
 void			error_exit(char *message);
 

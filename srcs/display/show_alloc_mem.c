@@ -15,6 +15,8 @@
 void		show_alloc_mem(void)
 {
 	pthread_mutex_lock(&g_mutex);
+	ft_printf("$red$[x] $eoc$allocated blocks\n");
+	ft_printf("$green$[x] $eoc$free blocks\n\n");
 	ft_printf("-- Allocated tiny blocks --\n");
 	display_zones(g_zones.tinies, TINY_ZONE);
 	ft_printf("-- Allocated small blocks --\n");

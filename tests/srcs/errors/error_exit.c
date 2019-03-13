@@ -15,9 +15,6 @@
 
 void		error_exit(char *message)
 {
-	ft_putstr_fd(ERROR_COLOR, STD_ERROR);
-	ft_putstr_fd(ERROR_MESSAGE_HEADER, STD_ERROR);
-	ft_putstr_fd(STANDARD_COLOR, STD_ERROR);
-	ft_putendl_fd(message, STD_ERROR);
+	ft_printf_fd(2, "$red$%s%s$eoc$", ERROR_MESSAGE_HEADER, message);
 	exit(EXIT_ERROR_STATUS);
 }

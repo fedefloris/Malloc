@@ -25,10 +25,13 @@ static void		display_blocks(t_zone *zone, t_zone_type zone_type)
 	while ((char*)block < (char*)zone + zone->size
 		&& block->size_log2)
 	{
-		ft_printf("  From %p to %p - %zd bytes - allocated: %s\n",
+		if (is_block_allocated(block, zone, zone_type))
+			ft_printf("$red$");
+		else
+			ft_printf("$green$");
+		ft_printf("  From %p to %p - %zd bytes$eoc$\n",
 			block, (char*)block + BLOCK_SIZE(block->size_log2),
-			(size_t)BLOCK_SIZE(block->size_log2),
-			is_block_allocated(block, zone, zone_type) ? "yes" : "no");
+			(size_t)BLOCK_SIZE(block->size_log2));
 		block = (t_block*)((char*)block + BLOCK_SIZE(block->size_log2));
 	}
 }
