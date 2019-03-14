@@ -36,7 +36,7 @@ typedef struct		s_block
 # define SMALL_MAX_LOG2 17
 
 # define BLOCK_SIZE(size_log2) (1 << (size_log2))
-# define ROUND_UP(from, to) ((int)round_up_to(from, to))
+# define ROUND_UP(from, to) round_up_to(from, to)
 # define BUDDY(addr, block, size) (((block - addr) ^ BLOCK_SIZE(size)) + addr)
 
 typedef struct		s_zone
@@ -63,11 +63,13 @@ typedef enum		e_zone_type
 **  otherwise they'll break the 16-bytes alignment.
 */
 
-# define TINY_BUCKETS_SIZE ROUND_UP(sizeof(t_block*) * (TINY_MAX_LOG2 + 1), 16)
-# define TINY_ZONE_HEADER_SIZE ((int)sizeof(t_zone) + TINY_BUCKETS_SIZE)
+# define BUCKET_SIZE sizeof(t_block*)
 
-# define SMALL_BUCKETS_SIZE ROUND_UP(sizeof(t_block*) * (SMALL_MAX_LOG2+ 1), 16)
-# define SMALL_ZONE_HEADER_SIZE ((int)sizeof(t_zone) + SMALL_BUCKETS_SIZE)
+# define TINY_BUCKETS_SIZE ROUND_UP(BUCKET_SIZE * (TINY_MAX_LOG2 + 1), 16)
+# define TINY_ZONE_HEADER_SIZE (sizeof(t_zone) + TINY_BUCKETS_SIZE)
+
+# define SMALL_BUCKETS_SIZE ROUND_UP(BUCKET_SIZE * (SMALL_MAX_LOG2 + 1), 16)
+# define SMALL_ZONE_HEADER_SIZE (sizeof(t_zone) + SMALL_BUCKETS_SIZE)
 
 # define LARGE_ZONE_HEADER_SIZE sizeof(t_zone)
 
