@@ -19,9 +19,8 @@ void			free_block(void *ptr)
 	t_block		*block;
 	t_zone		*zone;
 
-	if (!ptr || ptr == g_zones.empty_malloc || free_large_block(ptr))
-		return ;
-	if (!(block = get_block_info(ptr, &zone, &zone_type)))
+	if (!ptr || ptr == g_zones.empty_malloc || free_large_block(ptr)
+		|| !(block = get_block_info(ptr, &zone, &zone_type)))
 		return ;
 	max_log2 = IS_TINY_ZONE(zone_type) ? TINY_MAX_LOG2 : SMALL_MAX_LOG2;
 	free_small_block((t_block**)(zone + 1), &block, max_log2);
