@@ -4,6 +4,8 @@
 ## Challenge
 A dynamic zone memory allocator based on the buddy system.
 
+The goal is implementing a memory allocator that manages blocks inside 'pre-allocated' zones.
+
 In the buddy system we use blocks that are powers of two, we arrange things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
 
 For example:
