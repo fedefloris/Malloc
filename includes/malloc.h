@@ -75,10 +75,10 @@ typedef enum		e_zone_type
 
 /*
 **  Zone memory management:
-**    - Less than or equal to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zone.
-**    - From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD included
+**    1) Less than or equal to TINY_THRESHOLD in TINY_ZONE_SIZE bytes zone.
+**    2) From (TINY_THRESHOLD + 1) to SMALL_THRESHOLD included
 **        in SMALL_ZONE_SIZE bytes zone.
-**    - From (SMALL_THRESHOLD + 1) dedicate a large zone
+**    3) From (SMALL_THRESHOLD + 1) dedicate a large zone
 **  Nota bene, zone sizes must be multiple of page size, this is done
 **  by using round_up_to(zone_size, sysconf(_SC_PAGESIZE)) in add_zone.c
 */
