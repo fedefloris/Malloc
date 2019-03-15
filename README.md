@@ -6,12 +6,12 @@ A dynamic zone memory allocator based on the buddy system.
 
 The goal is implementing a memory allocator that manages blocks inside 'pre-allocated' zones.
 
-The allocator keeps track of the zones with a linked list, for each zone it implements a binary buddy system to manages the blocks.
+The allocator keeps track of the zones with a linked list, each zone implements a binary buddy system to manages the blocks.
 
 There are three types of zones:
   1) `Tiny` for blocks with size less than or equal to [TINY_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L86).
   2) `Small` for blocks with size between [TINY_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L86) + 1 and [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) included.
-  3) `Large` for blocks larger than [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) + 1
+  3) `Large` for blocks with size larger than [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) + 1
 
 A zone contains at least 100 of its biggest blocks.
 The zone size is always multiple of the system page size.
