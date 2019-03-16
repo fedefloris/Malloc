@@ -10,26 +10,64 @@ The implemented functions are: [malloc()](srcs/allocate/malloc.c), [realloc()](s
 
 #### Zones management
 
-The allocator keeps track of the zones with a [linked list](https://en.wikipedia.org/wiki/Linked_list), each zone implements a [binary buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) to manages the blocks.
+The allocator keeps track of the zones with a [linked list](https://en.wikipedia.org/wiki/Linked_list), each zone implements a binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) to manages the blocks.
 
 There are three types of zones:
 1) `Tiny` for blocks with size less than or equal to [TINY_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L86).
 2) `Small` for blocks with size between [TINY_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L86) + 1 and [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) included.
 3) `Large` for blocks with size larger than [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) + 1.
 
-The `Large` zone does not implement a [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation), each block has a dedicated zone.
+The `Large` zone does not implement a buddy system, each block has a dedicated zone.
 
-A zone with a [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) contains at least 100 of its biggest blocks.
+A zone with a buddy system contains at least 100 of its biggest blocks.
 
 The zone size is always multiple of the system page size.
 
 #### Buddy system
 
-The [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) use blocks that are only powers of 2, it arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
+The binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) use blocks that are only powers of 2.
+Each block has a header that contains some metadata.
+The returned addr is 16-byte aligned so that programs like `vim` work.
+
+Block structure:
+```
+ __Block_header_____Payload_______
+|_______________|_________________|  the payload 
+0            16 bytes                
+```
+As you can see the minimum possible size is 32 bytes.
+
+It does the following steps:
+- round the requested size up to a power of 2, let's call it `rounded_size`.
+- find a free block that is the closest to the `rounded_size`.
+- split the free block into pieces until it has size equals to `rounded_size`.
+- return the block
+
+#### Full example
+   
+Let's start from a memory of 128 bytes, we'll also see the [internal fragmentation](https://en.wikipedia.org/wiki/Fragmentation_(computing)#Internal_fragmentation) for each block.
+```
+     ______________________________________
+    |______|++++++++++++|-----------------|
+     free   allocated     internal fragmentation
+
+ _______________________________________________________________
+|_______________________________________________________________|
+0                                                              128
+
+malloc(28); // round up to 32, so 
+
+ _______________________________________________________________
+|+++++++++++|---|_______________|_______________________________|
+0               32              64                             128
+
+
+```
+The buddy allocator arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
 
 For example:
-- blocks of size 2^0 can begin at any address.
-- blocks of size 2^1 can only begin at even addresses.
+- blocks of size 2^0 can begin at any address. 
+- blocks of size 2^1 can only begin at even addresses. 
 - blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
 
 The constraints on the block addresses have an interesting consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N, using the counting scheme that numbers bits starting with 0 at the least significant end. Thus, given a block of size 2^N at address A, we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring a with 2^N.
