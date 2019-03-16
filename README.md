@@ -8,6 +8,8 @@ The goal is implementing a memory allocator that manages blocks inside 'pre-allo
 
 The implemented functions are: [malloc()](srcs/allocate/malloc.c), [realloc()](srcs/allocate/realloc.c), [calloc()](srcs/allocate/calloc.c), [free()](srcs/free/free.c), [show_alloc_mem()](srcs/display/show_alloc_mem.c) and [show_alloc_mem_hex()](srcs/display/show_alloc_mem_hex.c). All of them use mutex lock in order to be thread-safe.
 
+#### Zones management
+
 The allocator keeps track of the zones with a [linked list](https://en.wikipedia.org/wiki/Linked_list), each zone implements a [binary buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) to manages the blocks.
 
 There are three types of zones:
@@ -15,8 +17,12 @@ There are three types of zones:
 2) `Small` for blocks with size between [TINY_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L86) + 1 and [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) included.
 3) `Large` for blocks with size larger than [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) + 1.
 
-A zone can contain at least 100 of its biggest blocks.
+The `Large` zone does not implement a buddy system, each block has a dedicated zone.
+
+A zone with a buddy system can contain at least 100 of its biggest blocks.
 The zone size is always multiple of the system page size.
+
+#### Buddy system
 
 The buddy system use blocks that are only powers of 2, it arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
 
