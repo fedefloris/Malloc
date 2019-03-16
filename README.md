@@ -19,29 +19,29 @@ There are three types of zones:
 
 The `Large` zone does not implement a buddy system, each block has a dedicated zone.
 
-A zone with a buddy system contains at least 100 of its biggest blocks.
+A zone with a buddy system can contain at least 100 of its biggest blocks.
 
 The zone size is always multiple of the system page size.
 
 #### Buddy system
 
-The binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) use blocks that are only powers of 2.
+The binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) use blocks that are only power of 2.
 Each block has a header that contains some metadata.
 The returned addr is 16-byte aligned so that programs like `vim` work.
+
+The allocator does the following steps:
+1) Round the requested size up to a power of 2, let's call it `rounded_size`.
+2) Find a free block that is the closest to the `rounded_size`.
+3) Split the free block into smaller blocks until it has size equals to `rounded_size`.
+4) Return the block
 
 Block structure:
 ```
  __Block_header_____Payload_______
-|_______________|_________________|  the payload 
+|_______________|_________________|  the payload is greater than or equal to the requested size
 0            16 bytes                
 ```
 As you can see the minimum possible size is 32 bytes.
-
-It does the following steps:
-- round the requested size up to a power of 2, let's call it `rounded_size`.
-- find a free block that is the closest to the `rounded_size`.
-- split the free block into pieces until it has size equals to `rounded_size`.
-- return the block
 
 #### Full example
    
