@@ -27,10 +27,10 @@ The zone size is always multiple of the system page size.
 
 The binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) use blocks that are only power of 2.
 Each block has a header that contains some metadata.
-The block address is 16-byte aligned so that programs like `vim` work.
+The addresses of the blocks, as well as the addresses returned by functions like 'malloc', are 16-bytes aligned so that programs like `vim`,`ls` work.
 
-The allocator does the following steps:
-1) Round the requested size up to a power of 2, let's call it `rounded_size`.
+During a block request, for example by calling `malloc(requested_size)`, the allocator follows these steps:
+1) Round the `requested_size` up to a power of 2, let's call it `rounded_size`.
 2) Find a free block that is the closest to the `rounded_size`.
 3) Split the free block into smaller blocks until it has size equals to `rounded_size`.
 4) Return the free block
