@@ -16,14 +16,14 @@ There are three types of zones:
 A zone contains at least 100 of its biggest blocks.
 The zone size is always multiple of the system page size.
 
-In the buddy system we use blocks that are powers of two, we arrange things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
+The buddy system use blocks that are only powers of 2, it arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
 
 For example:
   - blocks of size 2^0 can begin at any address.
   - blocks of size 2^1 can only begin at even addresses.
-  - blocks of size 2^2 only begin at addresses with the least significant 2 bits equal to zero.
+  - blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
 
-The constraints on the block addresses in the binary buddy system have an interesting consequence. When a block of size 2n+1 is split into two blocks of size 2n, the addresses of these two blocks will differ in exactly one bit, bit n, using the counting scheme that numbers bits starting with 0 at the least significant end. Thus, given a block of size 2n at address a, we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring a with 2n.
+The constraints on the block addresses have an interesting consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N, using the counting scheme that numbers bits starting with 0 at the least significant end. Thus, given a block of size 2^N at address A, we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring a with 2^N.
 
 For more details look at the [subject](subject.pdf).
 
