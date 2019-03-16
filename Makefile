@@ -47,7 +47,8 @@ BLOCKS_FILES = add_first_blocks \
 	get_block_info \
 	get_block_from_zones \
 	get_block_from_zone \
-	is_block_allocated
+	is_block_allocated \
+	is_valid_block
 
 DISPLAY_FILES = display_zones \
 	display_block \
