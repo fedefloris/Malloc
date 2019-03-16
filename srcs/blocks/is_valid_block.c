@@ -17,10 +17,11 @@ bool		is_valid_block(t_block *block, t_zone *zone,
 {
 	char		*blocks;
 
-	blocks = (char*)zone;
-	block += IS_TINY_ZONE(zone_type) ? TINY_BUCKETS_SIZE : SMALL_BUCKETS_SIZE;
 	if ((intptr_t)block % 16 != 0)
 		return (false);
+	blocks = (char*)zone;
+	blocks += IS_TINY_ZONE(zone_type)
+		? TINY_ZONE_HEADER_SIZE : SMALL_ZONE_HEADER_SIZE;
 	while (blocks < (char*)zone + zone->size
 		&& ((t_block*)blocks)->size_log2)
 	{
@@ -28,6 +29,5 @@ bool		is_valid_block(t_block *block, t_zone *zone,
 			return (true);
 		blocks += BLOCK_SIZE(((t_block*)blocks)->size_log2);
 	}
-	return (true);
-	// return (false);
+	return (false);
 }

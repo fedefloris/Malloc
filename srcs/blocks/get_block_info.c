@@ -29,8 +29,12 @@ static t_zone	*find_zone(t_zone_type zone_type, char *block)
 			lower_limit = (char*)zones + LARGE_ZONE_HEADER_SIZE;
 		upper_limit = (char*)zones + zones->size;
 		if (block >= lower_limit && block < upper_limit)
-			return (is_valid_block((t_block*)block - 1,	
+		{
+			if (IS_LARGE_ZONE(zone_type))
+				return (zones);
+			return (is_valid_block((t_block*)block,
 				zones, zone_type) ? zones : NULL);
+		}
 		zones = zones->next;
 	}
 	return (NULL);
