@@ -20,6 +20,7 @@ There are three types of zones:
 The `Large` zone does not implement a buddy system, each block has a dedicated zone.
 
 A zone with a buddy system can contain at least 100 of its biggest blocks.
+
 The zone size is always multiple of the system page size.
 
 #### Buddy system
