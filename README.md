@@ -17,20 +17,20 @@ There are three types of zones:
 2) `Small` for blocks with size between [TINY_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L86) + 1 and [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) included.
 3) `Large` for blocks with size larger than [SMALL_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L89) + 1.
 
-The `Large` zone does not implement a buddy system, each block has a dedicated zone.
+The `Large` zone does not implement a [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation), each block has a dedicated zone.
 
-A zone with a buddy system can contain at least 100 of its biggest blocks.
+A zone with a [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) contains at least 100 of its biggest blocks.
 
 The zone size is always multiple of the system page size.
 
 #### Buddy system
 
-The buddy system use blocks that are only powers of 2, it arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
+The [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) use blocks that are only powers of 2, it arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
 
 For example:
-  - blocks of size 2^0 can begin at any address.
-  - blocks of size 2^1 can only begin at even addresses.
-  - blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
+- blocks of size 2^0 can begin at any address.
+- blocks of size 2^1 can only begin at even addresses.
+- blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
 
 The constraints on the block addresses have an interesting consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N, using the counting scheme that numbers bits starting with 0 at the least significant end. Thus, given a block of size 2^N at address A, we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring a with 2^N.
 This operation is implemented with the [BUDDY](https://github.com/fedefloris/Malloc/blob/6fd5f9286d248f04e60ef6874ce0916c39728683/includes/malloc.h#L40) macro.
