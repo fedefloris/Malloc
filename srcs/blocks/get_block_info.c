@@ -16,7 +16,7 @@ static t_zone	*find_zone(t_zone_type zone_type, char *block)
 {
 	char		*lower_limit;
 	char		*upper_limit;
-	t_zone 		*zones;
+	t_zone		*zones;
 
 	zones = *get_zones(zone_type);
 	while (zones)
