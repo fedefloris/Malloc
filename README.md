@@ -6,6 +6,8 @@ A dynamic zone memory allocator based on the buddy system.
 
 The goal is implementing a memory allocator that manages blocks inside 'pre-allocated' zones.
 
+The implemented functions are: [malloc()](srcs/allocate/malloc.c), [realloc()](srcs/allocate/realloc.c), [calloc()](srcs/allocate/calloc.c), [free()](srcs/free/free.c), [show_alloc_mem()](srcs/display/show_alloc_mem.c) and [show_alloc_mem_hex()](srcs/display/show_alloc_mem_hex.c). All of them use mutex lock in order to be thread-safe.
+
 The allocator keeps track of the zones with a [linked list](https://en.wikipedia.org/wiki/Linked_list), each zone implements a [binary buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) to manages the blocks.
 
 There are three types of zones:
