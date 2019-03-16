@@ -26,6 +26,7 @@ For example:
   - blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
 
 The constraints on the block addresses have an interesting consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N, using the counting scheme that numbers bits starting with 0 at the least significant end. Thus, given a block of size 2^N at address A, we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring a with 2^N.
+This operation is implemented with the [BUDDY](https://github.com/fedefloris/Malloc/blob/6fd5f9286d248f04e60ef6874ce0916c39728683/includes/malloc.h#L40) macro.
 
 For more details look at the [subject](subject.pdf).
 
