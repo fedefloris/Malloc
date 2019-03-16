@@ -23,7 +23,8 @@ void			free_block(void *ptr)
 		|| !(block = get_block_info(ptr, &zone, &zone_type)))
 		return ;
 	max_log2 = IS_TINY_ZONE(zone_type) ? TINY_MAX_LOG2 : SMALL_MAX_LOG2;
-	free_small_block((t_block**)(zone + 1), &block, max_log2);
+	free_small_block((t_block**)(zone + 1), &block, max_log2,
+		IS_TINY_ZONE(zone_type) ? TINY_BUCKETS_SIZE : SMALL_BUCKETS_SIZE);
 	if (block->size_log2 == max_log2)
 		zone->max_blocks_count++;
 	if (zone->max_blocks_count == zone->max_blocks && zone->next)

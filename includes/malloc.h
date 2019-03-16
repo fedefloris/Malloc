@@ -134,7 +134,7 @@ void				free(void *ptr);
 void				free_block(void *ptr);
 bool				free_large_block(void *ptr);
 void				free_small_block(t_block **blocks, t_block **block,
-						int max_log2);
+						int max_log2, int buckets_size);
 
 void				show_alloc_mem();
 void				show_alloc_mem_hex();
