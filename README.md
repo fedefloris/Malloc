@@ -1,6 +1,5 @@
 # Malloc - 42Born2Code
-[![Build Status](https://travis-ci.com/fedefloris/Malloc.svg?branch=master)](https://travis-ci.com/fedefloris/Malloc) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b0423c42b984f079c972bf75ca1508a)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fedefloris/Malloc&amp;utm_campaign=Badge_Grade)  ![](https://img.shields.io/github/license/fedefloris/Malloc.svg)
-
+[![Build Status](https://travis-ci.com/fedefloris/Malloc.svg?token=dH8C3CpkpNBzxeKzZ8gb&branch=master)](https://travis-ci.com/fedefloris/Malloc) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b0423c42b984f079c972bf75ca1508a)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fedefloris/Malloc&amp;utm_campaign=Badge_Grade) ![GitHub](https://img.shields.io/github/license/fedefloris/malloc.svg)
 ## Challenge
 A dynamic [zone memory allocator](https://en.wikipedia.org/wiki/Region-based_memory_management) based on the [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation).
 
@@ -43,7 +42,7 @@ During a block request, for example by calling `malloc(requested_size)`, the all
 1) Round the `requested_size` up to a power of 2, let's call it `rounded_size`.
 2) Find a free block that is the closest to the `rounded_size`.
 3) Split the free block into smaller blocks until it has size equals to `rounded_size`.
-4) Return the address of free block payload.
+4) Return the payload of free block 
 
 #### Blocks arrangement
 
@@ -54,10 +53,20 @@ For example:
 - blocks of size 2^1 can only begin at even addresses (least significant bit equals to zero). 
 - blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
 
-The constraints on the block addresses have an important consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N. Thus, given a block of size 2^N at address A, we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring A with 2^N.
-This operation is implemented with the [BUDDY](https://github.com/fedefloris/Malloc/blob/6fd5f9286d248f04e60ef6874ce0916c39728683/includes/malloc.h#L40) macro.
+The constraints on the block addresses have an important consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N.
+Thus, given a block we can easily calculate the address of its buddy.
 
-#### Example
+This operation is implemented in the [BUDDY](https://github.com/fedefloris/Malloc/blob/6fd5f9286d248f04e60ef6874ce0916c39728683/includes/malloc.h#L40) macro.
+
+Buddy calculations example:
+ 
+| Size | Address in decimal | Buddy's address in decimal | Address in binary | Buddy's address in binary |
+| :--: | :--: | :--: | :--: | :--: |
+| 512(2^**9**) | 0 | 512 | 000000**0**000000000 | 000000**1**000000000 |
+| 64(2^**6**) | 192 | 128 | 000000001**1**000000 | 000000001**0**000000 |
+| 32(2^**5**) | 224 | 192 | 0000000011**1**00000 | 0000000011**0**00000 |
+
+#### Malloc and free example
    
 Let's start from a free memory of 128 bytes.
 ```
@@ -74,10 +83,15 @@ Let's start from a free memory of 128 bytes.
  _______________________________________________________________
 |+++++++++++++++|_______________|+++++++++++++++++++++++++++++++|   p2 = malloc(40);
 0               32              64                             128
+ _______________________________________________________________
+|+++++++++++++++|+++++++++++++++|+++++++++++++++++++++++++++++++|   p3 = malloc(14);
+0               32              64                             128
  _______________________________________________________________  
-|_______________________________________________________________|   free(p1); free(p2);
-0                                                             128
-
+|_______________________________|+++++++++++++++++++++++++++++++|   free(p1); free(p3);
+0                               64                             128
+ _______________________________________________________________
+|_______________________________________________________________|   free(p2);
+0                                                              128
 
 ```
 
@@ -108,7 +122,7 @@ int     main(void)
   return (0);
 }
 ```
-Unless you copy the library into one of the standard directories (e.g., /usr/lib), you need to specify the location of `libft_malloc.so`.
+Unless you copy the library into one of the standard directories (e.g., `/usr/lib`), you need to specify the location of `libft_malloc.so`.
 
 On Linux you can use `LD_LIBRARY_PATH`.
 ```console
