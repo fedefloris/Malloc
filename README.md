@@ -34,7 +34,7 @@ Each block has a header of 16 bytes that contains some metadata.
 |_______________|____________________|   the payload is the usable part of the block,
 0            16 bytes                    its size depends on the request.
                 ^
-                |____ address returned to the user, for example the returned value of malloc.
+                |____ address returned to the user (for example the returned value of malloc).
 ```
 
 The addresses of the blocks, as well as the addresses returned to the user, are 16-bytes aligned so that programs like `vim`,`ls` work.
@@ -45,26 +45,6 @@ During a block request, for example by calling `malloc(requested_size)`, the all
 3) Split the free block into smaller blocks until it has size equals to `rounded_size`.
 4) Return the address of free block payload.
 
-#### Full example
-   
-Let's start from a free memory of 128 bytes, we'll also see the [internal fragmentation](https://en.wikipedia.org/wiki/Fragmentation_(computing)#Internal_fragmentation) for each block.
-```
-            ______________________________________________
- Legend:   |______|+++++++++++++++|-----------------------|
-             free    allocated      internal fragmentation
-                 (header + payload)
- _______________________________________________________________
-|_______________________________________________________________|
-0                                                              128
- _______________________________________________________________
-|+++++++++++|---|_______________|_______________________________|   malloc(16);
-0               32              64                             128
- _______________________________________________________________
-|+++++++++++|---|_______________|_______________________________|   malloc(40);
-0               32              64                             128
-
-
-```
 #### Blocks arrangement
 
 The buddy allocator arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
@@ -76,6 +56,30 @@ For example:
 
 The constraints on the block addresses have an important consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N. Thus, given a block of size 2^N at address A, we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring A with 2^N.
 This operation is implemented with the [BUDDY](https://github.com/fedefloris/Malloc/blob/6fd5f9286d248f04e60ef6874ce0916c39728683/includes/malloc.h#L40) macro.
+
+#### Example
+   
+Let's start from a free memory of 128 bytes.
+```
+            ________________________
+ Legend:   |______|+++++++++++++++++|
+             free      allocated
+                   (header + payload)
+ _______________________________________________________________
+|_______________________________________________________________|
+0                                                              128
+ _______________________________________________________________
+|+++++++++++++++|_______________________________________________|   p1 = malloc(10);
+0               32                                             128
+ _______________________________________________________________
+|+++++++++++++++|_______________|+++++++++++++++++++++++++++++++|   p2 = malloc(40);
+0               32              64                             128
+ _______________________________________________________________  
+|_______________________________________________________________|   free(p1); free(p2);
+0                                                             128
+
+
+```
 
 For more details look at the [subject](subject.pdf).
 
