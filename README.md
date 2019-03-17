@@ -27,9 +27,8 @@ The zone size is always multiple of the system page size.
 
 The binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) uses blocks that are only power of 2.
 
-Each block has a header that contains some metadata.
+Each block has a header of 16 bytes that contains some metadata.
 
-Block structure:
 ```
  __Block_header______Payload_________
 |_______________|____________________|   the payload is the usable part of the block,
@@ -37,6 +36,7 @@ Block structure:
                 ^
                 |____ address returned to the user, for example the returned value of malloc.
 ```
+
 The addresses of the blocks, as well as the addresses returned to the user, are 16-bytes aligned so that programs like `vim`,`ls` work.
 
 During a block request, for example by calling `malloc(requested_size)`, the allocator follows these steps:
@@ -49,16 +49,21 @@ During a block request, for example by calling `malloc(requested_size)`, the all
    
 Let's start from a free memory of 128 bytes, we'll also see the [internal fragmentation](https://en.wikipedia.org/wiki/Fragmentation_(computing)#Internal_fragmentation) for each block.
 ```
-            ___________________________________________
- Legend:   |______|++++++++++++|-----------------------|
-             free   allocated    internal fragmentation
-
+            ______________________________________________
+ Legend:   |______|+++++++++++++++|-----------------------|
+             free    allocated      internal fragmentation
+                 (header + payload)
  _______________________________________________________________
 |_______________________________________________________________|
 0                                                              128
  _______________________________________________________________
-|+++++++++++|---|_______________|_______________________________|   malloc(28);
+|+++++++++++|---|_______________|_______________________________|   malloc(16);
 0               32              64                             128
+ _______________________________________________________________
+|+++++++++++|---|_______________|_______________________________|   malloc(40);
+0               32              64                             128
+
+
 ```
 #### Blocks arrangement
 
