@@ -25,8 +25,10 @@ The zone size is always multiple of the system page size.
 
 #### Buddy system
 
-The binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) use blocks that are only power of 2.
+The binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) uses blocks that are only power of 2.
+
 Each block has a header that contains some metadata.
+
 The addresses of the blocks, as well as the addresses returned by functions like 'malloc', are 16-bytes aligned so that programs like `vim`,`ls` work.
 
 During a block request, for example by calling `malloc(requested_size)`, the allocator follows these steps:
@@ -37,11 +39,11 @@ During a block request, for example by calling `malloc(requested_size)`, the all
 
 Block structure:
 ```
- __Block_header_____Payload_______
-|_______________|_________________|  the payload is greater than or equal to the requested size
+ __Block_header______Payload____
+|_______________|_______________|  the payload is greater than or equal to the requested size
 0            16 bytes                
 ```
-As you can see the minimum possible size is 32 bytes.
+As you can see the minimum possible size is 32 bytes (16 bytes for the header and 16 bytes for the payload).
 
 #### Full example
    
@@ -67,7 +69,7 @@ The buddy allocator arranges things so that blocks of size 2^N always begin at m
 
 For example:
 - blocks of size 2^0 can begin at any address. 
-- blocks of size 2^1 can only begin at even addresses. 
+- blocks of size 2^1 can only begin at even addresses (least significant bit equals to zero). 
 - blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
 
 The constraints on the block addresses have an important consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N. Thus, given a block of size 2^N at address A, we can compute the address of its buddy, the other half of the block from which it was split, by exclusive-oring A with 2^N.
