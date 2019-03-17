@@ -29,21 +29,22 @@ The binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation)
 
 Each block has a header that contains some metadata.
 
-The addresses of the blocks, as well as the addresses returned by functions like 'malloc', are 16-bytes aligned so that programs like `vim`,`ls` work.
+Block structure:
+```
+ __Block_header______Payload_________
+|_______________|____________________|   the payload is the usable part of the block, its size depends on the request
+0            16 bytes
+                ^
+                |____ address returned by functions like `malloc`
+                
+```
+The addresses of the blocks, as well as the addresses returned by functions like `malloc`, are 16-bytes aligned so that programs like `vim`,`ls` work.
 
 During a block request, for example by calling `malloc(requested_size)`, the allocator follows these steps:
 1) Round the `requested_size` up to a power of 2, let's call it `rounded_size`.
 2) Find a free block that is the closest to the `rounded_size`.
 3) Split the free block into smaller blocks until it has size equals to `rounded_size`.
-4) Return the free block
-
-Block structure:
-```
- __Block_header______Payload____
-|_______________|_______________|  the payload is greater than or equal to the requested size
-0            16 bytes                
-```
-As you can see the minimum possible size is 32 bytes (16 bytes for the header and 16 bytes for the payload).
+4) Return the address of free block payload
 
 #### Full example
    
