@@ -49,9 +49,9 @@ During a block request, for example by calling `malloc(requested_size)`, the all
 The buddy allocator arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
 
 For example:
-- blocks of size 2^0 can begin at any address. 
-- blocks of size 2^1 can only begin at even addresses (least significant bit equals to zero). 
-- blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
+  - blocks of size 2^0 can begin at any address. 
+  - blocks of size 2^1 can only begin at even addresses (least significant bit equals to zero). 
+  - blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
 
 The constraints on the block addresses have an important consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N.
 Thus, given a block we can easily calculate the address of its buddy.
@@ -62,9 +62,9 @@ Buddy calculations example:
  
 | Size | Address in decimal | Buddy's address in decimal | Address in binary | Buddy's address in binary |
 | :--: | :--: | :--: | :--: | :--: |
-| 512(2^**9**) | 0 | 512 | 000000**0**000000000 | 000000**1**000000000 |
-| 64(2^**6**) | 192 | 128 | 000000001**1**000000 | 000000001**0**000000 |
-| 32(2^**5**) | 224 | 192 | 0000000011**1**00000 | 0000000011**0**00000 |
+| 512(2^**9**) | 0   | 512 | 000000**0**000000000 | 000000**1**000000000 |
+| 64(2^**6**)  | 192 | 128 | 000000001**1**000000 | 000000001**0**000000 |
+| 32(2^**5**)  | 224 | 192 | 0000000011**1**00000 | 0000000011**0**00000 |
 
 #### Malloc and free example
    
