@@ -15,7 +15,6 @@
 static t_zone	*find_zone(t_zone_type zone_type, char *block)
 {
 	char		*lower_limit;
-	char		*upper_limit;
 	t_zone		*zones;
 
 	zones = *get_zones(zone_type);
@@ -27,8 +26,7 @@ static t_zone	*find_zone(t_zone_type zone_type, char *block)
 			lower_limit = (char*)zones + SMALL_ZONE_HEADER_SIZE;
 		else
 			lower_limit = (char*)zones + LARGE_ZONE_HEADER_SIZE;
-		upper_limit = (char*)zones + zones->size;
-		if (block >= lower_limit && block < upper_limit)
+		if (block >= lower_limit && block < (char*)zones + zones->size)
 		{
 			if (IS_LARGE_ZONE(zone_type))
 				return (zones);
