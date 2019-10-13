@@ -44,7 +44,7 @@ During a block request, for example by calling `malloc(requested_size)`, the all
 3) Split the free block into smaller blocks until it has size equals to `rounded_size`.
 4) Return the payload of free block 
 
-#### Blocks arrangement
+#### Blocks arrangement (source: http://homepage.divms.uiowa.edu/~jones/opsys/notes/27.shtml)
 
 The buddy allocator arranges things so that blocks of size 2^N always begin at memory addresses where the N least significant bits are zero.
 
