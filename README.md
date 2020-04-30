@@ -36,13 +36,13 @@ Each block has a header of 16 bytes that contains some metadata.
                 |____ address returned to the user (for example the returned value of malloc).
 ```
 
-The addresses of the blocks, as well as the addresses returned to the user, are 16-bytes aligned so that programs like `vim`,`ls` work.
+The addresses of the blocks, as well as the addresses returned to the user, are 16-bytes aligned.
 
 During a block request, for example by calling `malloc(requested_size)`, the allocator follows these steps:
 1) Round the `requested_size` up to a power of 2, let's call it `rounded_size`.
 2) Find a free block that is the closest to the `rounded_size`.
 3) Split the free block into smaller blocks until it has size equals to `rounded_size`.
-4) Return the payload of free block 
+4) Return the payload of the free block.
 
 #### Blocks arrangement (source: http://homepage.divms.uiowa.edu/~jones/opsys/notes/27.shtml)
 
@@ -68,7 +68,7 @@ Buddy calculations example:
 
 #### Malloc and free example
    
-Let's start from a free memory of 128 bytes.
+Let's start with a free memory of 128 bytes.
 ```
             ________________________
  Legend:   |______|+++++++++++++++++|
@@ -122,7 +122,7 @@ int     main(void)
   return (0);
 }
 ```
-Unless you copy the library into one of the standard directories (e.g., `/usr/lib`), you need to specify the location of `libft_malloc.so`.
+Unless you copy the library into one of the standard directories (e.g., `/usr/lib`) you need to specify the location of `libft_malloc.so`.
 
 On Linux you can use `LD_LIBRARY_PATH`.
 ```console
