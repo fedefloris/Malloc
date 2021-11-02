@@ -36,7 +36,7 @@ Each block has a header of 16 bytes that contains some metadata.
                 |____ address returned to the user (e.g. the returned value of malloc).
 ```
 
-The addresses of the blocks as well as the addresses returned to the user, are 16-bytes aligned.
+The addresses of the blocks as well as the addresses returned to the user are 16-bytes aligned.
 
 During a block request, for example, by calling `malloc(requested_size)`, the allocator follows these steps:
 1) Round the `requested_size` up to a power of 2, let's call it `rounded_size`.
