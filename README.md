@@ -3,13 +3,13 @@
 ## Challenge
 A dynamic [zone memory allocator](https://en.wikipedia.org/wiki/Region-based_memory_management) based on the [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation).
 
-The goal is implementing a memory allocator that manages blocks inside 'pre-allocated' zones.
+The goal is to implement a memory allocator that manages blocks inside pre-allocated zones.
 
-The implemented functions are: [malloc()](srcs/allocate/malloc.c), [realloc()](srcs/allocate/realloc.c), [calloc()](srcs/allocate/calloc.c), [free()](srcs/free/free.c), [show_alloc_mem()](srcs/display/show_alloc_mem.c) and [show_alloc_mem_hex()](srcs/display/show_alloc_mem_hex.c). All of them use mutex lock in order to be thread-safe.
+The implemented functions are: [malloc()](srcs/allocate/malloc.c), [realloc()](srcs/allocate/realloc.c), [calloc()](srcs/allocate/calloc.c), [free()](srcs/free/free.c), [show_alloc_mem()](srcs/display/show_alloc_mem.c) and [show_alloc_mem_hex()](srcs/display/show_alloc_mem_hex.c). All of them use a mutex lock in order to be thread-safe.
 
 #### Zones management
 
-The allocator keeps track of the zones with a [linked list](https://en.wikipedia.org/wiki/Linked_list), each zone implements a binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) to manages the blocks.
+The allocator keeps track of the zones with a [linked list](https://en.wikipedia.org/wiki/Linked_list), each zone implements a binary [buddy system](https://en.wikipedia.org/wiki/Buddy_memory_allocation) that manages the blocks.
 
 There are three types of zones:
 1) `Tiny` for blocks with size less than or equal to [TINY_THRESHOLD](https://github.com/fedefloris/Malloc/blob/adee1c67b6904728c90e80834853a7d2294b4d10/includes/malloc.h#L86).
@@ -33,15 +33,15 @@ Each block has a header of 16 bytes that contains some metadata.
 |_______________|____________________|   the payload is the usable part of the block,
 0            16 bytes                    its size depends on the request.
                 ^
-                |____ address returned to the user (for example the returned value of malloc).
+                |____ address returned to the user (e.g. the returned value of malloc).
 ```
 
-The addresses of the blocks, as well as the addresses returned to the user, are 16-bytes aligned.
+The addresses of the blocks as well as the addresses returned to the user, are 16-bytes aligned.
 
-During a block request, for example by calling `malloc(requested_size)`, the allocator follows these steps:
+During a block request, for example, by calling `malloc(requested_size)`, the allocator follows these steps:
 1) Round the `requested_size` up to a power of 2, let's call it `rounded_size`.
 2) Find a free block that is the closest to the `rounded_size`.
-3) Split the free block into smaller blocks until it has size equals to `rounded_size`.
+3) Split the free block into smaller blocks until it has a size equal to `rounded_size`.
 4) Return the payload of the free block.
 
 #### Blocks arrangement (source: http://homepage.divms.uiowa.edu/~jones/opsys/notes/27.shtml)
@@ -50,15 +50,15 @@ The buddy allocator arranges things so that blocks of size 2^N always begin at m
 
 For example:
   - blocks of size 2^0 can begin at any address. 
-  - blocks of size 2^1 can only begin at even addresses (least significant bit equals to zero). 
+  - blocks of size 2^1 can only begin at even addresses (least significant bit equals zero). 
   - blocks of size 2^2 can only begin at addresses with the least significant 2 bits equal to zero.
 
 The constraints on the block addresses have an important consequence: when a block of size 2^(N + 1) is split into two blocks of size 2^N, the addresses of these two blocks will differ in exactly one bit, bit N.
-Thus, given a block we can easily calculate the address of its buddy.
+Thus, given a block, we can easily calculate the address of its buddy.
 
 This operation is implemented with the [BUDDY](https://github.com/fedefloris/Malloc/blob/6fd5f9286d248f04e60ef6874ce0916c39728683/includes/malloc.h#L40) macro.
 
-Buddy calculations example:
+Buddy calculation examples:
  
 | Size | Address in decimal | Buddy's address in decimal | Address in binary | Buddy's address in binary |
 | :--: | :--: | :--: | :--: | :--: |
@@ -66,9 +66,9 @@ Buddy calculations example:
 | 64(2^**6**)  | 192 | 128 | 000000001**1**000000 | 000000001**0**000000 |
 | 32(2^**5**)  | 224 | 192 | 0000000011**1**00000 | 0000000011**0**00000 |
 
-#### Malloc and free example
+#### Malloc and free examples
    
-Let's start with a free memory of 128 bytes.
+Let's start with an empty memory of 128 bytes.
 ```
             ________________________
  Legend:   |______|+++++++++++++++++|
